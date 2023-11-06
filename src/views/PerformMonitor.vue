@@ -1,11 +1,11 @@
 <template>
   <div>
+    <GraphTable></GraphTable>\
     <el-table :data="tableData" height="500" border style="width: 100%">
       <el-table-column prop="date" label="设备" width="180"> </el-table-column>
       <el-table-column prop="name" label="网络" width="180"> </el-table-column>
       <el-table-column label="操作"><button>查看状态</button> </el-table-column>
     </el-table>
-    <GraphTable></GraphTable>
   </div>
 </template>
 

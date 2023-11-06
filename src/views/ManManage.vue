@@ -21,9 +21,15 @@
           <el-button @click="handleClick(scope.row)" type="text" size="small"
             >查看</el-button
           >
+          <el-button @click="handleEdit(scope.row)" type="text" size="small"
+            >编辑</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
+    <el-empty v-if="todoedit1" description="在此编辑">
+      <el-button @click="editok" type="text" size="small">完成编辑</el-button>
+    </el-empty>
     <el-divider><i class="el-icon-s-order"></i></el-divider>
     <el-table :data="tableData2" stripe style="width: 100%">
       <el-table-column label="网络类型" width="200">卫星链路 </el-table-column>
@@ -79,6 +85,9 @@
       >
     </el-table>
     <el-divider><i class="el-icon-edit"></i></el-divider>
+    <el-drawer title="我是标题" :visible.sync="drawer" :with-header="false">
+      <span>{{ drawer_content }}!</span>
+    </el-drawer>
   </div>
 </template>
 
@@ -88,6 +97,15 @@ export default {
   methods: {
     handleClick(row) {
       console.log(row);
+      this.drawer = true;
+      this.drawer_content = row;
+    },
+    handleEdit(row) {
+      console.log(row);
+      this.todoedit1 = true;
+    },
+    editok() {
+      this.todoedit1 = false;
     },
   },
   mounted() {
@@ -112,6 +130,9 @@ export default {
   },
   data() {
     return {
+      todoedit1: false,
+      drawer: false,
+      drawer_content: "暂无",
       tableData1: [
         {
           // type: "自组织网络",
@@ -146,9 +167,9 @@ export default {
           // type: "卫星链路",
           IP: "192.168.168.41",
           name: "star1",
-          address: "",
+          address: "天上",
           frequency: 1420000000,
-          Longitude_Latitude: "",
+          Longitude_Latitude: "天上",
           baudrateRs485: 2400,
         },
         {
