@@ -36,33 +36,33 @@
         <el-menu-item index="2">
           <i class="el-icon-menu"></i>
           <span slot="title"
-            ><router-link to="/IndexPage/ManManage">手动管理</router-link></span
+            ><router-link to="/IndexPage/ManManage">设备管理</router-link></span
           >
         </el-menu-item>
-        <el-menu-item index="3">
+        <!-- <el-menu-item index="3">
           <i class="el-icon-s-platform"></i>
           <span slot="title"
             ><router-link to="/IndexPage/DeviceManage"
               >设备管理</router-link
             ></span
           >
-        </el-menu-item>
+        </el-menu-item> -->
 
-        <el-menu-item index="4">
+        <el-menu-item index="3">
           <i class="el-icon-files"></i>
           <span slot="title"
             ><router-link to="/IndexPage/ConfigManage"
-              >配置管理</router-link
+              >手动配置</router-link
             ></span
           >
         </el-menu-item>
-        <el-menu-item index="5">
+        <el-menu-item index="4">
           <i class="el-icon-user-solid"></i>
           <span slot="title">
             <router-link to="/IndexPage/IntentDrive">意图驱动</router-link>
           </span>
         </el-menu-item>
-        <el-menu-item index="6">
+        <el-menu-item index="5">
           <i class="el-icon-data-line"></i>
           <span slot="title"
             ><router-link to="/IndexPage/PerformMonitor"
@@ -70,13 +70,13 @@
             ></span
           >
         </el-menu-item>
-        <el-menu-item index="7">
+        <el-menu-item index="6">
           <i class="el-icon-s-order"></i>
           <span slot="title"
             ><router-link to="/IndexPage/LogManage">日志管理</router-link></span
           >
         </el-menu-item>
-        <el-menu-item index="8">
+        <el-menu-item index="7">
           <i class="el-icon-setting"></i>
           <span slot="title"
             ><router-link to="/IndexPage/SysSet">系统设置</router-link></span

@@ -4,7 +4,7 @@ import IndexPage from "../views/IndexPage.vue";
 import LoginRegister from "../views/LoginRegister.vue";
 import IntentDrive from "../views/IntentDrive.vue";
 import ManManage from "../views/ManManage.vue";
-import DeviceManage from "../views/DeviceManage.vue";
+// import DeviceManage from "../views/DeviceManage.vue";
 import NetTopo from "../views/NetTopo.vue";
 import ConfigManage from "../views/ConfigManage.vue";
 import PerformMonitor from "../views/PerformMonitor";
@@ -32,11 +32,11 @@ const router = new VueRouter({
           path: "ManManage",
           component: ManManage,
         },
-        {
-          // 不需要表现为路径，他会自动补全
-          path: "DeviceManage",
-          component: DeviceManage,
-        },
+        // {
+        //   // 不需要表现为路径，他会自动补全
+        //   path: "DeviceManage",
+        //   component: DeviceManage,
+        // },
         {
           // 不需要表现为路径，他会自动补全
           path: "NetTopo",

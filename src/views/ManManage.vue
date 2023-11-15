@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <button @click="test">test</button> -->
     <el-divider><i class="el-icon-s-order"></i></el-divider>
     <el-table :data="tableData1" stripe style="width: 100%">
       <el-table-column label="网络类型" width="200"
@@ -27,9 +28,18 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-empty v-if="todoedit1" description="在此编辑">
+
+    <div v-if="todoedit1" class="edit">
+      <el-empty :image-size="200"></el-empty>
+      修改名称<el-input placeholder="请输入内容" v-model="input1"> </el-input>
+      修改地址<el-input placeholder="请输入内容" v-model="input2"> </el-input>
+      修改IP<el-input placeholder="请输入内容" v-model="input3"> </el-input>
       <el-button @click="editok" type="text" size="small">完成编辑</el-button>
-    </el-empty>
+      <el-button @click="cancelEdit" type="text" size="small"
+        >取消编辑</el-button
+      >
+    </div>
+
     <el-divider><i class="el-icon-s-order"></i></el-divider>
     <el-table :data="tableData2" stripe style="width: 100%">
       <el-table-column label="网络类型" width="200">卫星链路 </el-table-column>
@@ -95,16 +105,27 @@
 // import axios from "axios";
 export default {
   methods: {
+    // test() {
+    //   this.tableData1[1].name = "test";
+    // },
+    cancelEdit() {
+      this.todoedit1 = false;
+    },
     handleClick(row) {
       console.log(row);
       this.drawer = true;
       this.drawer_content = row;
     },
     handleEdit(row) {
-      console.log(row);
+      console.log(row.id);
+      this.edit_id = row.id;
       this.todoedit1 = true;
     },
     editok() {
+      console.log(this.input1, this.input2, this.input3);
+      this.tableData1[this.edit_id - 1].name = this.input1;
+      this.tableData1[this.edit_id - 1].address = this.input2;
+      this.tableData1[this.edit_id - 1].IP = this.input3;
       this.todoedit1 = false;
     },
   },
@@ -130,12 +151,18 @@ export default {
   },
   data() {
     return {
+      edit_id: 1,
+      input1: "",
+      input2: "",
+      input3: "",
+
       todoedit1: false,
       drawer: false,
       drawer_content: "暂无",
       tableData1: [
         {
           // type: "自组织网络",
+          id: 1,
           IP: "192.168.168.41",
           name: "node40",
           address: "四川省成都市郫都区银杏大道",
@@ -145,6 +172,7 @@ export default {
         },
         {
           // type: "自组织网络",
+          id: 2,
           IP: "192.168.168.41",
           name: "offienet1",
           address: "四川省成都市郫都区水杉路",
@@ -153,7 +181,8 @@ export default {
           baudrateRs485: 2400,
         },
         {
-          // type: "自组织网络",
+          // type: "自组织网络",id:1,
+          id: 3,
           IP: "192.168.168.41",
           name: "Fiberswitch1",
           address: "四川省成都市郫都区西源大道1277-18号",
@@ -263,5 +292,17 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+/* .el-empty {
+  position: relative;
+}
+.el-empty .edit {
+  position: absolute;
+  left: 10px;
+} */
+.edit .el-input {
+  /* position: absolute; */
+  margin-left: 10px;
+  width: 300px;
+}
 </style>
