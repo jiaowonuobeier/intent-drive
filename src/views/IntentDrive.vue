@@ -104,6 +104,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -160,9 +162,24 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
       console.log(this.form);
-      
+      await axios({
+         method: "post",
+         url: "http://127.0.0.1:4999/login",
+         data: {
+         form:this.form
+        },
+        responseType: "json",
+      }).then(
+        (response) => {
+          console.log("收到意图", response)
+        },
+        (error) => {
+          console.log("错误", error);
+          alert("意图驱动出错");
+        }
+      );
     },
     publish() {
       alert("您成功发布了一个意图");
