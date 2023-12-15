@@ -10,12 +10,13 @@
     <!-- <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> -->
     <el-button type="primary" style="margin-left: 20px" @click="newconfig"
       >新建配置</el-button
-    >
+    >  
   </div>
 </template>
 
 <script>
 export default {
+  
   data() {
     return {
       selectedvalue: 0,
@@ -27,39 +28,10 @@ export default {
             {
               value: 1,
               label: "网络状态查询",
-              // children: [
-              //   {
-              //     value: "yizhi",
-              //     label: "一致",
-              //   },
-              //   {
-              //     value: "fankui",
-              //     label: "反馈",
-              //   },
-              //   {
-              //     value: "xiaolv",
-              //     label: "效率",
-              //   },
-              //   {
-              //     value: "kekong",
-              //     label: "可控",
-              //   },
-              // ],
             },
             {
               value: 2,
               label: "节点信息查询",
-
-              // children: [
-              //   {
-              //     value: "cexiangdaohang",
-              //     label: "侧向导航",
-              //   },
-              //   {
-              //     value: "dingbudaohang",
-              //     label: "顶部导航",
-              //   },
-              // ],
             },
             {
               value: 3,
@@ -79,17 +51,6 @@ export default {
             {
               value: 4,
               label: "事务查询",
-
-              // children: [
-              //   {
-              //     value: "cexiangdaohang",
-              //     label: "侧向导航",
-              //   },
-              //   {
-              //     value: "dingbudaohang",
-              //     label: "顶部导航",
-              //   },
-              // ],
             },
           ],
         },
@@ -135,24 +96,6 @@ export default {
               value: 9,
               label: "修正类",
 
-              // children: [
-              //   {
-              //     value: "yizhi",
-              //     label: "一致",
-              //   },
-              //   {
-              //     value: "fankui",
-              //     label: "反馈",
-              //   },
-              //   {
-              //     value: "xiaolv",
-              //     label: "效率",
-              //   },
-              //   {
-              //     value: "kekong",
-              //     label: "可控",
-              //   },
-              // ],
             },
             {
               value: 10,
@@ -255,6 +198,12 @@ export default {
     newconfig() {
       // console.log(this.value[value.length - 1]);
       console.log(this.selectedvalue);
+      this.$emit('transfer', this.selectedvalue)
+      this.$message({
+          showClose: true,
+          message: `您新建了一项配置，配置编号：${this.selectedvalue}`,
+          type: 'success'
+        });
     },
   },
 };

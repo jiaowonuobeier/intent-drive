@@ -1,8 +1,9 @@
 <template>
   <div>
+    <!-- form表格是提交的意图 -->
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="意图内容">
-        <el-input v-model="form.content"></el-input>
+        <el-input v-model="form.text"></el-input>
       </el-form-item>
       <el-form-item label="活动区域">
         <el-select v-model="form.region" placeholder="请选择活动区域">
@@ -62,12 +63,19 @@
         <el-input type="textarea" v-model="form.beizhu"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
+        <el-button type="primary" @click="onSubmit">提交意图</el-button>
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
+       <el-input v-if="resmeaaage"
+  type="textarea"
+  :autosize="{ minRows: 2, maxRows: 4}"
+  placeholder="请输入内容"
+  v-model="resmeaaage">
+</el-input>
 
-    <el-select v-model="value" placeholder="请选择">
+
+    <el-select v-model="selectplan" placeholder="请选择" @change="selected">
       <el-option
         v-for="item in options"
         :key="item.value"
@@ -76,7 +84,7 @@
       >
       </el-option>
     </el-select>
-    <el-button>查看意图</el-button>
+    <el-button>查看方案</el-button>
     <el-button @click="publish">发布意图</el-button>
     <!-- 不同意图方案的详细信息 -->
     
@@ -106,9 +114,12 @@
 <script>
 import axios from 'axios';
 
+
+
 export default {
   data() {
     return {
+      resmeaaage:'',
       reverse: true,
       activities: [
         {
@@ -125,7 +136,7 @@ export default {
         },
       ],
       form: {
-        content: "意图内容",
+        text: "意图内容",
         region: "成都",
         startdate: "2023-10-11",
         enddate: "2023-10-12",
@@ -157,23 +168,30 @@ export default {
           label: "方案五",
         },
       ],
-      value: "",
+      selectplan: "",
       
     };
   },
+  
   methods: {
+    selected() {
+      console.log("选中了一个plan");
+      console.log('Selected value:', this.selectplan);
+    },
     async onSubmit() {
-      console.log(this.form);
+      console.log(this.form.text);
       await axios({
          method: "post",
-         url: "http://127.0.0.1:4999/login",
+         url: "http://192.168.20.107:4999/intents",
          data: {
-         form:this.form
+           text:this.form.text
         },
-        responseType: "json",
+        // responseType: "json",
       }).then(
         (response) => {
           console.log("收到意图", response)
+          this.resmeaaage=response.data.message
+          // alert(response.data.message)
         },
         (error) => {
           console.log("错误", error);
@@ -189,4 +207,7 @@ export default {
 </script>
 
 <style>
+/* .resmeaaage {
+  font-family: sans-serif; 
+} */
 </style>
