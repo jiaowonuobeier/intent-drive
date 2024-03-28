@@ -65,15 +65,15 @@
      <h3>修改IP</h3>
      <div class="connect">
         <span>选择代理序号：</span><span><el-input v-model="num1"></el-input></span>
-        <span>选择代理网口：</span><span><el-input v-model="net"></el-input></span>
+        <span>选择代理网口：</span><span><el-input v-model="net_card"></el-input></span>
         <span>设置网口IP：</span><span><el-input v-model="net_ip"></el-input></span>
      </div>
-     <el-button type="primary">确认建立</el-button>
+     <el-button type="primary" @click="onSubmit10">确认修改</el-button>
      <h3>查询网络信息</h3>
      <div class="connect">
         <span>选择代理序号：</span><span><el-input></el-input></span>
      </div>
-     <el-button type="primary">确认建立</el-button>
+     <el-button type="primary" @click="onSubmit11">确认查询</el-button>
   </div>
 </template>
 
@@ -84,7 +84,7 @@ export default {
   data () {
     return {
       num1: '',
-      net: '',
+      net_card: '',
       net_ip: '',
       num2:'',
       formInline9: {
@@ -128,24 +128,51 @@ export default {
       }
      },
      async onSubmit10() {
-      try {
-        const response = await axios.post(`http://192.168.20.199:4999/adhocequip/${this.formInline9.name}`, {
-          baudrateRs485: Number(this.formInline9.baudrateRs485),
-          pwAtten1: Number(this.formInline9.pwAtten1),
-          pwAtten2: Number(this.formInline9.pwAtten2),
-          audioMicGain: Number(this.formInline9.audioMicGain),
-          uartBaudrate0: Number(this.formInline9.uartBaudrate0),
-          uartBaudrate1: Number(this.formInline9.uartBaudrate1),
-          uartBaudrate2: Number(this.formInline9.uartBaudrate2),
+      await axios({
+        method: "post",
+        url: "http://192.168.20.199:4999/login",
+        data: {
+          device_id: Number(this.num1),
+          net_card: this.net_card,
+          ip:this.net_ip
+        },
+        responseType: "json",
+      }).then(
+        (response) => {
+          console.log("正确", response);
+          this.$message({
+          message: '修改成功',
+          type: 'success'
         });
-        console.log(this.formInline9);
-        console.log(response.data);
-        this.$message.success('Successfully modified data on the node.');
-      } catch (error) {
-        console.error('Error modifying data on the node:', error);
-        this.$message.error('Failed to modify data on the node.');
-      }
-     },
+        },
+        (error) => {
+          console.log("错误", error);
+           this.$message.error('用户名或密码错误');
+        }
+      );
+    },
+     async onSubmit11() {
+      await axios({
+        method: "post",
+        url: "http://192.168.20.199:4999/login",
+        data: {
+          device_id: Number(this.num2),
+        },
+        responseType: "json",
+      }).then(
+        (response) => {
+          console.log("正确", response);
+          this.$message({
+          message: '登陆成功',
+          type: 'success'
+        });
+        },
+        (error) => {
+          console.log("错误", error);
+           this.$message.error('用户名或密码错误');
+        }
+      );
+    },
   },
 
 }
