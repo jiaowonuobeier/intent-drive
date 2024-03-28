@@ -1,5 +1,6 @@
 <template>
-  <div class="login">
+  <div id="building"> 
+    <div class="login">
     <p>Login</p>
     <input
       type="text"
@@ -22,6 +23,8 @@
     <input type="submit" class="btn" value="登  录" @click="login" />
     <input type="submit" class="btn" value="注  册" @click="register" />
   </div>
+</div>
+ 
 </template>
 
 <!-- <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>  -->
@@ -43,7 +46,7 @@ export default {
     async register() {
       await axios({
         method: "post",
-        url: "http://192.168.20.107:4999/register",
+        url: "http://192.168.20.199:4999/register",
         data: {
           username: this.userName,
           password: this.passWord,
@@ -53,40 +56,54 @@ export default {
       }).then(
         (response) => {
           console.log(response);
+          this.$message({
+          message: '注册成功',
+          type: 'success'
+        });
         },
         (error) => {
           console.log("错误", error);
         }
       );
     },
-    // async
-    login() {
-      // await axios({
-      //   method: "post",
-      //   url: "http://127.0.0.1:4999/login",
-      //   data: {
-      //     username: this.userName,
-      //     password: this.passWord,
-      //   },
-      //   responseType: "json",
-      // }).then(
-      //   (response) => {
-      //     console.log("正确", response);
-      //     this.$router.push("/IndexPage");
-      //   },
-      //   (error) => {
-      //     console.log("错误", error);
-      //     alert("请输入正确的用户名和密码");
-      //   }
-      // );
-      this.$router.push("/IndexPage/NetTopo");
-      console.log(123);
+    async login() {
+      await axios({
+        method: "post",
+        url: "http://192.168.20.199:4999/login",
+        data: {
+          username: this.userName,
+          password: this.passWord,
+        },
+        responseType: "json",
+      }).then(
+        (response) => {
+          console.log("正确", response);
+          this.$router.push("/IndexPage/NetTopo");
+          this.$message({
+          message: '登陆成功',
+          type: 'success'
+        });
+        },
+        (error) => {
+          console.log("错误", error);
+           this.$message.error('用户名或密码错误');
+        }
+      );
+      
     },
   },
 };
 </script>
 
 <style>
+#building
+{
+  background: url("../photo/background2.jpg");
+  width:100%;
+  height:100%;
+  position:fixed;
+  background-size:100% 100%;
+}
 .login {
   position: absolute;
   top: 45%;
@@ -94,7 +111,7 @@ export default {
   left: 50%;
   margin-left: -200px;
   /* absolute居中的一种方法 */
-  background-color: whitesmoke;
+  background-color: rgb(86, 135, 226,0.7);
   width: 400px;
   height: 400px;
   border-radius: 25px;
@@ -122,7 +139,7 @@ input {
 }
 
 .btn {
-  background-color: #59c2c5;
+  background-color: #68a1e2;
   width: 38%;
   height: 48px;
   border-radius: 8px;

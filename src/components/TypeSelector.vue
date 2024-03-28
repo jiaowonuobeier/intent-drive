@@ -1,13 +1,11 @@
 <template>
   <div class="block" :gutter="20">
     请选择您要配置的类型：
-    <!-- v-model="selectedvalue" -->
     <el-cascader
       v-model="selectedvalue"
       :options="options"
       @change="handleChange"
     ></el-cascader>
-    <!-- <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> -->
     <el-button type="primary" style="margin-left: 20px" @click="newconfig"
       >新建配置</el-button
     >  

@@ -1,7 +1,9 @@
 <template>
   <div>
-    <button @click="test">test</button>
+    <GraphTable></GraphTable>
     <el-divider><i class="el-icon-s-order"></i></el-divider>
+    <button @click="getData">更新表</button>
+    <h3>自组织网络</h3>
     <el-table :data="tableData1" stripe style="width: 100%">
       <el-table-column label="网络类型" width="200"
         >自组织网络
@@ -30,7 +32,7 @@
         </template>
       </el-table-column>
     </el-table>
-{{ DeviceData.length > 0 ? DeviceData[0].ip : '' }}
+    {{ tableData1.length > 0 ? tableData1[0].ip : '' }}
  
     <div v-if="todoedit1" class="edit">
       <el-empty :image-size="200"></el-empty>
@@ -44,8 +46,65 @@
     </div>
 
     <el-divider><i class="el-icon-s-order"></i></el-divider>
-   
+    <h3>卫星链路</h3>
+    <el-table :data="tableData2" stripe style="width: 100%">
+      <el-table-column label="网络类型" width="200"
+        >卫星链路
+      </el-table-column>
+      <el-table-column prop="name" label="设备名称" width="200">
+      </el-table-column>
+      <el-table-column prop="ip" label="IP地址" width="200"> </el-table-column>
+      <el-table-column prop="" label="操作">
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="text" size="small"
+            >查看</el-button
+          >
+          <el-button @click="handleEdit(scope.row)" type="text" size="small"
+            >编辑</el-button
+          >
+        </template>
+      </el-table-column>
+    </el-table>
     <el-divider><i class="el-icon-edit"></i></el-divider>
+    <h3>IP网络</h3>
+    <el-table :data="tableData3" stripe style="width: 100%">
+      <el-table-column label="网络类型" width="200"
+        >卫星链路
+      </el-table-column>
+      <el-table-column prop="name" label="设备名称" width="200">
+      </el-table-column>
+      <el-table-column prop="ip" label="IP地址" width="200"> </el-table-column>
+      <el-table-column prop="" label="操作">
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="text" size="small"
+            >查看</el-button
+          >
+          <el-button @click="handleEdit(scope.row)" type="text" size="small"
+            >编辑</el-button
+          >
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <h3>集群网络</h3>
+    <el-table :data="tableData4" stripe style="width: 100%">
+      <el-table-column label="网络类型" width="200"
+        >卫星链路
+      </el-table-column>
+      <el-table-column prop="name" label="设备名称" width="200">
+      </el-table-column>
+      <el-table-column prop="ip" label="IP地址" width="200"> </el-table-column>
+      <el-table-column prop="" label="操作">
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="text" size="small"
+            >查看</el-button
+          >
+          <el-button @click="handleEdit(scope.row)" type="text" size="small"
+            >编辑</el-button
+          >
+        </template>
+      </el-table-column>
+    </el-table>
     <el-drawer title="我是标题" :visible.sync="drawer" :with-header="false">
       <span>{{ drawer_content }}!</span>
     </el-drawer>
@@ -54,21 +113,13 @@
 
 <script>
 import axios from "axios";
+import GraphTable from "../components/GraphTable.vue";
 export default {
-   created() {
-      setInterval(() => {
-        this.getData()
-        this.updateData(this.DeviceData)
-    }, 2000); 
-      
+  created()
+  {
+    this.getData();
   },
   methods: {
-    test() {
-      console.log("test");
-    },
-    updateData(newdata) {
-      this.tableData1=newdata
-    },
     async getData() {
       console.log("向后端发送数据请求");
     await axios({
@@ -76,8 +127,8 @@ export default {
     }).then(
       (response) => {
         console.log("后端返回了res");
-        this.DeviceData = response.data;
-        console.log(this.DeviceData);
+        console.log(response.data);
+        this.tableData1 = response.data;
       },
       (error) => {
          console.log("后端返回了错误状态码");
@@ -107,33 +158,14 @@ export default {
     },
   },
   mounted() {
-    console.log("像后端发送数据请求");
-    // axios({
-    //   // method: "post",
-    //   url: "http://192.168.20.107:4999/adhocequips",
-    //   // params: {
-    //   //   id: 1,
-    //   // },
 
-    //   // responseType: "json",
-    // }).then(
-    //   (response) => {
-    //     console.log(response.data);
-    //     this.tableData1 = response.data;
-    //   },
-    //   (error) => {
-    //     console.log("错误", error);
-    //   }
-    // );
   },
   data() {
-    return {
-      DeviceData:[],
+    return {  
       edit_id: 1,
       input1: "",
       input2: "",
       input3: "",
-
       todoedit1: false,
       drawer: false,
       drawer_content: "暂无",
@@ -147,10 +179,43 @@ export default {
           pwAtten1: 86,
           pwAtten2:86
         },
-        
       ],
-     
+      tableData2: [
+        {
+          // type: "自组织网络",
+          name: 'enode1',
+          freqDefault: 1430000000,
+        },
+      ],
+      tableData3: [
+        {
+          // type: "自组织网络",
+          name: 'enode1',
+          freqDefault: 1430000000,
+        },
+        {
+          // type: "自组织网络",
+          name: 'enode1',
+          freqDefault: 1430000000,
+        },
+        {
+          // type: "自组织网络",
+          name: 'enode1',
+          freqDefault: 1430000000,
+        },
+      ],
+      tableData4: [
+        {
+          // type: "自组织网络",
+          name: 'enode1',
+          freqDefault: 1430000000,
+        },
+      ],
     };
+  },
+  components: {
+    GraphTable,
+    // IntentDrivenProxy
   },
 };
 </script>

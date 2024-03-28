@@ -1,31 +1,12 @@
 <template>
   <el-row class="tac">
     <el-col :span="24">
-      <!-- <h5>默认颜色</h5> -->
       <el-menu
         default-active="2"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
       >
-        <!-- <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>导航一</span>
-          </template>
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
-        </el-submenu> -->
         <el-menu-item index="1">
           <i class="el-icon-view"></i>
           <span slot="title"
@@ -39,15 +20,6 @@
             ><router-link to="/IndexPage/ManManage">设备管理</router-link></span
           >
         </el-menu-item>
-        <!-- <el-menu-item index="3">
-          <i class="el-icon-s-platform"></i>
-          <span slot="title"
-            ><router-link to="/IndexPage/DeviceManage"
-              >设备管理</router-link
-            ></span
-          >
-        </el-menu-item> -->
-
         <el-menu-item index="3">
           <i class="el-icon-files"></i>
           <span slot="title"
@@ -102,7 +74,19 @@ export default {
 
 <style>
 .el-menu-item {
-  background-color: #d3dce6;
+  background-color: #032346;
   border-bottom: 1px solid rgba(54, 51, 51, 0.699);
+}
+.router-link-active
+{
+  text-decoration: none;
+  color: rgb(143, 170, 23);
+  font-size: larger;
+  font-weight: bolder;
+}
+a{
+  text-decoration: none;
+  color: rgb(91, 109, 9);
+  font-weight:bold;
 }
 </style>

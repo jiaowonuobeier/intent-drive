@@ -1,12 +1,12 @@
 <template>
   <div>
-    <button @click="updateChart">test</button>
+    <button @click="getData">刷新拓扑</button>
      <div id="main" style="width: 2000px; height: 800px" ></div>
   </div>
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -28,51 +28,36 @@ export default {
   },
   
   created() {
-    //   setInterval(() => {
-    //     this.getData()
-    // }, 5000); 
+    this.getData();
       
   },
   mounted() {
-    // 在通过mounted调用即可
     console.log("开始渲染图表");
-      this.echartsInit();
   },
   
   
   methods: {
-     updateChart() {
-      // Modify data properties with new data
-      this.data = [
-        { name: "New_MEC", x: 400, y: 200 },
-        { name: "New_SL", x: 450, y: 300 },
-      ];
-
-      this.links = [
-        { source: "New_SL", target: "New_MEC" },
-        // Add more links as needed
-      ];
-
-      // Call echartsInit to update the chart
-      this.echartsInit();
+    async getData() {
+      console.log("像后端发送数据请求");
+    await axios({
+      url: "http://192.168.20.107:4999/topology",
+    }).then(
+      (response) => {
+        console.log("后端返回了res");
+        console.log(response.data.links);
+        console.log(response.data.data);
+        this.links = response.data.links;
+        this.data = response.data.data;
+        console.log(this.links);
+        console.log(this.data);
+        this.echartsInit();
+      },
+      (error) => {
+         console.log("后端返回了错误状态码");
+        console.log("错误", error);
+      }
+    );
     },
-    
-    // async getData() {
-    //   console.log("像后端发送数据请求");
-    // await axios({
-    //   url: "http://192.168.20.107:4999/adhocequips",
-    // }).then(
-    //   (response) => {
-    //     console.log("后端返回了res");
-    //     this.DeviceData = response.data;
-    //     console.log(this.DeviceData);
-    //   },
-    //   (error) => {
-    //      console.log("后端返回了错误状态码");
-    //     console.log("错误", error);
-    //   }
-    // );
-    // },
     //初始化echarts
     echartsInit() {
       //柱形图
@@ -121,7 +106,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 </style>

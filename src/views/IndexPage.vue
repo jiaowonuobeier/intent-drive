@@ -7,7 +7,6 @@
 <script>
 import AllContainer from "../components/AllContainer.vue";
 export default {
-  // name: IndexPage,
   components: {
     AllContainer,
   },
