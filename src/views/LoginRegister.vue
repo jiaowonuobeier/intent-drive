@@ -24,16 +24,13 @@
     <input type="submit" class="btn" value="注  册" @click="register" />
   </div>
 </div>
- 
 </template>
-
-<!-- <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>  -->
-
 
 <script>
 import axios from "axios";
 export default {
   name: "LoginRegister",
+  props:['all_url'],
   data() {
     return {
       userName: "",
@@ -46,7 +43,7 @@ export default {
     async register() {
       await axios({
         method: "post",
-        url: "http://192.168.20.199:4999/register",
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/register`,
         data: {
           username: this.userName,
           password: this.passWord,
@@ -69,7 +66,7 @@ export default {
     async login() {
       await axios({
         method: "post",
-        url: "http://192.168.20.199:4999/login",
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/login`,
         data: {
           username: this.userName,
           password: this.passWord,
@@ -78,7 +75,8 @@ export default {
       }).then(
         (response) => {
           console.log("正确", response);
-          this.$router.push("/IndexPage/NetTopo");
+          // this.$emit('login-success');//插入介绍页面
+          this.$router.push("/IndexPage/IntroductionPage");
           this.$message({
           message: '登陆成功',
           type: 'success'

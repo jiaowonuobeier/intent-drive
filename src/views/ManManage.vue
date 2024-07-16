@@ -1,229 +1,440 @@
 <template>
-  <div>
-    <GraphTable></GraphTable>
-    <el-divider><i class="el-icon-s-order"></i></el-divider>
-    <button @click="getData">更新表</button>
-    <h3>自组织网络</h3>
-    <el-table :data="tableData1" stripe style="width: 100%">
-      <el-table-column label="网络类型" width="200"
-        >自组织网络
-      </el-table-column>
-      <el-table-column prop="name" label="设备名称" width="200">
-      </el-table-column>
-      <el-table-column prop="ip" label="IP地址" width="200"> </el-table-column>
-      <el-table-column prop="freqDefault" label="频率/Hz" width="200">
-      </el-table-column>
-      <el-table-column prop="baudrateRs485" label="Rs485波特率" width="200">
-      </el-table-column>
-      <el-table-column prop="audioMicGain" label="音频麦克风增益" width="200">
-      </el-table-column>
-      <el-table-column prop="pwAtten1" label="天线1发射功率衰减" width="200">
-      </el-table-column>
-      <el-table-column prop="pwAtten2" label="天线2发射功率衰减" width="200">
-      </el-table-column>
-      <el-table-column prop="" label="操作">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small"
-            >查看</el-button
-          >
-          <el-button @click="handleEdit(scope.row)" type="text" size="small"
-            >编辑</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-    {{ tableData1.length > 0 ? tableData1[0].ip : '' }}
- 
-    <div v-if="todoedit1" class="edit">
-      <el-empty :image-size="200"></el-empty>
-      修改名称<el-input placeholder="请输入内容" v-model="input1"> </el-input>
-      修改地址<el-input placeholder="请输入内容" v-model="input2"> </el-input>
-      修改IP<el-input placeholder="请输入内容" v-model="input3"> </el-input>
-      <el-button @click="editok" type="text" size="small">完成编辑</el-button>
-      <el-button @click="cancelEdit" type="text" size="small"
-        >取消编辑</el-button
-      >
+  <div class="outer">
+    <div class="container">
+      <div class="one">
+        <div class="card zizuzhi" @click="zizuzhi_change"></div>
+        <p1 style="font-weight: bold; font-size: 20px; padding-left: 20px"
+          >自组织网络</p1
+        >
+      </div>
+      <div class="one">
+        <div class="card jiqun" @click="jiqun_change"></div>
+        <p1 style="font-weight: bold; font-size: 20px; padding-left: 20px"
+          >集群网络</p1
+        >
+      </div>
+      <div class="one">
+        <div class="card ipwangluo" @click="ipwangluo_change"></div>
+        <p1 style="font-weight: bold; font-size: 20px; padding-left: 20px"
+          >IP网络</p1
+        >
+      </div>
+      <div class="one">
+        <div class="card weixing" @click="weixing_change"></div>
+        <p1 style="font-weight: bold; font-size: 20px; padding-left: 20px"
+          >卫星链路网络</p1
+        >
+      </div>
     </div>
-
-    <el-divider><i class="el-icon-s-order"></i></el-divider>
-    <h3>卫星链路</h3>
-    <el-table :data="tableData2" stripe style="width: 100%">
-      <el-table-column label="网络类型" width="200"
-        >卫星链路
-      </el-table-column>
-      <el-table-column prop="name" label="设备名称" width="200">
-      </el-table-column>
-      <el-table-column prop="ip" label="IP地址" width="200"> </el-table-column>
-      <el-table-column prop="" label="操作">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small"
-            >查看</el-button
-          >
-          <el-button @click="handleEdit(scope.row)" type="text" size="small"
-            >编辑</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-divider><i class="el-icon-edit"></i></el-divider>
-    <h3>IP网络</h3>
-    <el-table :data="tableData3" stripe style="width: 100%">
-      <el-table-column label="网络类型" width="200"
-        >卫星链路
-      </el-table-column>
-      <el-table-column prop="name" label="设备名称" width="200">
-      </el-table-column>
-      <el-table-column prop="ip" label="IP地址" width="200"> </el-table-column>
-      <el-table-column prop="" label="操作">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small"
-            >查看</el-button
-          >
-          <el-button @click="handleEdit(scope.row)" type="text" size="small"
-            >编辑</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <h3>集群网络</h3>
-    <el-table :data="tableData4" stripe style="width: 100%">
-      <el-table-column label="网络类型" width="200"
-        >卫星链路
-      </el-table-column>
-      <el-table-column prop="name" label="设备名称" width="200">
-      </el-table-column>
-      <el-table-column prop="ip" label="IP地址" width="200"> </el-table-column>
-      <el-table-column prop="" label="操作">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small"
-            >查看</el-button
-          >
-          <el-button @click="handleEdit(scope.row)" type="text" size="small"
-            >编辑</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-drawer title="我是标题" :visible.sync="drawer" :with-header="false">
-      <span>{{ drawer_content }}!</span>
-    </el-drawer>
+    <div class="table-container" v-if="zizuzhi_is">
+      <h3>自组织网络</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>网络类型</th>
+            <th>设备名称</th>
+            <th>设备状态</th>
+            <th>信号强度</th>
+            <th>经度</th>
+            <th>纬度</th>
+            <th>IP地址</th>
+            <th>频率/hz</th>
+            <th>Rs485波特率</th>
+            <th>音频麦克风增益</th>
+            <th>天线1发射功率</th>
+            <th>天线2发射功率</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="device in tableData1" :key="device.name">
+            <td>自组织网络</td>
+            <td>{{ device.name }}</td>
+            <td>{{ device.state }}</td>
+            <td>{{ device.rssl }}</td>
+            <td>{{ device.longitude }}</td>
+            <td>{{ device.latitude }}</td>
+            <td>{{ device.ip }}</td>
+            <td>{{ device.freqDefault }}</td>
+            <td>{{ device.baudrateRs485 }}</td>
+            <td>{{ device.audioMicGain }}</td>
+            <td>{{ device.pwAtten1 }}</td>
+            <td>{{ device.pwAtten2 }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-container" v-if="jiqun_is">
+      <h3>集群网络</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>网络类型</th>
+            <th>设备名称</th>
+            <th>设备状态</th>
+            <th>信号强度</th>
+            <th>经度</th>
+            <th>纬度</th>
+            <th>IP地址</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="device in tableData4" :key="device.name">
+            <td>自组织网络</td>
+            <td>{{ device.name }}</td>
+            <td>{{ device.state }}</td>
+            <td>{{ device.rssl }}</td>
+            <td>{{ device.longitude }}</td>
+            <td>{{ device.latitude }}</td>
+            <td>{{ device.ip }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-container" v-if="weixing_is">
+      <h3>卫星链路网络</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>网络类型</th>
+            <th>设备名称</th>
+            <th>设备状态</th>
+            <th>信号强度</th>
+            <th>经度</th>
+            <th>纬度</th>
+            <th>IP地址</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="device in tableData2" :key="device.name">
+            <td>卫星链路</td>
+            <td>{{ device.name }}</td>
+            <td>{{ device.state }}</td>
+            <td>{{ device.rssl }}</td>
+            <td>{{ device.longitude }}</td>
+            <td>{{ device.latitude }}</td>
+            <td>{{ device.ip }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-container" v-if="ipwangluo_is">
+      <h3>IP网络</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>网络类型</th>
+            <th>设备名称</th>
+            <th>设备状态</th>
+            <th>信号强度</th>
+            <th>经度</th>
+            <th>纬度</th>
+            <th>IP地址</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="device in tableData3" :key="device.name">
+            <td>IP网络</td>
+            <td>{{ device.name }}</td>
+            <td>{{ device.state }}</td>
+            <td>{{ device.rssl }}</td>
+            <td>{{ device.longitude }}</td>
+            <td>{{ device.latitude }}</td>
+            <td>{{ device.ip }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import GraphTable from "../components/GraphTable.vue";
 export default {
-  created()
-  {
+  props: ["all_url"],
+  created() {
     this.getData();
   },
   methods: {
+    zizuzhi_change() {
+      this.zizuzhi_is = true;
+      this.ipwangluo_is = false;
+      this.jiqun_is = false;
+      this.weixing_is = false;
+    },
+    ipwangluo_change() {
+      this.zizuzhi_is = false;
+      this.ipwangluo_is = true;
+      this.jiqun_is = false;
+      this.weixing_is = false;
+    },
+    weixing_change() {
+      this.zizuzhi_is = false;
+      this.ipwangluo_is = false;
+      this.jiqun_is = false;
+      this.weixing_is = true;
+    },
+    jiqun_change() {
+      this.zizuzhi_is = false;
+      this.ipwangluo_is = false;
+      this.jiqun_is = true;
+      this.weixing_is = false;
+    },
     async getData() {
       console.log("向后端发送数据请求");
-    await axios({
-      url: "http://192.168.20.107:4999/adhocequips",
-    }).then(
-      (response) => {
-        console.log("后端返回了res");
-        console.log(response.data);
-        this.tableData1 = response.data;
-      },
-      (error) => {
-         console.log("后端返回了错误状态码");
-         console.log("错误", error);
-      }
-    );
-    },
-    cancelEdit() {
-      this.todoedit1 = false;
-    },
-    handleClick(row) {
-      console.log(row);
-      this.drawer = true;
-      this.drawer_content = row;
-    },
-    handleEdit(row) {
-      console.log(row.id);
-      this.edit_id = row.id;
-      this.todoedit1 = true;
-    },
-    editok() {
-      console.log(this.input1, this.input2, this.input3);
-      this.tableData1[this.edit_id - 1].name = this.input1;
-      this.tableData1[this.edit_id - 1].address = this.input2;
-      this.tableData1[this.edit_id - 1].IP = this.input3;
-      this.todoedit1 = false;
+      await axios({
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/adhocequips`,
+        method: "get",
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        },
+      }).then(
+        (response) => {
+          console.log("后端返回了res");
+          console.log(response);
+          this.tableData1 = response.data;
+          this.num1 = response.data.length;
+        },
+        (error) => {
+          console.log("后端返回了错误状态码");
+          console.log("错误", error);
+        }
+      );
+      await axios({
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/clusterequips`,
+        method: "get",
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        },
+      }).then(
+        (response) => {
+          console.log("后端返回了res");
+          console.log(response.data);
+          this.tableData4 = response.data;
+          this.num4 = response.data.length;
+        },
+        (error) => {
+          console.log("后端返回了错误状态码");
+          console.log("错误", error);
+        }
+      );
+      await axios({
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/satelliteequips`,
+        method: "get",
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        },
+      }).then(
+        (response) => {
+          console.log("后端返回了res");
+          console.log(response.data);
+          this.tableData2 = response.data;
+          this.num2 = response.data.length;
+        },
+        (error) => {
+          console.log("后端返回了错误状态码");
+          console.log("错误", error);
+        }
+      );
     },
   },
-  mounted() {
-
-  },
+  mounted() {},
   data() {
-    return {  
+    return {
+      ipwangluo_is: false,
+      jiqun_is: false,
+      weixing_is: false,
+      zizuzhi_is: true,
       edit_id: 1,
-      input1: "",
-      input2: "",
-      input3: "",
-      todoedit1: false,
-      drawer: false,
-      drawer_content: "暂无",
+      num1: 0,
+      num2: 0,
+      num3: 0,
+      num4: 0,
       tableData1: [
         {
-          // type: "自组织网络",
-          name: 'enode0',
+          name: "node45",
+          ip: "192.168.10.45",
+          state: "on",
+          rssl: "强",
           freqDefault: 1430000000,
           baudrateRs485: 2500,
           audioMicGain: 25,
           pwAtten1: 86,
-          pwAtten2:86
+          pwAtten2: 86,
+        },
+        {
+          name: "node46",
+          ip: "192.168.10.46",
+          state: "on",
+          rssl: "强",
+        },
+        {
+          name: "node47",
+          ip: "192.168.10.47",
+          state: "on",
+          rssl: "中",
+        },
+        {
+          name: "node48",
+          ip: "192.168.10.48",
+          state: "on",
+          rssl: "强",
         },
       ],
-      tableData2: [
-        {
-          // type: "自组织网络",
-          name: 'enode1',
-          freqDefault: 1430000000,
-        },
-      ],
-      tableData3: [
-        {
-          // type: "自组织网络",
-          name: 'enode1',
-          freqDefault: 1430000000,
-        },
-        {
-          // type: "自组织网络",
-          name: 'enode1',
-          freqDefault: 1430000000,
-        },
-        {
-          // type: "自组织网络",
-          name: 'enode1',
-          freqDefault: 1430000000,
-        },
-      ],
+      tableData2: [],
+      tableData3: [],
       tableData4: [
         {
-          // type: "自组织网络",
-          name: 'enode1',
-          freqDefault: 1430000000,
+          name: "cluster1",
+          freqDefault: "192.168.166.1",
+          status: "开",
+          rssl: "高",
         },
       ],
     };
   },
-  components: {
-    GraphTable,
-    // IntentDrivenProxy
-  },
+  components: {},
 };
 </script>
 
 <style scoped>
+.el-table {
+  font-size: 20px;
+  font-weight: bold;
+}
 .edit .el-input {
-  /* position: absolute; */
   margin-left: 10px;
   width: 300px;
+}
+.el-row {
+  margin-bottom: 0px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.el-col {
+  border-radius: 4px;
+}
+.bg-purple-dark {
+  background: #8aaad8;
+}
+.bg-purple {
+  background: #6691c4;
+  height: 300px;
+}
+.bg-purple-light {
+  background: #4f5f86;
+}
+.grid-content {
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
+.zizuzhi {
+  background-image: url("../photo/photobutton3.jpg");
+  background-size: cover; /* 图片铺满盒子 */
+  background-repeat: no-repeat; /* 图片不重复 */
+  background-position: center; /* 图片居中 */
+  height: 350px;
+}
+.ipwangluo {
+  background-image: url("../photo/ipwangluo.jpg");
+  height: 350px;
+}
+.jiqun {
+  background-image: url("../photo/photobutton2.jpg");
+  background-size: cover; /* 图片铺满盒子 */
+  background-repeat: no-repeat; /* 图片不重复 */
+  background-position: center; /* 图片居中 */
+  height: 350px;
+}
+.weixing {
+  background-image: url("../photo/weixing.jpg");
+  height: 350px;
+}
+.outer {
+  background-color: #ffffff;
+  background-size: cover;
+  width: 100%;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+  background-color: #fff;
+}
+.card {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+  height: 300px;
+  position: relative;
+}
+.table-container {
+  /* max-width: 800px; */
+  margin: 0 auto;
+  background: #ffffff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+h3 {
+  height: 50px;
+  border-bottom: #0e7fe9 4px solid;
+  /* width: 140px; */
+  display: inline-block; /* 设置为行内块元素 */
+  font-size: 25px;
+  margin: 25px;
+}
+th,
+td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+th {
+  background-color: #037272;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #0056b3; /* 添加底部边框，使表头更加分明 */
+  border-right: 1px solid #1f9eda;
+}
+
+tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+tr:hover {
+  background-color: #e9ecef;
+  transform: scale(1.005);
+  transition: transform 0.2s ease-in-out;
+}
+
+td {
+  border-bottom: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+}
+
+td:last-child {
+  border-right: none;
 }
 </style>

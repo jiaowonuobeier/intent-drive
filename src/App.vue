@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view @login-success="handleLoginSuccess"></router-view>
   </div>
 </template>
 
@@ -8,10 +8,20 @@
 // import LoginRegister from "./views/LoginRegister.vue";
 
 export default {
+  data() {
+    return {
+      all_url:'https://blatantly-relaxing-cougar.ngrok-free.app'
+    };
+  },
   name: "App",
   components: {
     // LoginRegister,
   },
+  methods: {
+    handleLoginSuccess() {
+      this.$router.push('IntroductionPage');
+    },
+  }
 };
 </script>
 

@@ -1,14 +1,13 @@
 <template>
   <el-container>
-    <el-header> 
-        <img src="../photo/logo.jpg" alt="" class="logo">
-        <span>意图驱动网络管理系统</span>
-    </el-header>
+    <!-- <el-header style="height: 2px;"> 
+    </el-header> -->
   <el-container>
   <el-aside width="240px">
         <!-- Asider -->
+         <div style=" height: 78px;" class="logo-container"><img src="../photo/logo2.jpg" alt="" class="logo"></div>
         <NavMenu></NavMenu>
-        <img src="../photo/logo2.jpg" alt="" class="logo">
+       
   </el-aside>
   <el-main> <router-view></router-view></el-main>
   </el-container>
@@ -22,16 +21,20 @@ export default {
   components: {
     NavMenu,
   },
+  data() {
+    return {
+    };
+  },
 };
 </script>
 
 <style scoped>
 .el-header
 {
-  background-color: #021d3a;
+  background-color: #a6c8ee;
   font-weight: bold;
   display: flex;
-  font-size: large;
+  font-size: 30px;
   align-items:center;
 }
 
@@ -44,16 +47,16 @@ export default {
 {
   padding-left: 0%;
   margin-left: 0px;
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
 }
 .el-aside .logo{
-  width: 238px;
-  height: 60px;
+  width: 241px;
+  height: 66px;
   position: fixed;
-  bottom: 1px;
-  left: 9px;
-  margin-top: 500px;
+  top: 0px;
+  left: 7px;
+  margin-top: 0px;
 }
 
 .el-footer {
@@ -64,22 +67,24 @@ export default {
 }
 
 .el-aside {
-  background-color: #032346;
+ background-color: #7fb4ec;
   color: #333;
+  top: 200px;
   text-align: center;
   line-height: 200px;
 }
-
 .el-main {
   border-bottom: 1px solid rgb(63, 58, 58);
-  background-color: rgb(255, 255, 255);
+  background-color: white;
   color: #333;
   text-align: left;
   line-height: 60px;
+  padding: 0px;
+  height: 100vh;
 }
 
 body > .el-container {
-  margin-bottom: 40px;
+  margin-bottom: 0px;
 }
 
 .el-container:nth-child(5) .el-aside,

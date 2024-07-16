@@ -2,58 +2,59 @@
   <el-row class="tac">
     <el-col :span="24">
       <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
+        default-active="1"
+        class="el-menu-vertical-demo custom-menu"
         @open="handleOpen"
         @close="handleClose"
       >
         <el-menu-item index="1">
-          <i class="el-icon-view"></i>
-          <span slot="title"
-            ><router-link to="/IndexPage/NetTopo">网络拓扑</router-link></span
-          >
+          <i class="el-icon-view" style="color: #0066CC; font-weight: bold;"></i>
+          <span slot="title">
+            <router-link to="/IndexPage/IntroductionPage">系统介绍</router-link>
+          </span>
         </el-menu-item>
-
         <el-menu-item index="2">
-          <i class="el-icon-menu"></i>
-          <span slot="title"
-            ><router-link to="/IndexPage/ManManage">设备管理</router-link></span
-          >
+          <i class="el-icon-picture-outline-round" style="color: #0066CC; font-weight: bold;"></i>
+          <span slot="title">
+            <router-link to="/IndexPage/NetTopo">网络拓扑</router-link>
+          </span>
         </el-menu-item>
         <el-menu-item index="3">
-          <i class="el-icon-files"></i>
-          <span slot="title"
-            ><router-link to="/IndexPage/ConfigManage"
-              >手动配置</router-link
-            ></span
-          >
+          <i class="el-icon-menu" style="color: #0066CC; font-weight: bold;"></i>
+          <span slot="title">
+            <router-link to="/IndexPage/ManManage">设备管理</router-link>
+          </span>
         </el-menu-item>
         <el-menu-item index="4">
+          <i class="el-icon-files" style="color: #0066CC; font-weight: bold;"></i>
+          <span slot="title">
+            <router-link to="/IndexPage/ConfigManage">手动配置</router-link>
+          </span>
+        </el-menu-item>
+        <!-- <el-menu-item index="4">
           <i class="el-icon-user-solid"></i>
           <span slot="title">
             <router-link to="/IndexPage/IntentDrive">意图驱动</router-link>
           </span>
-        </el-menu-item>
-        <el-menu-item index="5">
-          <i class="el-icon-data-line"></i>
-          <span slot="title"
-            ><router-link to="/IndexPage/PerformMonitor"
-              >性能监控</router-link
-            ></span
-          >
-        </el-menu-item>
-        <el-menu-item index="6">
-          <i class="el-icon-s-order"></i>
-          <span slot="title"
-            ><router-link to="/IndexPage/LogManage">日志管理</router-link></span
-          >
-        </el-menu-item>
-        <el-menu-item index="7">
-          <i class="el-icon-setting"></i>
-          <span slot="title"
-            ><router-link to="/IndexPage/SysSet">系统设置</router-link></span
-          >
-        </el-menu-item>
+        </el-menu-item> -->
+        <el-submenu index="5">
+          <template slot="title">
+            <i class="el-icon-location" style="color: #0066CC; font-weight: bold;"></i>
+            <span style="color: #070706; font-size: 17px; font-weight: bold"
+              >意图驱动</span
+            >
+          </template>
+          <el-menu-item index="5-1">
+            <i class="el-icon-s-help" style="color: #0066CC; font-weight: bold;"></i>
+
+            <router-link style="font-size: 15px; color: #333300;" to="/IndexPage/ModelShow">模块演示</router-link>
+          </el-menu-item>
+          <el-menu-item index="5-2">
+            <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
+
+            <router-link  style="font-size: 15px; color: #333300;" to="/IndexPage/SysShow">系统演示</router-link>
+          </el-menu-item>
+        </el-submenu>
       </el-menu>
     </el-col>
   </el-row>
@@ -73,20 +74,24 @@ export default {
 </script>
 
 <style>
-.el-menu-item {
-  background-color: #032346;
+.el-menu-item,
+.el-submenu {
+  background-color: #7fb4ec;
   border-bottom: 1px solid rgba(54, 51, 51, 0.699);
 }
-.router-link-active
-{
+.router-link-active {
   text-decoration: none;
-  color: rgb(143, 170, 23);
-  font-size: larger;
+  color: #0a0101;
+  font-size: 25px;
   font-weight: bolder;
 }
-a{
+a {
   text-decoration: none;
-  color: rgb(91, 109, 9);
-  font-weight:bold;
+  color: #070706;
+  font-size: 17px;
+  font-weight: bold;
+}
+i{
+  color: rgb(7, 122, 88);
 }
 </style>

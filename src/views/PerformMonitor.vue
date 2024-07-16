@@ -1,6 +1,6 @@
 <template>
      <div>
-      <GraphTable></GraphTable>
+      <!-- <GraphTable></GraphTable> -->
       <div v-for="item in nets" :key="item.id">
         <el-descriptions :title=item direction="vertical" :column="6" border>
            <el-descriptions-item label="Rate" :span="1" ><el-input v-model="Rate" clearable></el-input></el-descriptions-item>
@@ -28,9 +28,10 @@
 
 <script>
 import axios from "axios";
-import GraphTable from "../components/GraphTable.vue";
+//import GraphTable from "../components/GraphTable.vue";
 
 export default {
+    props:['all_url'],
   data() {
     return {
       dataArray: [],
@@ -50,7 +51,7 @@ export default {
     };
   },
   components: {
-    GraphTable,
+    //GraphTable,
   },
   mounted() {
     // this.fetchData();
@@ -125,7 +126,7 @@ export default {
       this.updateArray();
       await axios({
         method: "post",
-        url: "http://192.168.20.199:4999/tcweb",
+        url: "https://a1c7-113-54-156-161.ngrok-free.app/tcweb",
         data: {
           device_ipv4: "192.168.20.199",
           dev: item,
@@ -151,7 +152,7 @@ export default {
       await axios(
         {
           mothod: 'post',
-          url: "http://192.168.20.199:4999/tcweb",
+          url: "https://a1c7-113-54-156-161.ngrok-free.app/tcweb",
           data: {
           device_ipv4: "192.168.20.199",
           dev: item,
