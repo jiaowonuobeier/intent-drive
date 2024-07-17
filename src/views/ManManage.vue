@@ -48,7 +48,7 @@
         <tbody>
           <tr v-for="device in tableData1" :key="device.name">
             <td>自组织网络</td>
-            <td>{{ device.name }}</td>
+            <td @click="openNewPage">{{ device.name }}</td>
             <td>{{ device.state }}</td>
             <td>{{ device.rssl }}</td>
             <td>{{ device.longitude }}</td>
@@ -155,6 +155,10 @@ export default {
     this.getData();
   },
   methods: {
+    openNewPage() {
+      // 链接到 public/newpage/index.html
+      window.open('/wh604671/index.html', '_blank');
+    },
     zizuzhi_change() {
       this.zizuzhi_is = true;
       this.ipwangluo_is = false;
