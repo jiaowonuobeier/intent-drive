@@ -1,53 +1,180 @@
 <template>
-  <div>
-    <button @click="getData" class="refresh-button">刷新拓扑</button>
-    <div id="main" style="width: 2000px; height: 100vh"></div>
-    <div v-if="selectedNode" class="node-info">
-      <p>节点名称：{{ selectedNode.name }}</p>
-      <h3>设备状态：{{ selectedNode.info.state }}</h3>
-      <h3>IP地址：{{ selectedNode.info.ip }}</h3>
-      <h3>信号强度：{{ selectedNode.info.rssl }}</h3>
-      <h3>经度：{{ selectedNode.info.longitude }}</h3>
-      <h3>纬度：{{ selectedNode.info.latitude }}</h3>
-    </div>
-  </div>
+  <div id="map" style="width: 100%; height: 100vh"></div>
 </template>
 
 <script>
 import axios from "axios";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+
 export default {
   props: ["all_url"],
   data() {
     return {
-      selectedNode: null,
-      chartData: {
-         nodes: [
-          { name: 'Node 1', symbolType: "circle", x: 100, y: 100, info:'自组织网络' },
-          { name: 'Node 2', symbolType: "circle", x: 200, y: 200, info:'jiqun网络' },
-          { name: 'Node 3', symbolType: "circle", x: 300, y: 100, info:'自组织网络'  },
-          { name: 'Node 4', symbolType: "circle", x: 400, y: 200, info:'自组织网络'  },
-          { name: 'Node 5', symbolType: "diamond", x: 500, y: 100, info:'自组织网络' }
-        ],
-        links: [
-          { source: 'Node 1', target: 'Node 2' },
-          { source: 'Node 2', target: 'Node 3' },
-          { source: 'Node 3', target: 'Node 4' },
-          { source: 'Node 4', target: 'Node 5' },
-          { source: 'Node 5', target: 'Node 1' }
-        ]
-      }
+      iconMap: {
+        cluster: require("../assets/cluster.png"),
+        router: require("../assets/router.png"),
+        ad_hoc: require("../assets/ad_hoc.png"),
+        satellite: require("../assets/satellite.png"),
+      },
+      locations: [
+        {
+          type: "cluster",
+          state: "on",
+          ip: "192.167.20.1",
+          rssl: "高",
+          latitude: 39.9089,
+          longitude: 116.3975,
+          name: "天安门",
+          iconUrl: require("../assets/computer.png"), //可选：computer，router，phone，server
+        },
+        {
+          type: "ad_hoc",
+          state: "on",
+          ip: "192.167.20.1",
+          rssl: "高",
+          latitude: 39.9163,
+          longitude: 116.3972,
+          name: "故宫",
+          iconUrl: require("../assets/server.png"),
+        },
+        {
+          type: "router",
+          state: "on",
+          ip: "192.167.20.1",
+          rssl: "高",
+          latitude: 39.8832,
+          longitude: 116.409,
+          name: "天坛",
+          iconUrl: require("../assets/router.png"),
+        },
+      ],
+      links: [
+        { from: "天安门", to: "故宫" },
+        { from: "故宫", to: "天坛" },
+      ],
+      polyline: null,
     };
   },
 
   created() {
     this.getData();
   },
-  mounted() {
-    console.log("开始渲染图表");
-  },
+
+  mounted() {},
 
   methods: {
+    initMap() {
+      console.log("locations:", this.locations, "links:", this.links);
+      const map = L.map("map",{zoomControl: false,attributionControl:false}).setView([30.749958, 103.928993], 19); // 设置中心坐标和缩放级别
+
+      // 瓦片图层
+      //矢量
+      const vectorLayer = L.tileLayer(
+        "http://t0.tianditu.gov.cn/vec_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=vec&tileMatrixSet=w&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles&tk=d49d49c6107ff70ca82626293ecb64e0",
+        {
+          zoomControl: false,
+          attributionControl:false,
+
+        }
+      ).addTo(map);
+
+//影像层
+      const imageLayer = L.tileLayer(
+        "https://t0.tianditu.gov.cn/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles&tk=d49d49c6107ff70ca82626293ecb64e0",
+        {
+          // maxZoom: 18,
+          // attribution: "Tiles &copy; Tian Di Tu",
+          zoomControl: false,
+          attributionControl:false,
+        }
+      ).addTo(map);
+//文字标记层
+      const textLayer = L.tileLayer(
+        "http://t0.tianditu.gov.cn/cva_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=cva&tileMatrixSet=w&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles&tk=d49d49c6107ff70ca82626293ecb64e0",
+        {
+          // maxZoom: 18,
+          // attribution: "Tiles &copy; Tian Di Tu",
+          zoomControl: false,
+          attributionControl:false,
+        }
+      ).addTo(map);
+      // 添加图层控制
+      const baseMaps = {
+        矢量图: vectorLayer,
+        文字标记层: textLayer,
+        影像层: imageLayer,
+      };
+      
+
+       L.control.layers(baseMaps).addTo(map);
+      const layersElement = document.querySelector('.leaflet-control-layers');
+
+  // 修改图层选择器的样式
+  if (layersElement) {
+    const selectors = layersElement.querySelectorAll('.leaflet-control-layers-selector');
+    selectors.forEach(selector => {
+      selector.style.width = '10px'; // 修改宽度
+      selector.style.height = '10px'; // 修改高度
+      selector.style.borderRadius = '50%'; // 确保保持圆形
+      selector.style.border = '1px solid #000'; // 添加边框
+      selector.style.background = 'white'; // 背景颜色
+    });
+  }
+      this.locations.forEach((location) => {
+        console.log(location);
+        // 添加填充蓝色的圆圈
+        // L.circle([location.latitude, location.longitude], {
+        //   color: "blue",
+        //   fillColor: "blue",
+        //   fillOpacity: 0.5,
+        //   radius: 10,
+        // }).addTo(map);
+
+        // 创建一个可缩放的图标
+        const customIcon = L.divIcon({
+          className: "custom-icon",
+          html: `<img src="${
+            this.iconMap[location.type]
+          }" style="width: 50px; height: 50px;" />`,
+          iconSize: [50, 50],
+          iconAnchor: [25, 50],
+          popupAnchor: [0, -50],
+        });
+
+        // 添加标记并绑定弹出窗口
+        L.marker([location.latitude, location.longitude], {
+          icon: customIcon,
+        }).addTo(map).bindPopup(`
+    <div class="popup-content" style="font-size: 30px; max-width: 250px;" >  
+      <strong>节点名称： ${location.name}</strong><br>
+      IP地址:  ${location.ip}<br>
+      设备状态:  ${location.state}<br>
+      信号强度:  ${location.rssl}<br>
+      纬度:  ${location.latitude}<br>
+      经度:  ${location.longitude}<br>
+    </div>
+  `);
+
+        //绘制连接线
+        this.links.forEach((link) => {
+          const fromLocation = this.locations.find(
+            (loc) => loc.name === link.from
+          );
+          const toLocation = this.locations.find((loc) => loc.name === link.to);
+
+          if (fromLocation && toLocation) {
+            const latLngs = [
+              [fromLocation.latitude, fromLocation.longitude],
+              [toLocation.latitude, toLocation.longitude],
+            ];
+            L.polyline(latLngs, { color: "red", weight: 2 }).addTo(map);
+          }
+        });
+      });
+    },
     async getData() {
+      console.log("开始获取数据");
       await axios({
         url: "https://blatantly-relaxing-cougar.ngrok-free.app/topology",
         method: "get",
@@ -58,133 +185,38 @@ export default {
         (response) => {
           console.log("后端返回了res");
           console.log(response);
-          this.chartData = response.data.chartData;
-          console.log(this.chartData);
-          this.echartsInit();
+          this.locations = response.data.chartData.locations;
+          console.log("locations获取数据成功");
+          this.links = response.data.chartData.links;
+          console.log("links获取数据成功");
+          console.log("获取数据成功");
+          console.log("开始绘制地图");
+          this.initMap();
         },
         (error) => {
           console.log("后端返回了错误状态码");
           console.log("错误", error);
-          this.echartsInit();
         }
       );
-    },
-
-    //初始化echarts
-    echartsInit() {
-      //柱形图
-      //因为初始化echarts 的时候，需要指定的容器 id='main'
-      // 基于准备好的dom，初始化echarts实例  这个和上面的main对应
-      let myChart = this.$echarts.init(document.getElementById("main"));
-      // 指定图表的配置项和数据
-      let option = {
-        title: {
-          text: "拓扑图",
-        },
-        tooltip: {},
-        animationDurationUpdate: 1500,
-        animationEasingUpdate: "quinticInOut",
-        series: [
-          {
-            type: "graph",
-            layout: "none",
-            symbolSize: 70,
-            roam: true,
-            label: {
-              show: true,
-              fontSize: 16,
-              color: "#000000",
-              fontWeight: "bold",
-            },
-            edgeSymbol: ["circle", "arrow"],
-            edgeSymbolSize: [4, 10],
-            edgeLabel: {
-              fontSize: 90,
-            },
-            itemStyle: {
-              color: "#34a1eb", // 节点圆点颜色
-            },
-            data: this.chartData.nodes.map((node) => ({
-              name: node.name,
-              symbol: node.symbolType,
-              x: node.x,
-              y: node.y,
-              info:node.info
-            })),
-            links: this.chartData.links,
-            lineStyle: {
-              opacity: 0.9,
-              width: 5,
-              curveness: 0,
-              color: "#000000",
-            },
-          },
-        ],
-      };
-      myChart.on('click', params => {
-        if (params.dataType === 'node') {
-          this.selectedNode = params.data;
-          console.log("chufa");
-        } else {
-          this.selectedNode = null;
-        }
-      });
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
     },
   },
 };
 </script>
 
 <style scoped>
+/* .leaflet-control-layers-list div label span .leaflet-control-layers-selector{
+  width: 0% !important;
+  height: 3px !important;
+} */
+/* .leaflet-control-layers-selector{
+    width: 10% !important;
+  height: 10px !important;
+} */
+/* .leaflet-control-layers-list label span .leaflet-control-layers{
+  width: 3px;
+  height: 3px;
+  border: 1px,solid,#000;
+} */
 
-.node-info {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 20px;
-  background: linear-gradient(to right, #d2ffe3 0%, #8ad4f1 100%);
-  border: 2px solid #4CAF50;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 300px;
-  text-align: left;
-  overflow-y: auto;
-  max-height: 80vh;
-  transition: all 0.3s ease;
-}
 
-.node-info p {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333333;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-}
-
-.node-info h3 {
-  font-size: 16px;
-  color: #666666;
-  margin: 10px 0;
-  background-color: rgba(255, 255, 255, 0.6);
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-.node-info h3:first-of-type {
-  margin-top: 0;
-}
-
-.node-info h3:last-of-type {
-  margin-bottom: 0;
-}
-
-.node-info h3:nth-of-type(odd) {
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
-.node-info:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
 </style>

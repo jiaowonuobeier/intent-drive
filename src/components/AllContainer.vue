@@ -5,7 +5,7 @@
   <el-container>
   <el-aside width="240px">
         <!-- Asider -->
-         <div style=" height: 78px;" class="logo-container"><img src="../photo/logo2.jpg" alt="" class="logo"></div>
+         <div style=" height: 60px;" class="logo-container"><img src="../photo/logo2.jpg" alt="" class="logo"></div>
         <NavMenu></NavMenu>
        
   </el-aside>
@@ -16,6 +16,7 @@
 
 <script>
 import NavMenu from "./NavMenu.vue";
+
 
 export default {
   components: {

@@ -14,9 +14,9 @@ export default {
 };
 </script>
 
-<style>
-.topo-back {
+<style scoped>
+/* .topo-back {
   background-size: cover;
   background-image: url("../photo/cd_map.png");
-}
+} */
 </style>

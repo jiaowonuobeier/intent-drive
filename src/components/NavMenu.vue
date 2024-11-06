@@ -61,6 +61,7 @@
 </template>
 
 <script scoped>
+
 export default {
   methods: {
     handleOpen(key, keyPath) {

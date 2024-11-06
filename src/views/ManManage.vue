@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="table-container" v-if="zizuzhi_is">
-      <h3>自组织网络</h3>
+      <h3 @click="openNewPage">自组织网络</h3>
       <table>
         <thead>
           <tr>
@@ -47,7 +47,7 @@
         </thead>
         <tbody>
           <tr v-for="device in tableData1" :key="device.name">
-            <td>自组织网络</td>
+            <td @click="openNewPage">自组织网络</td>
             <td @click="openNewPage">{{ device.name }}</td>
             <td>{{ device.state }}</td>
             <td>{{ device.rssl }}</td>

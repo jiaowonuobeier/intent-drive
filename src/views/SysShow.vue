@@ -25,14 +25,17 @@
         </div>
       </div>
     </div>
+    <div class="divider" ></div> <!-- 方法一中使用的分界线 -->
+<div><ToPo></ToPo></div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import ToPo from "../components/ToPo.vue";
 export default {
   components: {
-    // Topo,
+    ToPo,
   },
   props: ["all_url"],
   data() {
@@ -133,7 +136,12 @@ export default {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow-x: auto;
 }
-
+.divider {
+  height: 5px; /* 分界线的高度 */
+  background: linear-gradient(to right, #b778e0, #a5eb7d); /* 渐变色，从左到右 */
+  margin: 20px 10px; /* 上下边距 */
+  border-radius: 20px;
+}
 .card {
   background: #fff;
   border-radius: 10px;

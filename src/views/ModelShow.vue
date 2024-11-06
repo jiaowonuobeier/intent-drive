@@ -27,7 +27,7 @@
           <div class="tip" v-for="(tip, index) in tips" :key="index" @click="addTipToText(tip)">{{ tip }}</div>
         </div>
       </div>
-      <div class="card first" style="width: 600px; height: 600px">
+      <div class="card first" style="width: 900px;">
         这里显示网络拓扑
         <Topo></Topo>
       </div>
@@ -359,182 +359,6 @@ export default {
 };
 </script>
 
-<!-- <style scoped>
-body {
-  font-size: larger;
-
-  /* font-weight: bolder; */
-}
-span {
-  margin-right: 20px;
-}
-.outer {
-  /* background-image: url("../photo/bgc2.jpg"); */
-  /* background-size: cover; */
-  width: 100%;
-  display: flex;
-  background-color: #FFFFFF;
-}
-.outer div input {
-  width: 200px;
-}
-.yitu {
-  border: 2px solid #2e7db1; /* 父组件边框 */
-  padding: 10px; /* 内边距 */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  border-radius: 15px;
-}
-
-.child {
-  border: 2px solid #0756bd; /* 子组件边框 */
-  margin: 5px; /* 外边距 */
-  padding: 10px; /* 内边距 */
-  width: calc(50% - 20px); /* 每个子组件占一半宽度，并留出间距 */
-  box-sizing: border-box;
-  text-align: center; /* 文字居中 */
-  border-radius: 15px;
-}
-.left-container {
-  display: flex;
-  flex-direction: column;
-  width: 50%; /* Each column takes up 25% of the width */
-  max-width: 800px; /*Adjust this value as needed */
-  border-radius: 15px;
-}
-.left-container .column {
-  flex: 1;
-  border: 1px solid #ccc; /* Optional: Add border for better visualization */
-  padding: 10px;
-  box-sizing: border-box;
-  border-radius: 15px;
-  margin-bottom: 10px;
-  background-color: rgb(243, 236, 227);
-  border-radius: 5px;
-}
-.left-container .column:last-child {
-  margin-bottom: 0;
-}
-.right-container {
-  flex: 1;
-  border: 1px solid #1478eb; /* Optional: Add border for better visualization */
-  padding: 10px;
-  box-sizing: border-box;
-  border-radius: 15px;
-}
-.left-container .column h3 {
-  margin: 5px 0;
-  color: #333; /* Adjust the margin for h3 tags */
-}
-.left-container .column button {
-  margin: 5px;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-.left-container .column button:hover {
-  background-color: #0056b3;
-}
-.left-container .column .button-group {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-.left-container .column .wave-container {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  display: inline-block;
-  vertical-align: bottom;
-}
-.right-container {
-  flex: 1;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-left: 10px;
-  box-sizing: border-box;
-  background-color: rgb(243, 236, 227);
-}
-.wenbenshuru {
-  margin-top: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-.input-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.input-row label {
-  margin-right: 10px;
-  white-space: nowrap;
-}
-.input-row input {
-  flex: 1;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  height: 20px;
-}
-.steps {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
-  margin: 0 auto;
-}
-.step {
-  position: relative;
-  flex: 1;
-  text-align: center;
-}
-.step-icon {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  text-align: center;
-  border: 2px solid #ccc;
-  border-radius: 50%;
-  background-color: #fff;
-  color: #ccc;
-  font-size: 14px;
-}
-.step.active .step-icon {
-  background-color: #007bff; /* Active step icon background color */
-  color: #fff; /* Active step icon color */
-}
-.step-text {
-  margin-top: 5px;
-  font-size: 14px;
-  color: #555;
-}
-.step.active .step-text {
-  color: #007bff; /* Active step text color */
-  font-weight: bold;
-}
-.progress-bar {
-  width: 80%;
-  height: 20px;
-  background-color: #f0f0f0;
-  border-radius: 4px;
-  overflow: hidden;
-  margin: 20px auto;
-}
-
-.progress-bar-fill {
-  height: 100%;
-  background-color: #007bff; /* Progress bar color */
-  transition: width 0.3s ease;
-}
-</style> -->
 <style scoped>
 body {
   font-family: "Arial", sans-serif;
@@ -559,7 +383,7 @@ body {
   margin-left: 30px;
   /* margin-right:30px; */
   margin-top: 30px;
-  width: 500px;
+  width: 700px;
   box-sizing: border-box;
       position: relative;
 }
