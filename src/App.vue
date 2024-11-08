@@ -34,4 +34,9 @@ export default {
   color: #2c3e50;
 
 }
+/* 强制设置所有元素的字体大小为 14px */
+* {
+  font-size: 14px;
+}
+
 </style>

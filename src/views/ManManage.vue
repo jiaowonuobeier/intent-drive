@@ -3,25 +3,25 @@
     <div class="container">
       <div class="one">
         <div class="card zizuzhi" @click="zizuzhi_change"></div>
-        <p1 style="font-weight: bold; font-size: 20px; padding-left: 20px"
+        <p1 style="font-weight: bold; font-size: 14px; padding-left: 20px"
           >自组织网络</p1
         >
       </div>
       <div class="one">
         <div class="card jiqun" @click="jiqun_change"></div>
-        <p1 style="font-weight: bold; font-size: 20px; padding-left: 20px"
+        <p1 style="font-weight: bold; font-size: 14px; padding-left: 20px"
           >集群网络</p1
         >
       </div>
       <div class="one">
         <div class="card ipwangluo" @click="ipwangluo_change"></div>
-        <p1 style="font-weight: bold; font-size: 20px; padding-left: 20px"
+        <p1 style="font-weight: bold; font-size: 14px; padding-left: 20px"
           >IP网络</p1
         >
       </div>
       <div class="one">
         <div class="card weixing" @click="weixing_change"></div>
-        <p1 style="font-weight: bold; font-size: 20px; padding-left: 20px"
+        <p1 style="font-weight: bold; font-size: 14px; padding-left: 20px"
           >卫星链路网络</p1
         >
       </div>
@@ -302,7 +302,7 @@ export default {
 
 <style scoped>
 .el-table {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
 }
 .edit .el-input {
@@ -405,7 +405,7 @@ h3 {
   border-bottom: #0e7fe9 4px solid;
   /* width: 140px; */
   display: inline-block; /* 设置为行内块元素 */
-  font-size: 25px;
+  font-size: 14px;
   margin: 25px;
 }
 th,
@@ -415,12 +415,12 @@ td {
 }
 
 th {
-  background-color: #037272;
+  background-color: #687070;
   color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 1px;
   border-bottom: 2px solid #0056b3; /* 添加底部边框，使表头更加分明 */
-  border-right: 1px solid #1f9eda;
+  border-right: 1px solid #949fa5;
 }
 
 tr:nth-child(even) {
@@ -440,5 +440,9 @@ td {
 
 td:last-child {
   border-right: none;
+}
+*
+{
+  font-size: 14px;
 }
 </style>

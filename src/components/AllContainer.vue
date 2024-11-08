@@ -5,7 +5,7 @@
   <el-container>
   <el-aside width="240px">
         <!-- Asider -->
-         <div style=" height: 60px;" class="logo-container"><img src="../photo/logo2.jpg" alt="" class="logo"></div>
+         <!-- <div style=" height: 60px;" class="logo-container"><img src="../photo/logo2.jpg" alt="" class="logo"></div> -->
         <NavMenu></NavMenu>
        
   </el-aside>
@@ -68,7 +68,7 @@ export default {
 }
 
 .el-aside {
- background-color: #7fb4ec;
+ background-color: #a5a7a8;
   color: #333;
   top: 200px;
   text-align: center;

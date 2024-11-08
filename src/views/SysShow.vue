@@ -130,7 +130,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(to right, #e0f7fa, #80deea);
+  background: gray;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -155,7 +155,7 @@ export default {
 }
 
 .card h {
-  font-size: 20px;
+  font-size: 14px;
   color: #333333;
   font-weight: bold;
   margin-bottom: 15px;
@@ -166,7 +166,7 @@ export default {
 .card input {
   width: 400px;
   padding: 10px;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
@@ -187,7 +187,7 @@ export default {
   border-radius: 5px;
   padding: 15px;
   margin-top: 10px;
-  font-size: 16px;
+  font-size: 14px;
   color: #333;
   text-align: left;
   min-height: 200px;
@@ -195,12 +195,12 @@ export default {
 
 .cardinfo {
   margin-top: 10px;
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
 }
 
 .arrow {
-  font-size: 24px;
+  font-size: 14px;
   color: #333;
   margin: 0 20px;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="outer">
     <div class="row first" >
-      <div class="card" style="background-color: bisque">
+      <div class="card">
         <h>语音输入模块</h>
         <div class="modelinfo"><strong style="color: #336666;">依次点击按钮</strong>录入声音，十几秒后您的意图出现在下方，确认了您的意图之后点击 <strong style="color: #336699;">"意图解析模块"</strong> 的 <strong style="color: #336699;">"开始解析意图"</strong>。语音输入模块与文本输入模块二选一即可</div>
         <div class="button-container">
@@ -16,7 +16,7 @@
           <div>{{ speak_text }}</div>
         </div>
       </div>
-      <div class="card" style="background-color: bisque">
+      <div class="card">
         <h>文本输入模块</h>
         <div class="modelinfo">在<strong style="color: #336666;">下方输入框</strong>中输入您的意图，也可以点击<strong style="color: #336666;">下方气泡</strong>选择意图,确认了您的意图之后点击<strong style="color: #336699;">"意图解析模块"</strong>的<strong style="color: #336699;">"开始解析意图"</strong></div>
         <div class="button-container">
@@ -33,21 +33,21 @@
       </div>
     </div>
     <div class="row second">
-      <div class="card" style="background-color: #336699">
+      <div class="card" >
         <h>意图解析模块</h>      <button @click="yitujiexi" >开始解析意图</button>
-        <div class="modelinfo">本模块将解析出您的意图的<strong style="color: #FFCCCC;">对象、动作、时间、周期性</strong>等。解析完毕后点击<strong style="color: #99CC00;">"意图转译模块"</strong>的<strong style="color: #99CC00;">"开始转译意图"</strong>。</div>
+        <div class="modelinfo">本模块将解析出您的意图的<strong style="font-weight: bold;">对象、动作、时间、周期性</strong>等。解析完毕后点击<strong style="font-weight: bold;">"意图转译模块"</strong>的<strong style="font-weight: bold;">"开始转译意图"</strong>。</div>
         <div class="content" style="width: 97%">
             {{ remessage }}
         </div>
       </div>
-      <div class="card" style="background-color: #996633">
+      <div class="card" >
         <h>意图转译模块</h> <button @click="yituzhuanyi">开始转译意图</button>
-        <div class="modelinfo">本模块将对意图进行转译，转译成<strong style="color: #FFCCCC;">网络命令</strong>。转译完成后点击<strong style="color: #99CC00;"></strong>的<strong style="color: #99CC00;">"开始执行意图"</strong>即可执行。</div>
+        <div class="modelinfo">本模块将对意图进行转译，转译成<strong style="font-weight: bold;">网络命令</strong>。转译完成后点击<strong style="font-weight: bold;"></strong>的<strong style="font-weight: bold;">"开始执行意图"</strong>即可执行。</div>
         <div class="content" style="width: 97%">
             {{ remessage2 }}
         </div>
       </div>
-      <div class="card" style="background-color: #336666">
+      <div class="card">
         <h>意图执行模块</h> <button @click="yituzhixing">开始执行意图</button>
         <div class="modelinfo">在本模块可以看到意图执行完成情况。整个意图的分模块流程演示结束。在"系统演示"页面可以演示整体系统流程。</div>
         <div class="content" style="width: 97%">
@@ -360,6 +360,9 @@ export default {
 </script>
 
 <style scoped>
+*{
+  font-size: 14px;
+}
 body {
   font-family: "Arial", sans-serif;
   background-color: #f0f0f0;
@@ -378,6 +381,7 @@ body {
 }
 .card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #c9cdce;
   border-radius: 10px;
   padding: 20px;
   margin-left: 30px;
@@ -389,25 +393,23 @@ body {
 }
 .modelinfo{
       margin-top: 10px;
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
   line-height: 30px;
 }
-.second {
-  color: #f8f9fa;
-}
+
 .second .modelinfo {
-  color: #f8f9fa;
+  color: #606266;
 }
-.outer .second h {
-  color: #f8f9fa;
-}
+/* .outer .second h {
+  color:#606266;
+} */
 .card h {
-  font-size: 20px;
+  font-size: 14px;
   color: #333333;
   font-weight: bold;
   margin-bottom: 15px;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid #28292b;
   padding-bottom: 5px;
 
 }
@@ -426,9 +428,9 @@ body {
 .button-container input[type="text"] {
   padding: 10px;
   font-size: 14px;
-  border: 1px solid #007bff;
+  border: 1px solid #6d6e6e;
   border-radius: 5px;
-  background-color: #007bff;
+  background-color: #747575;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -473,16 +475,16 @@ body {
 }
 .tip {
   padding: 5px 15px; /* 调整填充，使气泡更扁 */
-  background-color: #ffebcd;
-  border: 1px solid #ffdab9;
+  background-color: #a8aaaa;
+  border: 1px solid #a8aaaa;
   border-radius: 15px; /* 调整圆角，使气泡更扁 */
   font-size: 14px;
-  color: #666;
+  color: black;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
 }
 .tip:hover {
-  background-color: #ffd700;
+  background-color: #8b8b8b;
   transform: scale(1.05);
 }
 .second .card button{
@@ -490,8 +492,8 @@ body {
   top: 30px;
   right: 20px;
   padding: 10px 20px;
-  background-color: #e0c215;
-  color: rgb(8, 8, 8);
+  background-color: #615f5e;
+  color: rgb(245, 242, 242);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -499,6 +501,6 @@ body {
 }
 .second .card .content {
   min-height: 100px;
-  font-size: 20px;
+  font-size: 14px;
 }
 </style>

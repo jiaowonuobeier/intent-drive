@@ -40,19 +40,19 @@
         <el-submenu index="5">
           <template slot="title">
             <i class="el-icon-location" style="color: #0066CC; font-weight: bold;"></i>
-            <span style="color: #070706; font-size: 17px; font-weight: bold"
+            <span style="color: #070706; font-size: 14px; font-weight: bold"
               >意图驱动</span
             >
           </template>
           <el-menu-item index="5-1">
             <i class="el-icon-s-help" style="color: #0066CC; font-weight: bold;"></i>
 
-            <router-link style="font-size: 15px; color: #333300;" to="/IndexPage/ModelShow">模块演示</router-link>
+            <router-link style="font-size: 14px; color: #333300;" to="/IndexPage/ModelShow">模块演示</router-link>
           </el-menu-item>
           <el-menu-item index="5-2">
             <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
 
-            <router-link  style="font-size: 15px; color: #333300;" to="/IndexPage/SysShow">系统演示</router-link>
+            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/SysShow">系统演示</router-link>
           </el-menu-item>
         </el-submenu>
       </el-menu>
@@ -77,22 +77,23 @@ export default {
 <style>
 .el-menu-item,
 .el-submenu {
-  background-color: #7fb4ec;
+  background-color: #a5a7a8;
   border-bottom: 1px solid rgba(54, 51, 51, 0.699);
 }
 .router-link-active {
   text-decoration: none;
   color: #0a0101;
-  font-size: 25px;
+  /* font-size: 25px; */
   font-weight: bolder;
 }
 a {
   text-decoration: none;
   color: #070706;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: bold;
 }
 i{
   color: rgb(7, 122, 88);
 }
+
 </style>

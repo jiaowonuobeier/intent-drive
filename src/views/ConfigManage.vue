@@ -1,8 +1,8 @@
 <template>
   <div class="outer">
     <div class="card-container">
-      <div class="card" style="background-color: #e3f3fd;">
-        <h3 style="border-bottom: #336699 3px solid;">修改自组织节点</h3>
+      <div class="card" >
+        <h3 style="border-bottom:  3px solid;">修改自组织节点</h3>
         <div>
           <table class="custom-table">
             <tr>
@@ -54,8 +54,8 @@
       </div>
     </div>
     <div class="card-container">	
-      <div class="card" style="background-color: #fff9c4;">
-        <h3 style="border-bottom: #FFCC00 3px solid;">网卡设置</h3>
+      <div class="card">
+        <h3 style="border-bottom: 3px solid;">网卡设置</h3>
         <div>
           <table class="custom-table">
             <tr>
@@ -169,6 +169,11 @@ export default {
 </script>
 
 <style scoped>
+*
+{
+  font-size: 14px;
+  color: #606266;
+}
 table {
   border-collapse: collapse;
   border: 1px solid black;
@@ -195,6 +200,7 @@ table tr .first {
 }
 .card {
   padding: 20px;
+  background-color: #dcdfded7;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   width: 50%;
@@ -205,7 +211,7 @@ table tr .first {
 }
 
 .readme{
-  background-color: #e0f7fa;
+  background-color: #c9cdce;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
@@ -215,8 +221,8 @@ table tr .first {
 }
 
 .card h3 {
-  font-size: 2rem;
-  color: #333333;
+  font-size: 14px;
+  color: #606266;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -236,7 +242,7 @@ table tr .first {
 .custom-table .first {
   font-weight:bold;
   background-color: #f5f5f5;
-  color: #333333;
+  color: #606266;
   width: 200px;
   /* font-size: 20px; */
 }

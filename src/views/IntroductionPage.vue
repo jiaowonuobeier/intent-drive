@@ -47,7 +47,7 @@
       }"
     >
       <h2>网络拓扑</h2>
-      <p style="font-size: 20px">
+      <p>
         拓扑管理功能允许用户查看和管理整个网络的拓扑结构。以下是典型操作步骤：
       </p>
       <ol style="line-height: 30px">
@@ -70,7 +70,7 @@
       }"
     >
       <h2>手动配置</h2>
-      <p style="font-size: 20px">
+      <p>
         手动配置功能允许用户手动设置网络设备参数。以下是典型操作步骤：
       </p>
       <ol style="line-height: 30px">
@@ -90,7 +90,7 @@
       :style="{ display: activeSection === 'intent-driven' ? 'block' : 'none' }"
     >
       <h2>意图驱动</h2>
-      <p style="font-size: 20px">
+      <p>
         意图驱动功能通过自然语言输入实现自动化网络管理。以下是典型操作步骤：
       </p>
       <ol style="line-height: 30px">
@@ -101,7 +101,7 @@
           通过点击解析、转译、执行意图按钮，系统将用户意图转换为具体配置并应用到相应设备上
         </li>
       </ol>
-       <p style="font-size: 20px">
+       <p>
         以下是意图示例：
       </p>
       <ol style="line-height: 30px">
@@ -125,7 +125,7 @@
       }"
     >
       <h2>设备管理</h2>
-      <p style="font-size: 20px">
+      <p>
         设备管理界面以表格的形式展示了异构网络设备的详细信息。以下是典型操作步骤：
       </p>
       <ol style="line-height: 30px">
@@ -166,11 +166,11 @@ export default {
 
 <style scoped>
 .container .card h2 {
-  font-size: 40px;
+  font-size: 14px;
 }
 
 .container .card .info {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -193,26 +193,26 @@ header {
   padding: 20px;
 }
 .card {
-  background-color: #fff;
+  background-color: #d7dce2;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 10px;
   padding: 20px;
   text-align: center;
   width: 300px;
-  height: 250px;
+  height: 220px;
   position: relative;
 }
 .card h2 {
-  font-size: 1.5em;
+  font-size: 14px;
   margin: 0;
 }
 .card .jieshao {
   position: absolute;
-  color: #007bff;
+  color: #606266;
   text-decoration: none;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 14px;
   text-decoration: underline;
   bottom: 10px;
   left: 50%; /* 水平居中 */
@@ -226,12 +226,12 @@ header {
   padding: 20px;
 }
 .section h2 {
-  border-bottom: 3px solid #28a745;
+  border-bottom: 3px solid #838b85;
   padding-bottom: 10px;
 }
-.topology-card {
-  background: linear-gradient(to bottom, #9bb6ee, #66a5da); /* 渐变背景色 */
-}
+/* .topology-card {
+  background: linear-gradient(to bottom, #9bb6ee, #66a5da); 
+} */
 
 .topology-card:hover {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
@@ -245,21 +245,21 @@ header {
 .intent-card:hover {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
-.device-card {
-  background: linear-gradient(135deg, #f1d092, #ebdedc); /* 橙色到红色渐变 */
-}
+/* .device-card {
+  background: linear-gradient(135deg, #f1d092, #ebdedc);
+} */
 
-.config-card {
+/* .config-card {
   background: linear-gradient(
     135deg,
     #c6eeb3,
     #daecdf
-  ); /* 浅绿色到深绿色渐变 */
-}
+  ); 
+} */
 
-.intent-card {
-  background: linear-gradient(135deg, #7bf3f3, #f3eef3); /* 青色到紫色渐变 */
-}
+/* .intent-card {
+  background: linear-gradient(135deg, #7bf3f3, #f3eef3); 
+} */
 li {
   background: #f9f9f9;
   border-left: 4px solid #007bff;
@@ -267,4 +267,9 @@ li {
   margin-bottom: 10px;
   border-radius: 5px;
 }
+/* 强制设置所有元素的字体大小为 14px */
+* {
+  font-size: 14px;
+}
+
 </style>
