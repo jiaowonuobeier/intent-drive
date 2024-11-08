@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <!-- 当前分支是本地版本的代码，远程版本在main分支上 -->
+    <!-- 开始修改 -->
     <router-view @login-success="handleLoginSuccess"></router-view>
   </div>
 </template>
