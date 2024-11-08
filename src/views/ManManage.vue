@@ -186,7 +186,7 @@ export default {
     async getData() {
       console.log("向后端发送数据请求");
       await axios({
-        url: `https://blatantly-relaxing-cougar.ngrok-free.app/adhocequips`,
+        url: `http://127.0.0.1:4999/adhocequips`,
         method: "get",
         headers: {
           "ngrok-skip-browser-warning": "69420",
@@ -204,7 +204,7 @@ export default {
         }
       );
       await axios({
-        url: `https://blatantly-relaxing-cougar.ngrok-free.app/clusterequips`,
+        url: `http://127.0.0.1:4999/clusterequips`,
         method: "get",
         headers: {
           "ngrok-skip-browser-warning": "69420",
@@ -222,7 +222,7 @@ export default {
         }
       );
       await axios({
-        url: `https://blatantly-relaxing-cougar.ngrok-free.app/satelliteequips`,
+        url: `http://127.0.0.1:4999/satelliteequips`,
         method: "get",
         headers: {
           "ngrok-skip-browser-warning": "69420",

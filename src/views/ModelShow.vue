@@ -232,7 +232,7 @@ export default {
       // 发送 POST 请求，上传录音文件
       axios
         .post(
-          "https://blatantly-relaxing-cougar.ngrok-free.app/speak",
+          "http://127.0.0.1:4999/speak",
           formData
         )
         .then((response) => {
@@ -264,7 +264,7 @@ export default {
     //   console.log(this.value_intent);
     //   await axios({
     //     method: "post",
-    //     url: `https://8cca-113-54-156-161.ngrok-free.app/intents/execute`,
+    //     url: `http://127.0.0.1:4999/intents/execute`,
     //     data: {
     //       text: this.value_intent,
     //     },
@@ -286,7 +286,7 @@ export default {
       console.log(this.value_intent);
       await axios({
         method: "post",
-        url: `https://blatantly-relaxing-cougar.ngrok-free.app/intents/translate`,
+        url: `http://127.0.0.1:4999/intents/translate`,
         data: {
           text: this.value_intent,
         },
@@ -308,7 +308,7 @@ export default {
       console.log(this.value_intent);
       await axios({
         method: "post",
-        url: `https://blatantly-relaxing-cougar.ngrok-free.app/intents/execute`,
+        url: `http://127.0.0.1:4999/intents/execute`,
         data: {
           text: this.value_intent,
         },
@@ -334,7 +334,7 @@ export default {
       console.log(this.value_intent);
       await axios({
         method: "post",
-        url: `https://blatantly-relaxing-cougar.ngrok-free.app/intents/analyze`,
+        url: `http://127.0.0.1:4999/intents/analyze`,
         data: {
           text: this.value_intent,
         },

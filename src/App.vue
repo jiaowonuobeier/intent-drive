@@ -12,7 +12,7 @@
 export default {
   data() {
     return {
-      all_url:'https://blatantly-relaxing-cougar.ngrok-free.app'
+      all_url:'127.0.0.1:4999'
     };
   },
   name: "App",

@@ -43,7 +43,7 @@ export default {
     async register() {
       await axios({
         method: "post",
-        url: `https://blatantly-relaxing-cougar.ngrok-free.app/register`,
+        url: `http://127.0.0.1:4999/register`,
         data: {
           username: this.userName,
           password: this.passWord,
@@ -66,7 +66,7 @@ export default {
     async login() {
       await axios({
         method: "post",
-        url: `https://blatantly-relaxing-cougar.ngrok-free.app/login`,
+        url: `http://127.0.0.1:4999/login`,
         data: {
           username: this.userName,
           password: this.passWord,

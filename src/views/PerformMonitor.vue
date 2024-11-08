@@ -126,7 +126,7 @@ export default {
       this.updateArray();
       await axios({
         method: "post",
-        url: "https://a1c7-113-54-156-161.ngrok-free.app/tcweb",
+        url: "http://127.0.0.1:4999/tcweb",
         data: {
           device_ipv4: "192.168.20.199",
           dev: item,
@@ -152,7 +152,7 @@ export default {
       await axios(
         {
           mothod: 'post',
-          url: "https://a1c7-113-54-156-161.ngrok-free.app/tcweb",
+          url: "http://127.0.0.1:4999/tcweb",
           data: {
           device_ipv4: "192.168.20.199",
           dev: item,

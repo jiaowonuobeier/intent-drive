@@ -176,7 +176,7 @@ export default {
     async getData() {
       console.log("开始获取数据");
       await axios({
-        url: "https://blatantly-relaxing-cougar.ngrok-free.app/topology",
+        url: "http://127.0.0.1:4999/topology",
         method: "get",
         headers: {
           "ngrok-skip-browser-warning": "69420",
