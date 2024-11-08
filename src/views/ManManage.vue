@@ -79,7 +79,7 @@
         </thead>
         <tbody>
           <tr v-for="device in tableData4" :key="device.name">
-            <td>自组织网络</td>
+            <td>集群网络</td>
             <td>{{ device.name }}</td>
             <td>{{ device.state }}</td>
             <td>{{ device.rssl }}</td>
