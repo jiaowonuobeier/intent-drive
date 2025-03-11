@@ -56,6 +56,12 @@
           </el-menu-item>
         </el-submenu>
       </el-menu>
+        <el-menu-item index="6">
+          <i class="el-icon-files" style="color: #0066CC; font-weight: bold;"></i>
+          <span slot="title">
+            <router-link to="/IndexPage/NetPlan">网络规划</router-link>
+          </span>
+        </el-menu-item>
     </el-col>
   </el-row>
 </template>
