@@ -11,6 +11,7 @@ import LogManage from "../views/LogManage";
 import SysSet from "../views/SysSet";
 import ModelShow from "../views/ModelShow.vue"
 import SysShow from "../views/SysShow.vue";
+import NetPlan from "@/views/NetPlan.vue";
 
 
 Vue.use(VueRouter); //Vue全局使用Router
@@ -66,6 +67,10 @@ const router = new VueRouter({
         {
           path: "SysShow",
           component: SysShow,
+        },
+        {
+          path: "NetPlan",
+          component: NetPlan,
         },
       ],
     },

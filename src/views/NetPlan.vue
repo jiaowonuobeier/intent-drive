@@ -1,28 +1,31 @@
 <template>
-  <div>
+  <div class="container">
     <h1>网络规划</h1>
     
     <!-- 网络设备输入表单 -->
-    <form @submit.prevent="addDevice">
-      <label>
-        设备名称:
-        <input v-model="newDevice.name" required />
-      </label>
-      <label>
-        IP地址:
-        <input v-model="newDevice.ip" required />
-      </label>
-      <button type="submit">添加设备</button>
-    </form>
+    <div class="card">
+      <form @submit.prevent="addDevice" class="form">
+        <label>
+          设备名称:
+          <input v-model="newDevice.name" required />
+        </label>
+        <label>
+          IP地址:
+          <input v-model="newDevice.ip" required />
+        </label>
+        <button type="submit">添加设备</button>
+      </form>
+    </div>
     
     <!-- 设备列表 -->
     <h2>设备列表</h2>
-    <ul>
-      <li v-for="(device, index) in devices" :key="index">
-        {{ device.name }} - {{ device.ip }}
-        <button @click="removeDevice(index)">删除</button>
-      </li>
-    </ul>
+    <div class="device-list">
+      <div v-for="(device, index) in devices" :key="index" class="card device">
+        <p><strong>{{ device.name }}</strong></p>
+        <p>{{ device.ip }}</p>
+        <button @click="removeDevice(index)" class="delete">删除</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -48,16 +51,53 @@ export default {
 </script>
 
 <style scoped>
-h1, h2 {
-  color: #333;
+.container {
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
 }
-form {
-  margin-bottom: 20px;
+.card {
+  background: #fff;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 input {
-  margin: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 button {
-  margin-left: 10px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background: #0056b3;
+}
+.device-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.device {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.delete {
+  background: #dc3545;
+}
+.delete:hover {
+  background: #a71d2a;
 }
 </style>
