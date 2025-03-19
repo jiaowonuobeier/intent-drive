@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1 style="border-bottom : 2px solid #000 ;padding-bottom:5px; font-size:18px ">意图驱动的应急通信指挥管理系统</h1>
     <router-view @login-success="handleLoginSuccess"></router-view>
   </div>
 </template>
@@ -10,7 +11,7 @@
 export default {
   data() {
     return {
-      all_url:'https://blatantly-relaxing-cougar.ngrok-free.app'
+      all_url:'http://localhost:4999'
     };
   },
   name: "App",

@@ -1,5 +1,10 @@
 <template>
-  <div id="map" style="width: 100%; height: 100vh"></div>
+<div class="map-container">
+  <div id="map" style="width: 100%; height: 100vh;z-index:9;"></div>
+  <div class="selector" style="font-size:20px;">selector</div>
+</div>
+  
+  
 </template>
 
 <script>
@@ -176,7 +181,7 @@ export default {
     async getData() {
       console.log("开始获取数据");
       await axios({
-        url: "https://blatantly-relaxing-cougar.ngrok-free.app/topology",
+        url: "http://localhost:4999/topology",
         method: "get",
         headers: {
           "ngrok-skip-browser-warning": "69420",
@@ -218,5 +223,24 @@ export default {
   border: 1px,solid,#000;
 } */
 
+.map-container{
+  position:relative;
+}
+.map{
+  position:absolute;
+  z-index:9;
+}
+.selector{
+  position:absolute;
+  top:5%;
+  left:5%;
+  z-index:10;
+  width:200px;
+  height:100px;
+  border:2px solid #000;
+  padding:10px;
+  margin:20px;
+  borderRadius:5px;
+}
 
 </style>

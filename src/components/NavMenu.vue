@@ -25,18 +25,7 @@
             <router-link to="/IndexPage/ManManage">设备管理</router-link>
           </span>
         </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-files" style="color: #0066CC; font-weight: bold;"></i>
-          <span slot="title">
-            <router-link to="/IndexPage/ConfigManage">手动配置</router-link>
-          </span>
-        </el-menu-item>
-        <el-menu-item index="5">
-          <i class="el-icon-files" style="color: #0066CC; font-weight: bold;"></i>
-          <span slot="title">
-            <router-link to="/IndexPage/NetPlan">网络规划</router-link>
-          </span>
-        </el-menu-item>
+
         <!-- <el-menu-item index="4">
           <i class="el-icon-user-solid"></i>
           <span slot="title">
@@ -60,7 +49,25 @@
 
             <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/SysShow">系统演示</router-link>
           </el-menu-item>
+          <el-menu-item index="6-3">
+            <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
+            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/NetTopo">网络规划</router-link>
+          </el-menu-item>
+          <el-menu-item index="6-4">
+            <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
+            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/NetTopo">连接管理</router-link>
+          </el-menu-item>
+          <el-menu-item index="6-5">
+            <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
+            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/NetTopo">通话管理</router-link>
+          </el-menu-item>
         </el-submenu>
+                <el-menu-item index="4">
+          <i class="el-icon-files" style="color: #0066CC; font-weight: bold;"></i>
+          <span slot="title">
+            <router-link to="/IndexPage/ConfigManage">手动配置</router-link>
+          </span>
+        </el-menu-item>
       </el-menu>
 
     </el-col>

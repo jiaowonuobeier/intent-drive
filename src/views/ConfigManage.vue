@@ -118,7 +118,7 @@ export default {
     async onSubmit9() {
       await axios({
         method: "post",
-        url: `https://blatantly-relaxing-cougar.ngrok-free.app/manual/adhocconfig`,
+        url: `http://localhost:4999/manual/adhocconfig`,
         data: {
           name: this.formInline9.name,
           baudrateRs485: Number(this.formInline9.baudrateRs485),
@@ -143,7 +143,7 @@ export default {
     async onSubmit10() {
       await axios({
         method: "post",
-        url: `https://blatantly-relaxing-cougar.ngrok-free.app/manual/changeagentip`,
+        url: `http://localhost:4999/manual/changeagentip`,
         data: {
           device_id: Number(this.num1),
           net_card: this.net_card,
