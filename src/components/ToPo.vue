@@ -1,13 +1,112 @@
 <template>
-  <div id="map" style="width: 100%; height: 100vh"></div>
+<div class="map-container">
+  <div id="map" style="width: 100%; height: 100vh;z-index:9;"></div>
+  <div class="selectors">
+    <form>
+      <div>
+        <label for="province">省:</label>
+        <select id="province" v-model="selectedProvince" @change="updateCities">
+          <option value="">请选择省</option>
+          <option v-for="(province, index) in provinces" :key="index" :value="province">
+            {{ province }}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label for="city">市:</label>
+        <select id="city" v-model="selectedCity" @change="updateCounties">
+          <option value="">请选择市</option>
+          <option v-for="(city, index) in cities" :key="index" :value="city">
+            {{ city }}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label for="county">县:</label>
+        <select id="county" v-model="selectedCounty">
+          <option value="">请选择县</option>
+          <option v-for="(county, index) in counties" :key="index" :value="county">
+            {{ county }}
+          </option>
+        </select>
+      </div>
+    </form>
+  </div>
+
+
+</div>
+  
+  
 </template>
 
 <script>
 import axios from "axios";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { ref, computed } from 'vue';
 
 export default {
+  setup() {
+    // 模拟省市县数据
+    const data = {
+      "北京": {
+        "北京市": ["东城区", "西城区", "朝阳区", "海淀区"]
+      },
+      "上海": {
+        "上海市": ["黄浦区", "徐汇区", "长宁区", "静安区"]
+      },
+      "广东": {
+        "广州市": ["越秀区", "荔湾区", "海珠区", "天河区"],
+        "深圳市": ["福田区", "罗湖区", "南山区", "宝安区"]
+      }
+      // 可以根据需要添加更多省份、城市和县区
+    };
+
+    // 响应式数据
+    const selectedProvince = ref('');
+    const selectedCity = ref('');
+    const selectedCounty = ref('');
+
+    // 计算属性，根据选中的省份动态计算城市列表
+    const provinces = computed(() => Object.keys(data));
+
+    const cities = computed(() => {
+      if (selectedProvince.value && data[selectedProvince.value]) {
+        return Object.keys(data[selectedProvince.value]);
+      }
+      return [];
+    });
+
+    const counties = computed(() => {
+      if (selectedProvince.value && selectedCity.value && data[selectedProvince.value][selectedCity.value]) {
+        return data[selectedProvince.value][selectedCity.value];
+      }
+      return [];
+    });
+
+    // 方法：当选择城市时更新县区（可选，因为使用了计算属性）
+    const updateCities = () => {
+      selectedCity.value = '';
+      selectedCounty.value = '';
+    };
+
+    const updateCounties = () => {
+      selectedCounty.value = '';
+    };
+
+    return {
+      selectedProvince,
+      selectedCity,
+      selectedCounty,
+      provinces,
+      cities,
+      counties,
+      updateCities,
+      updateCounties
+    };
+  },
   props: ["all_url"],
   data() {
     return {
@@ -218,5 +317,24 @@ export default {
   border: 1px,solid,#000;
 } */
 
+.map-container{
+  position:relative;
+}
+.map{
+  position:absolute;
+  z-index:9;
+}
+.selectors{
+  position:absolute;
+  top:5%;
+  left:5%;
+  z-index:10;
+  /* width:200px;
+  height:300px;
+  border:2px solid #000; */
+  padding:10px;
+  margin:20px;
+  borderRadius:5px;
+}
 
 </style>

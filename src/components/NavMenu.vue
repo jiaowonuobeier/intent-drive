@@ -25,37 +25,51 @@
             <router-link to="/IndexPage/ManManage">设备管理</router-link>
           </span>
         </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-files" style="color: #0066CC; font-weight: bold;"></i>
-          <span slot="title">
-            <router-link to="/IndexPage/ConfigManage">手动配置</router-link>
-          </span>
-        </el-menu-item>
+
         <!-- <el-menu-item index="4">
           <i class="el-icon-user-solid"></i>
           <span slot="title">
             <router-link to="/IndexPage/IntentDrive">意图驱动</router-link>
           </span>
         </el-menu-item> -->
-        <el-submenu index="5">
+        <el-submenu index="6">
           <template slot="title">
             <i class="el-icon-location" style="color: #0066CC; font-weight: bold;"></i>
             <span style="color: #070706; font-size: 14px; font-weight: bold"
               >意图驱动</span
             >
           </template>
-          <el-menu-item index="5-1">
+          <el-menu-item index="6-1">
             <i class="el-icon-s-help" style="color: #0066CC; font-weight: bold;"></i>
 
             <router-link style="font-size: 14px; color: #333300;" to="/IndexPage/ModelShow">模块演示</router-link>
           </el-menu-item>
-          <el-menu-item index="5-2">
+          <el-menu-item index="6-2">
             <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
 
             <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/SysShow">系统演示</router-link>
           </el-menu-item>
+          <el-menu-item index="6-3">
+            <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
+            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/NetPlan">网络规划</router-link>
+          </el-menu-item>
+          <el-menu-item index="6-4">
+            <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
+            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/ConnMan">连接管理</router-link>
+          </el-menu-item>
+          <el-menu-item index="6-5">
+            <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
+            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/CallMan">通话管理</router-link>
+          </el-menu-item>
         </el-submenu>
+                <el-menu-item index="4">
+          <i class="el-icon-files" style="color: #0066CC; font-weight: bold;"></i>
+          <span slot="title">
+            <router-link to="/IndexPage/ConfigManage">手动配置</router-link>
+          </span>
+        </el-menu-item>
       </el-menu>
+
     </el-col>
   </el-row>
 </template>

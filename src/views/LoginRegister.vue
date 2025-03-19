@@ -44,6 +44,7 @@ export default {
       await axios({
         method: "post",
         url: `http://127.0.0.1:4999/register`,
+
         data: {
           username: this.userName,
           password: this.passWord,

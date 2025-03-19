@@ -309,6 +309,7 @@ export default {
       await axios({
         method: "post",
         url: `http://127.0.0.1:4999/intents/execute`,
+
         data: {
           text: this.value_intent,
         },

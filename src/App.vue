@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <!-- 当前分支是本地版本的代码，远程版本在main分支上 -->
-    <!-- 开始修改 -->
+    <h1 style="border-bottom : 2px solid #000 ;padding-bottom:5px; font-size:18px ">意图驱动的应急通信指挥管理系统</h1>
+
     <router-view @login-success="handleLoginSuccess"></router-view>
   </div>
 </template>
