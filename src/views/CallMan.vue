@@ -1,56 +1,87 @@
 <template>
-  <div class="call-management">
-    <h2>通话管理</h2>
-
-    <!-- 选择通话对象 -->
-    <div class="form-group">
-      <label for="userSelect">选择通话对象:</label>
-      <select id="userSelect" v-model="selectedUser" @change="resetMessage">
-        <option value="">--请选择用户--</option>
-        <option value="1001">用户 1001</option>
-        <option value="1002">用户 1002</option>
-        <option value="1003">用户 1003</option>
-      </select>
+  <div>
+    <div class="outer">
+      <div class="card">
+        <h>输入您的意图</h>
+        <div class="cardinfo" style="line-height: 27px;">在下方输入框中输入您的意图，示例：建立自组织网络和意图驱动代理之间的连接，然后点击"发送意图"</div>
+        <input type="text" v-model="value_intent"/><br />
+        <button @click="yituzhuanyi">发送意图</button>
+      </div>
+      <div class="arrow">➔</div>
+      <div class="card">
+        <h>将对此意图进行如下的网络配置</h>
+        <div class="cardinfo">在这里确认进行如下的网络配置，确认后，点击"确认配置"</div>
+        <div class="content">
+          {{ remessage2 }}
+        </div>
+        <button @click="yituzhixing">确定配置</button>
+      </div>
+      <div class="arrow">➔</div>
+      <div class="card">
+        <h>意图执行结果如下</h>
+        <div class="cardinfo">在这里查看意图的执行情况</div>
+        <div class="content">
+          {{ remessage3 }}
+        </div>
+      </div>
     </div>
-
-    <!-- 获取新号码按钮 -->
-    <button class="get-number-btn" @click="fetchNewNumber" :disabled="!selectedUser">
-      获取新号码
-    </button>
-
-    <!-- 显示返回的新号码或消息 -->
-    <div class="message">
-      {{ message }}
-    </div>
+    <div class="divider" ></div> <!-- 方法一中使用的分界线 -->
+    <div><ToPo></ToPo></div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-
+import axios from "axios";
+import ToPo from "../components/ToPo.vue";
 export default {
-  name: 'CallMan',
+  components: {
+    ToPo,
+  },
+  props: ["all_url"],
   data() {
     return {
-      selectedUser: '', // 用户选择的通话对象
-      message: '',      // 显示的消息或新号码
+      remessage: "",
+      remessage2: "",
+      remessage3: "",
+      value_intent: "",
     };
   },
   methods: {
-    /**
-     * 发送请求到后端获取新的注册号码
-     */
-    async fetchNewNumber() {
+    async yituzhuanyi() {
+      console.log(this.value_intent);
       await axios({
         method: "post",
-        url: `http://127.0.0.1:4999/intents/execute`,
+        url: `http://127.0.0.1:4999/intents/translate`,
         data: {
-          text: this.selectedUser + "通话",
+          text: this.value_intent,
         },
         // responseType: "json",
       }).then(
         (response) => {
           console.log("收到意图", response);
+          this.remessage2 = response.data.message;
+          alert("意图转译成功");
+          // alert(response.data.message)
+        },
+        (error) => {
+          console.log("错误", error);
+          alert("意图转移出错");
+        }
+      );
+    },
+    async yituzhixing() {
+      console.log(this.value_intent);
+      await axios({
+        method: "post",
+        url: `http://127.0.0.1:4999/intents/execute`,
+        data: {
+          text: this.value_intent,
+        },
+        // responseType: "json",
+      }).then(
+        (response) => {
+          console.log("收到意图", response);
+          this.remessage3 = response.data.message;
           alert("意图执行成功");
           // alert(response.data.message)
         },
@@ -60,72 +91,117 @@ export default {
         }
       );
     },
-    /**
-     * 重置消息，当选择不同的用户时清空之前的消息
-     */
-    resetMessage() {
-      this.message = '';
+
+    async yitujiexi() {
+      this.value_intent = `${this.text1}${this.text2}${this.text3}${this.text4}${this.text5}${this.speak_text}`;
+      console.log(this.value_intent);
+      await axios({
+        method: "post",
+        url: `http://127.0.0.1:4999/intents/analyze`,
+        data: {
+          text: this.value_intent,
+        },
+        // responseType: "json",
+      }).then(
+        (response) => {
+          console.log("收到意图", response);
+          this.remessage = response.data.message;
+          alert("意图解析成功");
+          // alert(response.data.message)
+        },
+        (error) => {
+          console.log("错误", error);
+          alert("意图解析出错");
+        }
+      );
+    },
+    publish() {
+      alert("您成功发布了一个意图");
     },
   },
 };
 </script>
 
 <style scoped>
-.call-management {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-select {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-}
-
-.get-number-btn {
-  width: 100%;
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.get-number-btn:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.get-number-btn:hover:not(:disabled) {
-  background-color: #45a049;
-}
-
-.message {
+.outer {
   margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: gray;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+.divider {
+  height: 5px; /* 分界线的高度 */
+  background: linear-gradient(to right, #b778e0, #a5eb7d); /* 渐变色，从左到右 */
+  margin: 20px 10px; /* 上下边距 */
+  border-radius: 20px;
+}
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  /* min-width: 200px; */
+  text-align: center;
+  position: relative;
+  margin: 0 10px;
+  flex: 1;
+}
+
+.card h {
+  font-size: 14px;
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 5px;
+}
+
+.card input {
+  width: 400px;
   padding: 10px;
-  background-color: #dff0d8;
-  color: #3c763d;
-  border: 1px solid #3c763d;
-  border-radius: 4px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.card input:hover {
+  border-color: #66bb6a;
+}
+
+.card input:focus {
+  border-color: #2196f3;
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
+}
+
+.content {
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+  text-align: left;
+  min-height: 200px;
+}
+
+.cardinfo {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.arrow {
+  font-size: 14px;
+  color: #333;
+  margin: 0 20px;
 }
 </style>
