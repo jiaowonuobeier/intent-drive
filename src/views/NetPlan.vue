@@ -77,11 +77,11 @@ export default {
         bottomRightLat: "",
       },
       // 预定义的经度和纬度选项
-      longitudes: [
+      latitudes: [
         30.487194,
         30.537194,
       ], // 示例经度
-      latitudes: [
+      longitudes: [
         102.706823,
         102.756823,
       ], // 示例纬度
@@ -109,77 +109,192 @@ export default {
     removeDevice(index) {
       this.devices.splice(index, 1);
     },
+    // async planRegion() {
+    //   await axios({
+    //     method: "post",
+    //     // https://blatantly-relaxing-cougar.ngrok-free.app/
+    //     url: `https://blatantly-relaxing-cougar.ngrok-free.app/netplan/region`,
+    //     data: {
+    //       "latitude": [this.region.topLeftLat, this.region.bottomRightLat],
+    //       "longitude": [this.region.topLeftLon, this.region.bottomRightLon]
+    //     },
+    //     // responseType: "json",
+    //   }).then(
+    //     (response) => {
+    //       this.image1Src = "http://127.0.0.1:4999/netplan/region"; // 假设后端返回了图片 URL
+    //       console.log(response);
+    //       this.$message({
+    //         message: '注册成功',
+    //         type: 'success'
+    //       });
+    //     },
+    //     (error) => {
+    //       console.log("错误", error);
+    //     }
+    //   );
+    // },
     async planRegion() {
-      await axios({
-        method: "post",
-        url: `http://127.0.0.1:4999/netplan/region`,
-        data: {
-          "latitude": [this.region.topLeftLat, this.region.bottomRightLat],
-          "longitude": [this.region.topLeftLon, this.region.bottomRightLon]
-        },
-        // responseType: "json",
-      }).then(
-        (response) => {
-          this.image1Src = "http://127.0.0.1:4999/netplan/region"; // 假设后端返回了图片 URL
-          console.log(response);
-          this.$message({
-            message: '注册成功',
-            type: 'success'
-          });
-        },
-        (error) => {
-          console.log("错误", error);
-        }
-      );
-    },
-    async setnode() {
-      await axios({
-        method: "post",
-        url: `http://127.0.0.1:4999/netplan/setnode`,
-        data: {
-          "node_num": this.pointCount
-        },
-        responseType: "json",
-      }).then(
-        (response) => {
-          this.image2Src = "http://127.0.0.1:4999/netplan/setnode"; // 假设后端返回了图片 URL
-          console.log(response);
-          this.$message({
-            message: '注册成功',
-            type: 'success'
-          });
-        },
-        (error) => {
-          console.log("错误", error);
-        }
-      );
-    },
+  try {
+    const response = await axios({
+      method: "post",
+      url: `https://blatantly-relaxing-cougar.ngrok-free.app/netplan/region`,
+      data: {
+        latitude: [this.region.topLeftLat, this.region.bottomRightLat],
+        longitude: [this.region.topLeftLon, this.region.bottomRightLon]
+      },
+      responseType: 'blob' // 重要：指定响应类型为 Blob
+    });
 
-    async routeplan() {
-      await axios({
-        method: "post",
-        url: `http://127.0.0.1:4999/netplan/route`,
-        data: {
+    // 创建一个临时的 URL 来显示图片
+    const imageUrl = URL.createObjectURL(response.data);
+
+    // 将生成的 URL 设置为图片的 src
+    this.image1Src = imageUrl;
+
+    console.log('图片获取成功:', imageUrl);
+
+    // 显示成功消息
+    this.$message({
+      message: '注册成功',
+      type: 'success'
+    });
+
+    // 可选：在图片加载完成后释放对象 URL 以节省内存
+    // 你可以在 img 标签的 onload 事件中调用 URL.revokeObjectURL(this.image1Src)
+  } catch (error) {
+    console.error('获取图片时出错:', error);
+
+    // 显示错误消息
+    this.$message({
+      message: '注册失败，请重试',
+      type: 'error'
+    });
+  }
+    },
+async setnode() {
+  try {
+    const response = await axios({
+      method: "post",
+      url: `https://blatantly-relaxing-cougar.ngrok-free.app/netplan/setnode`,
+      data: {
+        "node_num": this.pointCount
+      },
+      responseType: 'blob' // 重要：指定响应类型为 Blob
+    });
+
+    // 创建一个临时的 URL 来显示图片
+    const imageUrl = URL.createObjectURL(response.data);
+
+    // 将生成的 URL 设置为图片的 src
+    this.image2Src = imageUrl;
+
+    console.log('图片获取成功:', imageUrl);
+
+    // 显示成功消息
+    this.$message({
+      message: '注册成功',
+      type: 'success'
+    });
+
+    // 可选：在图片加载完成后释放对象 URL 以节省内存
+    // 你可以在 img 标签的 onload 事件中调用 URL.revokeObjectURL(this.image1Src)
+  } catch (error) {
+    console.error('获取图片时出错:', error);
+
+    // 显示错误消息
+    this.$message({
+      message: '注册失败，请重试',
+      type: 'error'
+    });
+  }
+},
+    // async setnode() {
+    //   await axios({
+    //     method: "post",
+    //     url: `http://127.0.0.1:4999/netplan/setnode`,
+    //     data: {
+    //       "node_num": this.pointCount
+    //     },
+    //     responseType: "json",
+    //   }).then(
+    //     (response) => {
+    //       this.image2Src = "http://127.0.0.1:4999/netplan/setnode"; // 假设后端返回了图片 URL
+    //       console.log(response);
+    //       this.$message({
+    //         message: '注册成功',
+    //         type: 'success'
+    //       });
+    //     },
+    //     (error) => {
+    //       console.log("错误", error);
+    //     }
+    //   );
+    // },
+
+  async routeplan() {
+  try {
+    const response = await axios({
+      method: "post",
+      url: `https://blatantly-relaxing-cougar.ngrok-free.app/netplan/route`,
+      data: {
           "start_node": Number(this.route.start_node) || 1,
           "end_node": Number(this.route.end_node) || 10,
           "time_weight": Number(this.route.time_weight) || 0.5,
-          "delay_weight": Number(this.route.delay_weight) || 0.5
+          "loss_weight": Number(this.route.delay_weight) || 0.5
+      },
+      responseType: 'blob' // 重要：指定响应类型为 Blob
+    });
 
-        },
-      }).then(
-        (response) => {
-          this.image3Src = "http://127.0.0.1:4999/netplan/route"; // 假设后端返回了图片 URL
-          console.log(response);
-          this.$message({
-            message: '注册成功',
-            type: 'success'
-          });
-        },
-        (error) => {
-          console.log("错误", error);
-        }
-      );
-    },
+    // 创建一个临时的 URL 来显示图片
+    const imageUrl = URL.createObjectURL(response.data);
+
+    // 将生成的 URL 设置为图片的 src
+    this.image3Src = imageUrl;
+
+    console.log('图片获取成功:', imageUrl);
+
+    // 显示成功消息
+    this.$message({
+      message: '注册成功',
+      type: 'success'
+    });
+
+    // 可选：在图片加载完成后释放对象 URL 以节省内存
+    // 你可以在 img 标签的 onload 事件中调用 URL.revokeObjectURL(this.image1Src)
+  } catch (error) {
+    console.error('获取图片时出错:', error);
+
+    // 显示错误消息
+    this.$message({
+      message: '注册失败，请重试',
+      type: 'error'
+    });
+  }
+},  
+    // async routeplan() {
+    //   await axios({
+    //     method: "post",
+    //     url: `http://127.0.0.1:4999/netplan/route`,
+    //     data: {
+    //       "start_node": Number(this.route.start_node) || 1,
+    //       "end_node": Number(this.route.end_node) || 10,
+    //       "time_weight": Number(this.route.time_weight) || 0.5,
+    //       "loss_weight": Number(this.route.delay_weight) || 0.5
+    //     },
+    //   }).then(
+    //     (response) => {
+    //       this.image3Src = "http://127.0.0.1:4999/netplan/route"; // 假设后端返回了图片 URL
+    //       console.log(response);
+    //       this.$message({
+    //         message: '注册成功',
+    //         type: 'success'
+    //       });
+    //     },
+    //     (error) => {
+    //       console.log("错误", error);
+    //     }
+    //   );
+    // },
   },
 }
 </script>
