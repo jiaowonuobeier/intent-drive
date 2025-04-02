@@ -14,6 +14,7 @@ import SysShow from "../views/SysShow.vue";
 import NetPlan from "../views/NetPlan.vue";
 import CallMan from "../views/CallMan.vue";
 import ConnMan from "../views/ConnMan.vue";
+import TestView from "../views/TestView.vue";
 
 
 Vue.use(VueRouter); //Vue全局使用Router
@@ -81,6 +82,10 @@ const router = new VueRouter({
         {
           path: "ConnMan",
           component: ConnMan,
+        },
+        {
+          path: "TestView",
+          component: TestView,
         },
       ],
     },

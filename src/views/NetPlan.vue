@@ -304,7 +304,8 @@ async setnode() {
   margin: auto;
   text-align: center;
   display: flex;
-  gap: 20px;
+  gap: 20px; /* 增加容器之间的间距 */
+  padding: 20px;
 }
 .form-group {
   margin-bottom: 15px;
@@ -324,14 +325,21 @@ select {
   height: 50px;
 }
 .Plan {
-  flex: 0 0 20%; /* 占据剩余空间的一半 */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 添加阴影效果 */
 }
+.Plan {
+  flex: 1; /* 占据1份空间 */
+}
+
 .imagesregion {
-  flex: 1; /* 占据剩余空间的一半 */
+  flex: 3; /* 占据3份空间 */
+}
+
+.imagesregion {
   display: flex;
   flex-direction: column; /* 图片垂直排列 */
   gap: 10px; /* 图片之间的间距 */
@@ -339,6 +347,7 @@ select {
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 添加阴影效果 */
 }
 .card {
   background: #fff;

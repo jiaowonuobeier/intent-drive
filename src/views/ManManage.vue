@@ -91,7 +91,7 @@
       </table>
     </div>
     <div class="table-container" v-if="weixing_is">
-      <h3>卫星链路网络</h3>
+      <h3>卫星链路网络</h3><button @click="openNewPage2">点击跳转</button>
       <table>
         <thead>
           <tr>
@@ -158,6 +158,9 @@ export default {
     openNewPage() {
       // 链接到 public/newpage/index.html
       window.open('/wh604671/index.html', '_blank');
+    },
+    openNewPage2() {
+      window.open('/weixing/index.html', '_blank');
     },
     zizuzhi_change() {
       this.zizuzhi_is = true;

@@ -68,6 +68,12 @@
             <router-link to="/IndexPage/ConfigManage">手动配置</router-link>
           </span>
         </el-menu-item>
+        <el-menu-item index="5">
+          <i class="el-icon-menu" style="color: #0066CC; font-weight: bold;"></i>
+          <span slot="title">
+            <router-link to="/IndexPage/TestView">TestView</router-link>
+          </span>
+        </el-menu-item>
       </el-menu>
 
     </el-col>
