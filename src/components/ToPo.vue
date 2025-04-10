@@ -1,308 +1,385 @@
 <template>
-  <div class="container">
-    <div class="map-container">
-      <div id="map"></div>
-    </div>
-    <div class="selectors">
-      <form>
-        <div>
-          <label for="province">省:</label>
-          <select id="province" v-model="selectedProvince" @change="updateMapView">
-            <option value="">请选择省</option>
-            <option v-for="(province, index) in provinces" :key="index" :value="province">
-              {{ province }}
-            </option>
-          </select>
-        </div>
+<div class="map-container">
+  <div id="map" style="width: 100%; height: 100vh;z-index:9;"></div>
+  <div class="selectors">
+    <form>
+      <!-- 省选择器 -->
+      <div>
+        <label for="province">省:</label>
+        <select id="province" v-model="selectedProvince" @change="loadCities">
+          <option value="">请选择省</option>
+          <option v-for="(province, index) in provinces" :key="index" :value="province">
+            {{ province.name }}
+          </option>
+        </select>
+      </div>
 
-        <div>
-          <label for="city">市:</label>
-          <select id="city" v-model="selectedCity" @change="updateMapView">
-            <option value="">请选择市</option>
-            <option v-for="(city, index) in cities" :key="index" :value="city">
-              {{ city }}
-            </option>
-          </select>
-        </div>
+      <!-- 市选择器 -->
+      <div>
+        <label for="city">市:</label>
+        <select id="city" v-model="selectedCity" @change="loadCounties">
+          <option value="">请选择市</option>
+          <option
+            v-for="(city, index) in selectedProvince?.cities"
+            :key="index"
+            :value="city"
+          >
+            {{ city.name }}
+          </option>
+        </select>
+      </div>
 
-        <div>
-          <label for="county">县:</label>
-          <select id="county" v-model="selectedCounty" @change="updateMapView">
-            <option value="">请选择县</option>
-            <option v-for="(county, index) in counties" :key="index" :value="county">
-              {{ county }}
-            </option>
-          </select>
-        </div>
-      </form>
-    </div>
+      <!-- 县选择器 -->
+      <div>
+        <label for="county">县:</label>
+        <select id="county" v-model="selectedCounty" @change="updateCoordinates">
+          <option value="">请选择县</option>
+          <option
+            v-for="(county, index) in selectedCity?.counties"
+            :key="index"
+            :value="county"
+          >
+            {{ county.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- 显示选中的经纬度 -->
+      <div>
+        选中的县: {{ selectedCounty?.name || "未选择" }} <br>
+        纬度: {{ selectedLat || "未选择" }}<br>
+        经度: {{ selectedLong || "未选择" }}<br>
+      </div>
+      <button @click="centerOnSelectedRegion">确定</button>
+    </form>
   </div>
+
+
+</div>
+  
+  
 </template>
 
 <script>
-import { ref, computed, onMounted, watch } from 'vue';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-
-// 模拟地理坐标数据
-const geoData = {
-  "北京": {
-    "北京市": [
-      { name: "东城区", latitude: 39.93923, longitude: 116.397428 },
-      { name: "西城区", latitude: 39.933, longitude: 116.36583 },
-      { name: "朝阳区", latitude: 39.92, longitude: 116.43 },
-      { name: "丰台区", latitude: 39.857, longitude: 116.275 },
-      { name: "石景山区", latitude: 39.93, longitude: 116.19 },
-      { name: "海淀区", latitude: 39.983, longitude: 116.316 },
-      { name: "门头沟区", latitude: 39.99, longitude: 116.1 },
-      { name: "房山区", latitude: 39.75, longitude: 116.13 },
-      { name: "通州区", latitude: 39.92, longitude: 116.65 },
-      { name: "顺义区", latitude: 40.13, longitude: 116.65 },
-      { name: "昌平区", latitude: 40.22, longitude: 116.23 },
-      { name: "大兴区", latitude: 39.73, longitude: 116.34 },
-      { name: "怀柔区", latitude: 40.32, longitude: 116.63 },
-      { name: "平谷区", latitude: 40.14, longitude: 117.12 },
-      { name: "密云区", latitude: 40.37, longitude: 116.84 },
-      { name: "延庆区", latitude: 40.46, longitude: 115.98 }
-    ]
-  },
-  "上海": {
-    "上海市": [
-      { name: "黄浦区", latitude: 31.2304, longitude: 121.4737 },
-      { name: "徐汇区", latitude: 31.1987, longitude: 121.438 },
-      { name: "长宁区", latitude: 31.219, longitude: 121.431 },
-      { name: "静安区", latitude: 31.229, longitude: 121.448 },
-      { name: "普陀区", latitude: 31.263, longitude: 121.401 },
-      { name: "虹口区", latitude: 31.275, longitude: 121.496 },
-      { name: "杨浦区", latitude: 31.296, longitude: 121.523 },
-      { name: "闵行区", latitude: 31.113, longitude: 121.384 },
-      { name: "宝山区", latitude: 31.405, longitude: 121.483 },
-      { name: "嘉定区", latitude: 31.383, longitude: 121.244 },
-      { name: "浦东新区", latitude: 31.233, longitude: 121.505 },
-      { name: "金山区", latitude: 30.741, longitude: 121.343 },
-      { name: "松江区", latitude: 31.031, longitude: 121.224 },
-      { name: "青浦区", latitude: 31.123, longitude: 121.121 },
-      { name: "奉贤区", latitude: 30.922, longitude: 121.473 },
-      { name: "崇明区", latitude: 31.624, longitude: 121.398 }
-    ]
-  },
-  // 你可以根据需要添加更多省份、城市和县区的坐标
-};
+import axios from "axios";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 export default {
-  name: 'App',
-  setup() {
-    // 响应式数据
-    const selectedProvince = ref('');
-    const selectedCity = ref('');
-    const selectedCounty = ref('');
 
-    // 计算属性，根据选中的省份动态计算城市列表
-    const provinces = computed(() => Object.keys(geoData));
+  props: ["all_url"],
+  data() {
+    return {
+      map: null,
+      selectedlong: 103.928993,
+      selectedlat:30.749958, 
+      iconMap: {
+        cluster: require("../assets/cluster.png"),
+        router: require("../assets/router.png"),
+        ad_hoc: require("../assets/ad_hoc.png"),
+        satellite: require("../assets/satellite.png"),
+      },
+      locations: [
+        {
+          type: "cluster",
+          state: "on",
+          ip: "192.167.20.1",
+          rssl: "高",
+          latitude: 39.9089,
+          longitude: 116.3975,
+          name: "天安门",
+          iconUrl: require("../assets/computer.png"), //可选：computer，router，phone，server
+        },
+        {
+          type: "ad_hoc",
+          state: "on",
+          ip: "192.167.20.1",
+          rssl: "高",
+          latitude: 39.9163,
+          longitude: 116.3972,
+          name: "故宫",
+          iconUrl: require("../assets/server.png"),
+        },
+        {
+          type: "router",
+          state: "on",
+          ip: "192.167.20.1",
+          rssl: "高",
+          latitude: 39.8832,
+          longitude: 116.409,
+          name: "天坛",
+          iconUrl: require("../assets/router.png"),
+        },
+      ],
+      links: [
+        { from: "天安门", to: "故宫" },
+        { from: "故宫", to: "天坛" },
+      ],
+      polyline: null,
+      provinces: [
+        {
+          name: "广东省",
+          cities: [
+            {
+              name: "深圳市",
+              counties: [
+                { name: "南山区", latitude: 22.5384, longitude: 113.9312 },
+                { name: "福田区", latitude: 22.5415, longitude: 114.0579 },
+              ],
+            },
+            {
+              name: "广州市",
+              counties: [
+                { name: "天河区", latitude: 23.1291, longitude: 113.3245 },
+                { name: "越秀区", latitude: 23.1252, longitude: 113.2841 },
+              ],
+            },
+          ],
+        },
+        {
+          name: "湖南省",
+          cities: [
+            {
+              name: "长沙市",
+              counties: [
+                { name: "岳麓区", latitude: 28.2364, longitude: 112.9458 },
+                { name: "芙蓉区", latitude: 28.1741, longitude: 113.0012 },
+              ],
+            },
+            {
+              name: "株洲市",
+              counties: [
+                { name: "天元区", latitude: 28.1741, longitude: 113.0012 },
+                { name: "荷塘区", latitude: 27.8541, longitude: 113.1212 },
+              ],
+            },
+          ],
+        },
+      ],
+      selectedProvince: "",
+      selectedCity: "",
+      selectedCounty: "",
+      selectedLat: "",
+      selectedLong: "",
+    };
+  },
 
-    const cities = computed(() => {
-      if (selectedProvince.value && geoData[selectedProvince.value]) {
-        return Object.keys(geoData[selectedProvince.value]);
+  created() {
+    this.getData();
+  },
+
+  // mounted() {
+  //   this.initMap(); // 初始化地图
+  // },
+
+  methods: {
+    // 加载市
+    loadCities() {
+      if (this.selectedProvince) {
+        this.selectedCity = ""; // 清空市
+        this.selectedCounty = ""; // 清空县
+        this.selectedLat = ""; // 清空纬度
+        this.selectedLong = ""; // 清空经度
       }
-      return [];
-    });
+    },
 
-    const counties = computed(() => {
-      if (selectedProvince.value && selectedCity.value && geoData[selectedProvince.value][selectedCity.value]) {
-        // 假设县区列表与城市相同，你可以根据实际数据调整
-        return Object.keys(geoData[selectedProvince.value][selectedCity.value]);
+    // 加载县
+    loadCounties() {
+      if (this.selectedCity) {
+        this.selectedCounty = ""; // 清空县
+        this.selectedLat = ""; // 清空纬度
+        this.selectedLong = ""; // 清空经度
       }
-      // 如果没有县区数据，返回空数组或根据需要处理
-      return [];
-    });
+    },
 
-    // Leaflet 地图实例
-    const map = ref(null);
+    // 更新经纬度
+    updateCoordinates() {
+      if (this.selectedCounty) {
+        this.selectedLat = this.selectedCounty.latitude; // 更新纬度
+        this.selectedLong = this.selectedCounty.longitude; // 更新经度
+      } else {
+        this.selectedLat = ""; // 清空纬度
+        this.selectedLong = ""; // 清空经度
+      }
+    },
+    // 确定按钮逻辑
+    centerOnSelectedRegion() {
+      if (this.selectedLat && this.selectedLong) {
+        this.initMap([this.selectedLat, this.selectedLong], 19); // 使用选中的经纬度初始化地图
+      } else {
+        alert("请先选择省市县！");
+      }
+    },
+    initMap(center = [30.749958, 103.928993], zoom = 19) {
+      console.log(123);
+      console.log("locations:", this.locations, "links:", this.links);
+      if (this.map) {
+        this.map.remove();
+      }
+      this.map = L.map("map",{zoomControl: false,attributionControl:false}).setView(center, zoom); // 设置中心坐标和缩放级别
 
-    // 初始化地图
-    onMounted(() => {
-      map.value = L.map('map', { zoomControl: false, attributionControl: false }).setView([23.1291, 113.2644], 5); // 默认中心坐标和缩放级别
-
-      // 瓦片图层（天地图矢量）
+      // 瓦片图层
+      //矢量
       const vectorLayer = L.tileLayer(
         "http://t0.tianditu.gov.cn/vec_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=vec&tileMatrixSet=w&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles&tk=d49d49c6107ff70ca82626293ecb64e0",
         {
           zoomControl: false,
-          attributionControl: false,
-        }
-      ).addTo(map.value);
+          attributionControl:false,
 
-      // 影像层（天地图影像）
+        }
+      ).addTo(this.map);
+
+//影像层
       const imageLayer = L.tileLayer(
         "https://t0.tianditu.gov.cn/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles&tk=d49d49c6107ff70ca82626293ecb64e0",
         {
+          // maxZoom: 18,
+          // attribution: "Tiles &copy; Tian Di Tu",
           zoomControl: false,
-          attributionControl: false,
+          attributionControl:false,
         }
-      );
-
-      // 文字标记层（天地图标注）
+      ).addTo(this.map);
+//文字标记层
       const textLayer = L.tileLayer(
         "http://t0.tianditu.gov.cn/cva_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=cva&tileMatrixSet=w&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles&tk=d49d49c6107ff70ca82626293ecb64e0",
         {
+          // maxZoom: 18,
+          // attribution: "Tiles &copy; Tian Di Tu",
           zoomControl: false,
-          attributionControl: false,
+          attributionControl:false,
         }
-      );
-
+      ).addTo(this.map);
       // 添加图层控制
       const baseMaps = {
         矢量图: vectorLayer,
-        影像层: imageLayer,
         文字标记层: textLayer,
+        影像层: imageLayer,
       };
+      
 
-      L.control.layers(baseMaps, null, { collapsed: false }).addTo(map.value);
-
-      // 修改图层选择器的样式
+       L.control.layers(baseMaps).addTo(this.map);
       const layersElement = document.querySelector('.leaflet-control-layers');
-      if (layersElement) {
-        const selectors = layersElement.querySelectorAll('.leaflet-control-layers-selector');
-        selectors.forEach(selector => {
-          selector.style.width = '12px';
-          selector.style.height = '12px';
-          selector.style.borderRadius = '50%';
-          selector.style.border = '1px solid #000';
-          selector.style.background = 'white';
-        });
-      }
+
+  // 修改图层选择器的样式
+  if (layersElement) {
+    const selectors = layersElement.querySelectorAll('.leaflet-control-layers-selector');
+    selectors.forEach(selector => {
+      selector.style.width = '10px'; // 修改宽度
+      selector.style.height = '10px'; // 修改高度
+      selector.style.borderRadius = '50%'; // 确保保持圆形
+      selector.style.border = '1px solid #000'; // 添加边框
+      selector.style.background = 'white'; // 背景颜色
     });
+  }
+      this.locations.forEach((location) => {
+        console.log(location);
+        // 添加填充蓝色的圆圈
+        // L.circle([location.latitude, location.longitude], {
+        //   color: "blue",
+        //   fillColor: "blue",
+        //   fillOpacity: 0.5,
+        //   radius: 10,
+        // }).addTo(map);
 
-    // 方法：更新地图视图到选中的地点中心
-    const updateMapView = () => {
-      if (!map.value) return;
+        // 创建一个可缩放的图标
+        const customIcon = L.divIcon({
+          className: "custom-icon",
+          html: `<img src="${
+            this.iconMap[location.type]
+          }" style="width: 50px; height: 50px;" />`,
+          iconSize: [50, 50],
+          iconAnchor: [25, 50],
+          popupAnchor: [0, -50],
+        });
 
-      let latitude = 0;
-      let longitude = 0;
-      let zoomLevel = 5; // 默认缩放级别
+        // 添加标记并绑定弹出窗口
+        L.marker([location.latitude, location.longitude], {
+          icon: customIcon,
+        }).addTo(this.map).bindPopup(`
+    <div class="popup-content" style="font-size: 30px; max-width: 250px;" >  
+      <strong>节点名称： ${location.name}</strong><br>
+      IP地址:  ${location.ip}<br>
+      设备状态:  ${location.state}<br>
+      信号强度:  ${location.rssl}<br>
+      纬度:  ${location.latitude}<br>
+      经度:  ${location.longitude}<br>
+    </div>
+  `);
 
-      if (selectedCounty.value) {
-        const countyData = geoData[selectedProvince.value]?.[selectedCity.value]?.[selectedCounty.value];
-        if (countyData) {
-          latitude = countyData.latitude;
-          longitude = countyData.longitude;
-          zoomLevel = 10; // 县区级别缩放
+        //绘制连接线
+        this.links.forEach((link) => {
+          const fromLocation = this.locations.find(
+            (loc) => loc.name === link.from
+          );
+          const toLocation = this.locations.find((loc) => loc.name === link.to);
+
+          if (fromLocation && toLocation) {
+            const latLngs = [
+              [fromLocation.latitude, fromLocation.longitude],
+              [toLocation.latitude, toLocation.longitude],
+            ];
+            L.polyline(latLngs, { color: "red", weight: 2 }).addTo(this.map);
+          }
+        });
+      });
+    },
+    async getData() {
+      console.log("开始获取数据");
+      await axios({
+        url: "http://127.0.0.1:4999/topology",
+        method: "get",
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        },
+      }).then(
+        (response) => {
+          console.log("后端返回了res");
+          console.log(response);
+          this.locations = response.data.chartData.locations;
+          console.log("locations获取数据成功");
+          this.links = response.data.chartData.links;
+          console.log("links获取数据成功");
+          console.log("获取数据成功");
+          console.log("开始绘制地图");
+          this.initMap();
+        },
+        (error) => {
+          console.log("后端返回了错误状态码");
+          console.log("错误", error);
+          this.initMap();
         }
-      } else if (selectedCity.value) {
-        const cityData = geoData[selectedProvince.value]?.[selectedCity.value];
-        if (cityData) {
-          latitude = cityData.latitude;
-          longitude = cityData.longitude;
-          zoomLevel = 8; // 城市级别缩放
-        }
-      } else if (selectedProvince.value) {
-        // 如果只有省份，取该省份下第一个城市的坐标
-        const firstCity = Object.keys(geoData[selectedProvince.value])[0];
-        const provinceData = geoData[selectedProvince.value][firstCity];
-        if (provinceData) {
-          latitude = provinceData.latitude;
-          longitude = provinceData.longitude;
-          zoomLevel = 6; // 省份级别缩放
-        }
-      }
-
-      if (latitude && longitude) {
-        map.value.setView([latitude, longitude], zoomLevel);
-        
-        // 移除之前的标记（如果存在）
-        if (window.marker) {
-          map.value.removeLayer(window.marker);
-        }
-
-        // 添加新的标记
-        window.marker = L.marker([latitude, longitude]).addTo(map.value)
-          .bindPopup(`<strong>地点：</strong>${selectedCounty.value || selectedCity.value || selectedProvince.value}`)
-          .openPopup();
-      }
-    };
-
-    // 监听选择变化，自动更新地图视图
-    watch([selectedProvince, selectedCity, selectedCounty], updateMapView);
-
-    return {
-      selectedProvince,
-      selectedCity,
-      selectedCounty,
-      provinces,
-      cities,
-      counties,
-      updateMapView,
-    };
+      );
+    },
   },
 };
 </script>
 
 <style scoped>
-.container {
-  position: relative;
-  height: 100vh; /* 设置容器高度为视口高度 */
+.map-container{
+  position:relative;
 }
-
-.map-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 70%; /* 地图占据70%宽度 */
-  height: 100%;
-  z-index: 9;
+.map{
+  position:absolute;
+  z-index:9;
 }
-
 .selectors {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 2%;
+  left: 2%;
   z-index: 10;
-  background-color: #fff;
-  padding: 15px;
+  padding: 13px;
+  background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  width: 250px; /* 设置选择器的宽度 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eaeaea;
+  max-width: 200px; /* 限制宽度，避免过宽 */
+  width: 100%; /* 自适应宽度 */
 }
 
-.selectors form div {
-  margin-bottom: 10px;
-}
-
-label {
-  margin-right: 5px;
-  font-weight: bold;
-}
-
-select {
-  padding: 5px 8px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
-}
-
-/* Leaflet 控件样式调整 */
-.leaflet-control-layers-list label span .leaflet-control-layers-selector {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 1px solid #000;
-  background: white;
-  margin-right: 5px;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .map-container {
-    width: 100%;
-    height: 80vh;
-  }
-
-  .selectors {
-    width: 100%;
-    top: auto;
-    bottom: 0;
-    border-radius: 0;
-  }
+/* 表单布局 */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0px; /* 增加间距 */
 }
 </style>

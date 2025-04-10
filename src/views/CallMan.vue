@@ -2,46 +2,74 @@
   <div class="container">
     <div class="plan">
       <h1 style="border-bottom: 1px solid black; font-size: 18px;">意图控制(通话管理)</h1>
-      
-      <!-- 意图选择区域 -->
-      <div class="form-group">
-        <span>意图选择区域</span>
-        <select class="custom-select" v-model="selectedIntent">
-          <option value="" disabled selected>请选择意图</option>
-          <option v-for="t in tips" :key="t" :value="t">{{ t }}</option>
-        </select>
-      </div>
-      
       <!-- 按钮区域 -->
       <div class="form-group">
-        <button class="submit-btn" @click="planRegion('解析意图')">解析意图</button>
+        <button class="submit-btn" @click="yitushuru">意图输入</button>
       </div>
       <div class="form-group">
-        <button class="submit-btn" @click="planRegion('转译意图')">转译意图</button>
+        <button class="submit-btn" @click="yitujiexi">解析意图</button>
       </div>
       <div class="form-group">
-        <button class="submit-btn" @click="planRegion('执行意图')">执行意图</button>
+        <button class="submit-btn" @click="yituzhuanyi">转译意图</button>
+      </div>
+      <div class="form-group">
+        <button class="submit-btn" @click="yituzhixing">执行意图</button>
       </div>
     </div>
     
     <div class="region">
-      <h1 style="border-bottom: 1px solid black; font-size: 18px;">效果展示</h1>
-      <div class="form-group">
-        <span>意图解析显示</span>
-        <div class="display-area">
-          {{ parsedResult || "暂无解析结果" }}
+      <h1 style="border-bottom: 1px solid black; font-size: 18px;">结果显示</h1>
+      <div class="form-group" v-if="input_button">
+        <div class="card-container">
+          <div class="card">
+            <h>意图选择模块</h><br>
+            <select class="custom-select" v-model="selectedIntent">
+              <option value="" disabled selected>请选择意图</option>
+              <option v-for="t in tips" :key="t" :value="t">{{ t }}</option>
+            </select>
+          </div>
+          <div class="card">
+            <h>语音输入模块</h>
+            <!-- <div class="modelinfo">
+              <strong style="color: #336666;">依次点击按钮</strong>录入声音，十几秒后您的意图出现在下方，确认了您的意图之后点击 
+              <strong style="color: #336699;">"意图解析模块"</strong> 的 
+              <strong style="color: #336699;">"开始解析意图"</strong>。语音输入模块与文本输入模块二选一即可
+            </div> -->
+            <div class="button-container">
+              <button @click="recOpen">打开录音，获得权限</button>
+              <button @click="recStart">开始录音</button>
+              <button @click="recStop">结束录音</button>
+              <button @click="recPlay">本地试听</button>
+            </div>
+            <div style="height: 100px; width: 100%" ref="recwave"></div>
+            <div>
+              <h>您的语音内容：</h>
+              <div>{{ speak_text }}</div>
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="form-group">
-        <span>意图转译显示</span>
-        <div class="display-area">
-          {{ translatedResult || "暂无转译结果" }}
-        </div>
-      </div>
-      <div class="form-group">
-        <span>意图执行显示</span>
-        <div class="display-area">
-          {{ executedResult || "暂无执行结果" }}
+        <div class="card-container">
+          <div class="card" style="width: 500px;">
+            <span>意图解析显示</span>
+            <div class="display-area">
+              {{ parsedResult || "暂无解析结果" }}
+            </div>
+          </div>
+          <div class="card" style="width: 500px;">
+            <span>意图解析显示</span>
+            <div class="display-area">
+              {{ translatedResult || "暂无解析结果" }}
+            </div>
+          </div>
+          <div class="card" style="width: 500px;">
+            <span>意图解析显示</span>
+            <div class="display-area">
+              {{ executedResult || "暂无解析结果" }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -50,6 +78,7 @@
 
 <script>
 import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -68,10 +97,21 @@ export default {
       executedResult: "",
       remessage1:"",
       remessage2: "",
-      remessage3:""
+      remessage3: "",
+      input_button: true,
+      rec: null,
+      recBlob: null,
+      wave: null,
+      isRecording: false,
+      recordedBlob: null,
+      transcript: "",
     };
   },
   methods: {
+    yitushuru()
+    {
+      this.input_button=true
+    },
     async yituzhuanyi() {
       console.log(this.value_intent);
       await axios({
@@ -156,6 +196,24 @@ export default {
 .region {
   flex: 3; /* 右边容器占3份 */
 }
+.card-container {
+  display: flex;
+  gap: 20px; /* 卡片之间的间距 */
+  justify-content: center; /* 水平居中 */
+  margin-top: 20px;
+}
+
+/* 卡片通用样式 */
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 500px;
+  /* max-width: 48%; */
+  min-height: 400px; /* 根据需要调整 */
+}
 
 .form-group {
   display: flex;
@@ -164,6 +222,17 @@ export default {
   align-items: center; /* 水平居中 */
   gap: 5px; /* 标签与内容之间的间距 */
   min-height: 100px;
+}
+
+
+.card-container {
+  display: flex;
+  gap: 20px; /* 可选：设置卡片之间的间距 */
+}
+
+.card {
+  flex: 1; /* 使卡片均匀分配可用空间 */
+  min-width: 0; /* 防止内容溢出 */
 }
 
 .display-area {

@@ -64,7 +64,7 @@
       </table>
     </div>
     <div class="table-container" v-if="jiqun_is">
-      <h3>集群网络</h3>
+      <h3>集群网络</h3><button @click="openNewPage3">点击跳转</button>
       <table>
         <thead>
           <tr>
@@ -118,7 +118,7 @@
       </table>
     </div>
     <div class="table-container" v-if="ipwangluo_is">
-      <h3>IP网络</h3>
+      <h3>IP网络</h3><button @click="openNewPage4">点击跳转</button>
       <table>
         <thead>
           <tr>
@@ -161,6 +161,12 @@ export default {
     },
     openNewPage2() {
       window.open('/weixing/index.html', '_blank');
+    },
+    openNewPage3() {
+      window.open('/jiqun/index.html', '_blank');
+    },
+    openNewPage4() {
+      window.open('/ip/index.html', '_blank');
     },
     zizuzhi_change() {
       this.zizuzhi_is = true;
@@ -257,35 +263,35 @@ export default {
       num3: 0,
       num4: 0,
       tableData1: [
-        {
-          name: "node45",
-          ip: "192.168.10.45",
-          state: "on",
-          rssl: "强",
-          freqDefault: 1430000000,
-          baudrateRs485: 2500,
-          audioMicGain: 25,
-          pwAtten1: 86,
-          pwAtten2: 86,
-        },
-        {
-          name: "node46",
-          ip: "192.168.10.46",
-          state: "on",
-          rssl: "强",
-        },
-        {
-          name: "node47",
-          ip: "192.168.10.47",
-          state: "on",
-          rssl: "中",
-        },
-        {
-          name: "node48",
-          ip: "192.168.10.48",
-          state: "on",
-          rssl: "强",
-        },
+        // {
+        //   name: "node45",
+        //   ip: "192.168.10.45",
+        //   state: "on",
+        //   rssl: "强",
+        //   freqDefault: 1430000000,
+        //   baudrateRs485: 2500,
+        //   audioMicGain: 25,
+        //   pwAtten1: 86,
+        //   pwAtten2: 86,
+        // },
+        // {
+        //   name: "node46",
+        //   ip: "192.168.10.46",
+        //   state: "on",
+        //   rssl: "强",
+        // },
+        // {
+        //   name: "node47",
+        //   ip: "192.168.10.47",
+        //   state: "on",
+        //   rssl: "中",
+        // },
+        // {
+        //   name: "node48",
+        //   ip: "192.168.10.48",
+        //   state: "on",
+        //   rssl: "强",
+        // },
       ],
       tableData2: [],
       tableData3: [],

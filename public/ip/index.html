@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IP网络示意图</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 20px auto;
+        }
+
+        h2 {
+            color: #333333;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777777;
+        }
+
+        /* 网络拓扑图样式 */
+        .network-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .node {
+            background-color: #ffffff;
+            border: 1px solid #4CAF50;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            width: 120px;
+            height: 80px;
+            position: relative;
+        }
+
+        .node h3 {
+            margin: 0 0 10px;
+            font-size: 16px;
+        }
+
+        .node p {
+            margin: 0;
+            font-size: 14px;
+            color: #555555;
+        }
+
+        .node::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: #4CAF50;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 50px;
+        }
+
+        /* 去掉最后一个节点的连接线 */
+        .node:last-child::after {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>IP网络示意图</h1>
+    </header>
+
+    <div class="container">
+        <!-- 网络拓扑图部分 -->
+        <div class="network-diagram">
+            <!-- 路由器 -->
+            <div class="node" id="router">
+                <h3>路由器</h3>
+                <p>IP: 192.168.1.1</p>
+            </div>
+            <!-- 交换机 -->
+            <div class="node" id="switch">
+                <h3>交换机</h3>
+                <p>IP: 192.168.1.2</p>
+            </div>
+            <!-- 服务器 -->
+            <div class="node" id="server1">
+                <h3>服务器1</h3>
+                <p>IP: 192.168.1.3</p>
+            </div>
+            <!-- 客户端1 -->
+            <div class="node" id="client1">
+                <h3>客户端1</h3>
+                <p>IP: 192.168.1.10</p>
+            </div>
+            <!-- 客户端2 -->
+            <div class="node" id="client2">
+                <h3>客户端2</h3>
+                <p>IP: 192.168.1.11</p>
+            </div>
+        </div>
+
+        <!-- 网络描述部分 -->
+        <div class="section">
+            <h2>网络拓扑描述</h2>
+            <p>本IP网络由多个设备组成，包括路由器、交换机、服务器和客户端。以下是各设备的主要功能和连接关系：</p>
+            <ul>
+                <li><strong>路由器（Router）</strong>: 负责连接内部网络与外部互联网，进行数据包的路由和转发。</li>
+                <li><strong>交换机（Switch）</strong>: 连接内部网络中的各个设备，实现数据的交换和管理。</li>
+                <li><strong>服务器（Server）</strong>: 提供各种网络服务，如文件存储、数据库管理、Web服务等。</li>
+                <li><strong>客户端（Client）</strong>: 网络中的终端设备，如电脑、手机等，用于访问网络资源。</li>
+            </ul>
+        </div>
+
+        <!-- IP地址分配部分 -->
+        <div class="section">
+            <h2>IP地址分配</h2>
+            <ul>
+                <li>路由器: 192.168.1.1</li>
+                <li>交换机: 192.168.1.2</li>
+                <li>服务器1: 192.168.1.3</li>
+                <li>客户端1: 192.168.1.10</li>
+                <li>客户端2: 192.168.1.11</li>
+                <!-- 根据需要添加更多设备 -->
+            </ul>
+        </div>
+
+        <!-- 网络功能部分 -->
+        <div class="section">
+            <h2>网络功能</h2>
+            <ul>
+                <li>路由转发：路由器负责将数据包从一个网络转发到另一个网络。</li>
+                <li>数据交换：交换机在局域网内高效地交换数据帧。</li>
+                <li>服务提供：服务器为网络中的客户端提供各种服务。</li>
+                <li>访问控制：通过路由器和交换机配置，实现网络的访问控制和安全策略。</li>
+            </ul>
+        </div>
+
+        <!-- 管理界面部分 -->
+        <div class="section">
+            <h2>管理界面</h2>
+            <p>IP网络配备了以下管理工具和界面，以便管理员进行监控和管理：</p>
+            <ul>
+                <li><strong>路由器管理界面：</strong>通过Web界面或命令行界面配置路由器的各项参数。</li>
+                <li><strong>交换机管理界面：</strong>配置VLAN、端口速率、链路聚合等功能。</li>
+                <li><strong>服务器监控工具：</strong>实时监控服务器的性能指标和运行状态。</li>
+                <li><strong>网络监控系统：</strong>整体监控网络的流量、带宽使用情况及潜在问题。</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        © 2024 IP网络管理团队
+    </footer>
+
+</body>
+
+</html>

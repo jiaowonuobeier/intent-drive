@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="Plan">
-      <h1 style="border-bottom: 1px solid black; font-size: 18px;">规划区域</h1>
+      <h1 style="border-bottom: 1px solid black; font-size: 18px;">意图控制(路由规划)</h1>
       <!-- 区域输入 -->
       <div class="form-group">
         <!-- 输入示例：先锋村区域:30.487194,30.537194,102.706823,102.756823 -->
@@ -32,14 +32,14 @@
           <option value="" disabled selected>请选择经度</option><br>
           <option v-for="lon in longitudes" :key="lon" :value="lon">{{ lon }}</option><br>
         </select><br>
-        <button class="submit-btn" @click="planRegion">规划区域</button>
+        <button class="submit-btn" @click="planRegion">规划区域意图输入</button>
       </div>
       <!-- 点数输入 -->
       <div class="form-group">
         点数：
         <input type="number" id="pointCount" v-model.number="pointCount" placeholder="请输入点数" min="1"/><br>
         <button class="submit-btn" @click="setnode">
-          开始布点
+          开始布点意图输入
         </button>
       </div>
       <div class="form-group">
@@ -48,15 +48,26 @@
         注重时延:<input type="text" v-model="route.time_weight"><br>
         注重丢包:<input type="text" v-model="route.delay_weight"><br>
         <button class="submit-btn" @click="routeplan"> 
-          路由规划
+          路由规划意图输入
         </button>
       </div>
     </div>
 
     <div class="imagesregion">
-      <img id="myImage1" :src="image1Src" alt="Plan Region" width="800" height="auto" />
-      <img id="myImage2" :src="image2Src" alt="Set Node" width="800" height="auto" />
-      <img id="myImage3" :src="image3Src" alt="After Plan" width="800" height="auto" />
+      <div class="text-region">
+        <h1 style="border-bottom: 1px solid black; font-size: 18px;">结果显示</h1>
+        <ul class="description-list" style="text-align: left;">
+          <li><strong>网络规划</strong> 实现的任务为在指定范围区域内布设一定数量的<strong>自组织节点</strong></li>
+          <li> 在这些节点中任选两个节点作为需要进行<strong>相互通信的对端节点</strong></li>
+          <li> 规划出这两个节点在指定需求下的<strong>最优通信路由</strong></li>
+          <li>该路由考虑的因素包含路径长度对<strong>时延</strong> 的影响以及地形遮挡对<strong>丢包率</strong> 的影响</li>
+          <!-- 网络规划实现的任务为在指定范围区域内布设一定数量的自组织节点，在这些节点中任选两个节点作为需要进行相互通信的对端节点，
+          然后规划出这两个节点在指定需求下的最优通信路由。该路由考虑的因素包含路径长度对时延的影响以及地形遮挡对丢包率的影响。 -->
+        </ul>
+      </div>
+      <img id="myImage1" :src="image1Src" alt="Plan Region" width="auto" height="1200" />
+      <!-- <img id="myImage2" :src="image2Src" alt="Set Node" width="800" height="auto" />
+      <img id="myImage3" :src="image3Src" alt="After Plan" width="800" height="auto" /> -->
     </div>
  </div>
 </template>
@@ -186,7 +197,7 @@ async setnode() {
     const imageUrl = URL.createObjectURL(response.data);
 
     // 将生成的 URL 设置为图片的 src
-    this.image2Src = imageUrl;
+    this.image1Src = imageUrl;
 
     console.log('图片获取成功:', imageUrl);
 
@@ -249,7 +260,7 @@ async setnode() {
     const imageUrl = URL.createObjectURL(response.data);
 
     // 将生成的 URL 设置为图片的 src
-    this.image3Src = imageUrl;
+    this.image1Src = imageUrl;
 
     console.log('图片获取成功:', imageUrl);
 
@@ -374,7 +385,7 @@ button {
   padding: 8px;
   border-radius: 5px;
   cursor: pointer;
-  width: 100px;
+  width: 150px;
 }
 button:hover {
   background: #0056b3;
@@ -451,4 +462,26 @@ input {
   border: 1px solid #3c763d;
   border-radius: 4px;
 }
+.text-region {
+  margin-bottom: 40px; /* 与图片区域的间距 */
+}
+
+.text-region h2 {
+  font-size: 24px;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+.description-list {
+  list-style-type: disc; /* 列表项前显示圆点 */
+  padding-left: 100px; /* 增加左边距 */
+}
+.imagesregion .text-region .description-list li {
+  font-size: 16px;
+  color: #555555;
+  margin-bottom: 0px; /* 调整后的间距 */
+  text-align: left;  
+  height: 40px
+}
+
 </style>
