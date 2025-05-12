@@ -64,7 +64,8 @@ export default {
         },
       }).then(
         (response) => {
-          console.log("正确", response);
+              console.log("正确", response);
+              this.$message.error('优先级设置成功');
         },
         (error) => {
           console.log("错误", error);

@@ -53,7 +53,9 @@
             <td>{{ device.rssl }}</td>
             <td>{{ device.longitude }}</td>
             <td>{{ device.latitude }}</td>
-            <td>{{ device.ip }}</td>
+            <td>
+              <a :href="'//' + device.ip" target="_blank">{{ device.ip }}</a>
+            </td>
             <td>{{ device.freqDefault }}</td>
             <td>{{ device.baudrateRs485 }}</td>
             <td>{{ device.audioMicGain }}</td>
@@ -85,7 +87,10 @@
             <td>{{ device.rssl }}</td>
             <td>{{ device.longitude }}</td>
             <td>{{ device.latitude }}</td>
-            <td>{{ device.ip }}</td>
+            <!-- <td>{{ device.ip }}</td> -->
+            <td>
+              <a :href="'//' + device.ip" target="_blank">{{ device.ip }}</a>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -221,7 +226,7 @@ export default {
       }).then(
         (response) => {
           console.log("后端返回了res");
-          console.log(response.data);
+          console.log("集群"+response.data);
           this.tableData4 = response.data;
           this.num4 = response.data.length;
         },
@@ -296,12 +301,6 @@ export default {
       tableData2: [],
       tableData3: [],
       tableData4: [
-        {
-          name: "cluster1",
-          freqDefault: "192.168.166.1",
-          status: "开",
-          rssl: "高",
-        },
       ],
     };
   },
