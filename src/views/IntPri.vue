@@ -66,7 +66,7 @@ export default {
         (response) => {
               console.log("正确", response);
                 this.$message({
-                message: '优先级设置成功',
+                message: '优先级已设置成功',
                 type: 'success'
                 });
         },
