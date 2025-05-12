@@ -43,7 +43,7 @@ export default {
     async register() {
       await axios({
         method: "post",
-        url: `http://127.0.0.1:4999/register`,
+        url: `http://192.168.60.1:4999/register`,
 
         data: {
           username: this.userName,
@@ -67,7 +67,7 @@ export default {
     async login() {
       await axios({
         method: "post",
-        url: `http://127.0.0.1:4999/login`,
+        url: `http://192.168.60.1:4999/login`,
         data: {
           username: this.userName,
           password: this.passWord,

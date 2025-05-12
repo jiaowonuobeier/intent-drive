@@ -51,7 +51,7 @@ export default {
       console.log(this.value_intent);
       await axios({
         method: "post",
-        url: `http://127.0.0.1:4999/intents/translate`,
+        url: `http://192.168.60.1:4999/intents/translate`,
         data: {
           text: this.value_intent,
         },
@@ -73,7 +73,7 @@ export default {
       console.log(this.value_intent);
       await axios({
         method: "post",
-        url: `http://127.0.0.1:4999/intents/execute`,
+        url: `http://192.168.60.1:4999/intents/execute`,
         data: {
           text: this.value_intent,
         },
@@ -97,7 +97,7 @@ export default {
       console.log(this.value_intent);
       await axios({
         method: "post",
-        url: `http://127.0.0.1:4999/intents/analyze`,
+        url: `http://192.168.60.1:4999/intents/analyze`,
         data: {
           text: this.value_intent,
         },

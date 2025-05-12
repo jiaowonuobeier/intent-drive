@@ -1,30 +1,24 @@
 <template>
   <div class="container">
     <div class="plan">
-      <h1 style="border-bottom: 1px solid black; font-size: 18px;">意图控制</h1>
+      <h1 style="border-bottom: 1px solid black; font-size: 18px;">意图优先级</h1>
       
       <!-- 意图选择区域 -->
       <div class="form-group">
-        <span>意图选择区域</span>
-        <select class="custom-select" v-model="selectedIntent">
-          <option value="" disabled selected>请选择意图</option>
+        <span>意图优先级控制</span>
+        <select class="custom-select" v-model="selectedlevel">
+          <option value="" disabled selected>请选择级别</option>
           <option v-for="t in tips" :key="t" :value="t">{{ t }}</option>
         </select>
       </div>
       
       <!-- 按钮区域 -->
       <div class="form-group">
-        <button class="submit-btn" @click="planRegion('解析意图')">解析意图</button>
-      </div>
-      <div class="form-group">
-        <button class="submit-btn" @click="planRegion('转译意图')">转译意图</button>
-      </div>
-      <div class="form-group">
-        <button class="submit-btn" @click="planRegion('执行意图')">执行意图</button>
+        <button class="submit-btn" @click="surePri">设置优先级</button>
       </div>
     </div>
     
-    <div class="region">
+    <!-- <div class="region">
       <h1 style="border-bottom: 1px solid black; font-size: 18px;">效果展示</h1>
       <div class="form-group">
         <span>意图解析显示</span>
@@ -44,7 +38,7 @@
           {{ executedResult || "暂无执行结果" }}
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -52,74 +46,29 @@
 import axios from 'axios';
 export default {
   data() {
-    return {
-      tips: [
-        "建立自组织网络设备与意图驱动代理之间的连接",
-        "断开自组织网络设备与意图驱动代理之间的连接",
-        "建立集群网络设备与意图驱动代理之间的连接",
-        "断开集群网络设备与意图驱动代理之间的连接",
-        "和用户1001进行sip通话",
-        "查看意图驱动代理的网络信息",
-        "启用自组织网络与集群网络之间的通话服务",
-      ],
-      selectedIntent: "",
-      parsedResult: "",
-      translatedResult: "",
-      executedResult: "",
-      remessage1:"",
-      remessage2: "",
-      remessage3:""
+        return {
+            tips: [
+                1,
+                2
+            ],
+            selectedlevel: 0
     };
   },
   methods: {
-    async yituzhuanyi() {
-      console.log(this.value_intent);
+    async surePri() {
       await axios({
         method: "post",
-        url: `http://192.168.60.1:4999/intents/translate`,
+        url: `http://192.168.60.1:4999/tc`,
         data: {
-          text: this.selectedIntent,
+          priority:this.selectedlevel
         },
       }).then(
         (response) => {
-          this.translatedResult = response.data.message;
-          alert("意图转译成功");
-          },
-        (error) => {
-          console.log("错误", error)
-        }
-      );
-    },
-    async yituzhixing() {
-      await axios({
-        method: "post",
-        url: `http://192.168.60.1:4999/intents/execute`,
-        data: {
-          text: this.selectedIntent,
-        },
-      }).then(
-        (response) => {
-          this.executedResult = response.data.message;
-          alert("意图执行成功");
+          console.log("正确", response);
         },
         (error) => {
-          console.log("错误", error)
-        }
-      );
-    },
-    async yitujiexi() {
-      await axios({
-        method: "post",
-        url: `http://192.168.60.1:4999/intents/analyze`,
-        data: {
-          text: this.selectedIntent,
-        },
-      }).then(
-        (response) => {
-          this.parsedResult = response.data.message;
-        },
-          (error) => {
-            console.log(error);
+          console.log("错误", error);
+           this.$message.error('优先级设置出错');
         }
       );
     },

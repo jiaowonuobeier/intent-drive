@@ -61,6 +61,10 @@
             <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
             <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/CallMan">通话管理</router-link>
           </el-menu-item>
+          <el-menu-item index="6-6">
+            <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
+            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/IntPri">意图优先级</router-link>
+          </el-menu-item>
         </el-submenu>
                 <el-menu-item index="4">
           <i class="el-icon-files" style="color: #0066CC; font-weight: bold;"></i>

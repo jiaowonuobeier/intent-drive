@@ -163,7 +163,7 @@ export default {
       window.open('/weixing/index.html', '_blank');
     },
     openNewPage3() {
-      window.open('/jiqun/index.html', '_blank');
+      window.open('http://192.168.166.251', '_blank');
     },
     openNewPage4() {
       window.open('/ip/index.html', '_blank');
@@ -195,7 +195,7 @@ export default {
     async getData() {
       console.log("向后端发送数据请求");
       await axios({
-        url: `http://127.0.0.1:4999/adhocequips`,
+        url: `http://192.168.60.1:4999/adhocequips`,
         method: "get",
         headers: {
           "ngrok-skip-browser-warning": "69420",
@@ -213,7 +213,7 @@ export default {
         }
       );
       await axios({
-        url: `http://127.0.0.1:4999/clusterequips`,
+        url: `http://192.168.60.1:4999/clusterequips`,
         method: "get",
         headers: {
           "ngrok-skip-browser-warning": "69420",
@@ -231,7 +231,7 @@ export default {
         }
       );
       await axios({
-        url: `http://127.0.0.1:4999/satelliteequips`,
+        url: `http://192.168.60.1:4999/satelliteequips`,
         method: "get",
         headers: {
           "ngrok-skip-browser-warning": "69420",

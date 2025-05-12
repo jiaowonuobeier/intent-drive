@@ -48,7 +48,7 @@
         注重时延:<input type="text" v-model="route.time_weight"><br>
         注重丢包:<input type="text" v-model="route.delay_weight"><br>
         <button class="submit-btn" @click="routeplan"> 
-          路由规划意图输入
+          路由规划意图执行
         </button>
       </div>
     </div>
@@ -132,7 +132,7 @@ export default {
     //     // responseType: "json",
     //   }).then(
     //     (response) => {
-    //       this.image1Src = "http://127.0.0.1:4999/netplan/region"; // 假设后端返回了图片 URL
+    //       this.image1Src = "http://192.168.60.1:4999/netplan/region"; // 假设后端返回了图片 URL
     //       console.log(response);
     //       this.$message({
     //         message: '注册成功',
@@ -222,14 +222,14 @@ async setnode() {
     // async setnode() {
     //   await axios({
     //     method: "post",
-    //     url: `http://127.0.0.1:4999/netplan/setnode`,
+    //     url: `http://192.168.60.1:4999/netplan/setnode`,
     //     data: {
     //       "node_num": this.pointCount
     //     },
     //     responseType: "json",
     //   }).then(
     //     (response) => {
-    //       this.image2Src = "http://127.0.0.1:4999/netplan/setnode"; // 假设后端返回了图片 URL
+    //       this.image2Src = "http://192.168.60.1:4999/netplan/setnode"; // 假设后端返回了图片 URL
     //       console.log(response);
     //       this.$message({
     //         message: '注册成功',
@@ -285,7 +285,7 @@ async setnode() {
     // async routeplan() {
     //   await axios({
     //     method: "post",
-    //     url: `http://127.0.0.1:4999/netplan/route`,
+    //     url: `http://192.168.60.1:4999/netplan/route`,
     //     data: {
     //       "start_node": Number(this.route.start_node) || 1,
     //       "end_node": Number(this.route.end_node) || 10,
@@ -294,7 +294,7 @@ async setnode() {
     //     },
     //   }).then(
     //     (response) => {
-    //       this.image3Src = "http://127.0.0.1:4999/netplan/route"; // 假设后端返回了图片 URL
+    //       this.image3Src = "http://192.168.60.1:4999/netplan/route"; // 假设后端返回了图片 URL
     //       console.log(response);
     //       this.$message({
     //         message: '注册成功',

@@ -14,6 +14,7 @@ import SysShow from "../views/SysShow.vue";
 import NetPlan from "../views/NetPlan.vue";
 import CallMan from "../views/CallMan.vue";
 import ConnMan from "../views/ConnMan.vue";
+import IntPri from "../views/IntPri.vue";
 import TestView from "../views/TestView.vue";
 
 
@@ -86,6 +87,10 @@ const router = new VueRouter({
         {
           path: "TestView",
           component: TestView,
+        },
+        {
+          path: "IntPri",
+          component: IntPri,
         },
       ],
     },
