@@ -65,11 +65,17 @@ export default {
       }).then(
         (response) => {
               console.log("正确", response);
-              this.$message.error('优先级设置成功');
+                this.$message({
+                message: '优先级设置成功',
+                type: 'success'
+                });
         },
         (error) => {
           console.log("错误", error);
-           this.$message.error('优先级设置出错');
+          this.$message({
+          message: '优先级设置失败',
+          type: 'error'
+        });
         }
       );
     },
