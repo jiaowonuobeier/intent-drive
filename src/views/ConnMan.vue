@@ -381,7 +381,7 @@ export default {
 
 .submit-btn {
   padding: 10px 15px;
-  background-color: #4CAF50;
+  background-color: #555855;
   color: white;
   border: none;
   border-radius: 4px;
@@ -393,7 +393,7 @@ export default {
 }
 
 .submit-btn:hover:not(:disabled) {
-  background-color: #45a049;
+  background-color: #0b140b;
 }
 
 .submit-btn:disabled {

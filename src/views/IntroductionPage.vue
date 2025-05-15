@@ -38,7 +38,8 @@
         </p>
       </div>
     </div>
-
+    <!-- <button @click="youxianji">意图优先级</button> -->
+      <a style="font-size: 14px; color: #333300; margin-left: 30px;" :href="$router.resolve({ path: '/IntPri' }).href" target="_blank">意图优先级</a>
     <div
       id="topology-management"
       class="section"
@@ -160,6 +161,10 @@ export default {
       //this.$router.push('/main'); // 跳转到主页面
       this.$router.push("/IndexPage/NetTopo");
     },
+    // youxianji()
+    // {
+    //     window.open('/IndexPage/IntroductionPage', '_blank');
+    // },
   },
 };
 </script>

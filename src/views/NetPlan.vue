@@ -148,7 +148,7 @@ export default {
   try {
     const response = await axios({
       method: "post",
-      url: `https://blatantly-relaxing-cougar.ngrok-free.app/netplan/region`,
+      url: `http://192.168.166.1:4999/netplan/region`,
       data: {
         latitude: [this.region.topLeftLat, this.region.bottomRightLat],
         longitude: [this.region.topLeftLon, this.region.bottomRightLon]
@@ -186,7 +186,7 @@ async setnode() {
   try {
     const response = await axios({
       method: "post",
-      url: `https://blatantly-relaxing-cougar.ngrok-free.app/netplan/setnode`,
+      url: `http://192.168.166.1:4999/netplan/setnode`,
       data: {
         "node_num": this.pointCount
       },
@@ -246,7 +246,7 @@ async setnode() {
   try {
     const response = await axios({
       method: "post",
-      url: `https://blatantly-relaxing-cougar.ngrok-free.app/netplan/route`,
+      url: `http://192.168.166.1:4999/netplan/route`,
       data: {
           "start_node": Number(this.route.start_node) || 1,
           "end_node": Number(this.route.end_node) || 10,
@@ -437,7 +437,7 @@ input {
 .submit-btn {
   /* width: 100%; */
   padding: 10px;
-  background-color: #4CAF50;
+  background-color: #555855;
   color: white;
   border: none;
   border-radius: 4px;
@@ -451,7 +451,7 @@ input {
 }
 
 .submit-btn:hover:not(:disabled) {
-  background-color: #45a049;
+  background-color: #0b140b;
 }
 
 .response-message {

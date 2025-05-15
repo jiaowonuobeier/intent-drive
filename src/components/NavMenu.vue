@@ -39,7 +39,7 @@
               >意图驱动</span
             >
           </template>
-          <el-menu-item index="6-1">
+          <!-- <el-menu-item index="6-1">
             <i class="el-icon-s-help" style="color: #0066CC; font-weight: bold;"></i>
 
             <router-link style="font-size: 14px; color: #333300;" to="/IndexPage/ModelShow">模块演示</router-link>
@@ -48,7 +48,7 @@
             <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
 
             <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/SysShow">系统演示</router-link>
-          </el-menu-item>
+          </el-menu-item> -->
           <el-menu-item index="6-3">
             <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
             <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/NetPlan">路由规划</router-link>
@@ -72,12 +72,12 @@
             <router-link to="/IndexPage/ConfigManage">手动配置</router-link>
           </span>
         </el-menu-item>
-        <el-menu-item index="5">
+        <!-- <el-menu-item index="5">
           <i class="el-icon-menu" style="color: #0066CC; font-weight: bold;"></i>
           <span slot="title">
             <router-link to="/IndexPage/TestView">TestView</router-link>
           </span>
-        </el-menu-item>
+        </el-menu-item> -->
       </el-menu>
 
     </el-col>

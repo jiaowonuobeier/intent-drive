@@ -25,6 +25,12 @@
           >卫星链路网络</p1
         >
       </div>
+      <div class="one">
+        <div class="card heimingdan" @click="heimingdan_change"></div>
+        <p1 style="font-weight: bold; font-size: 14px; padding-left: 20px"
+          >黑名单管理（服务未启动）</p1
+        >
+      </div>
     </div>
     <div class="table-container" v-if="zizuzhi_is">
       <h3 @click="openNewPage">自组织网络</h3>
@@ -149,6 +155,23 @@
         </tbody>
       </table>
     </div>
+    <div class="table-container" v-if="heimingdan_is">
+      <h3>黑名单管理</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>IP地址</th>
+            <th>是否拉黑</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="device in tableData5" :key="device.name">
+            <td>{{ device.ip }}</td>
+            <td><button>准入</button> <button>拉黑</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -174,29 +197,45 @@ export default {
       window.open('/ip/index.html', '_blank');
     },
     zizuzhi_change() {
+      console.log("zizuzhi_change");
       this.zizuzhi_is = true;
       this.ipwangluo_is = false;
       this.jiqun_is = false;
       this.weixing_is = false;
+      this.heimingdan_is = false;
     },
     ipwangluo_change() {
+      console.log("ipwangluo_change");
       this.zizuzhi_is = false;
       this.ipwangluo_is = true;
       this.jiqun_is = false;
       this.weixing_is = false;
+      this.heimingdan_is = false;
     },
     weixing_change() {
+      console.log("weixing_change");
       this.zizuzhi_is = false;
       this.ipwangluo_is = false;
       this.jiqun_is = false;
       this.weixing_is = true;
+      this.heimingdan_is = false;
     },
     jiqun_change() {
+      console.log("jiqun_change");
       this.zizuzhi_is = false;
       this.ipwangluo_is = false;
       this.jiqun_is = true;
       this.weixing_is = false;
+      this.heimingdan_is = false;
     },
+    heimingdan_change() {
+      this.zizuzhi_is = false;
+      this.ipwangluo_is = false;
+      this.jiqun_is = false;
+      this.weixing_is = false;
+      this.heimingdan_is = true;
+    },
+    
     async getData() {
       console.log("向后端发送数据请求");
       await axios({
@@ -262,6 +301,7 @@ export default {
       jiqun_is: false,
       weixing_is: false,
       zizuzhi_is: true,
+      heimingdan_is:false,
       edit_id: 1,
       num1: 0,
       num2: 0,
@@ -302,6 +342,7 @@ export default {
       tableData3: [],
       tableData4: [
       ],
+      tableData5:[]
     };
   },
   components: {},
@@ -348,18 +389,21 @@ export default {
   background-color: #f9fafc;
 }
 .zizuzhi {
-  background-image: url("../photo/photobutton3.jpg");
+  background-image: url("../photo/zizuzhi.jpg");
   background-size: cover; /* 图片铺满盒子 */
   background-repeat: no-repeat; /* 图片不重复 */
   background-position: center; /* 图片居中 */
   height: 350px;
 }
 .ipwangluo {
-  background-image: url("../photo/ipwangluo.jpg");
+  background-image: url("../photo/ip.jpg");
+  background-size: cover; /* 图片铺满盒子 */
+  background-repeat: no-repeat; /* 图片不重复 */
+  background-position: center; /* 图片居中 */
   height: 350px;
 }
 .jiqun {
-  background-image: url("../photo/photobutton2.jpg");
+  background-image: url("../photo/jiqun.jpg");
   background-size: cover; /* 图片铺满盒子 */
   background-repeat: no-repeat; /* 图片不重复 */
   background-position: center; /* 图片居中 */
@@ -367,6 +411,16 @@ export default {
 }
 .weixing {
   background-image: url("../photo/weixing.jpg");
+  background-size: cover; /* 图片铺满盒子 */
+  background-repeat: no-repeat; /* 图片不重复 */
+  background-position: center; /* 图片居中 */
+  height: 350px;
+}
+.heimingdan {
+  background-image: url("../photo/heimingdan.jpg");
+  background-size: cover; /* 图片铺满盒子 */
+  background-repeat: no-repeat; /* 图片不重复 */
+  background-position: center; /* 图片居中 */
   height: 350px;
 }
 .outer {

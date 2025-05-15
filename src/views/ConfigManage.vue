@@ -7,7 +7,7 @@
           <table class="custom-table">
             <tr>
               <td class="first">发起人：</td>
-              <td><input type="text" class="input-field"  v-model="formInline9.user"/></td>
+              <td><input type="text"  class="input-field"  v-model="formInline9.user"/></td>
               <td class="first" >修改目标节点名称：</td>
               <td><input type="text" class="input-field" v-model="formInline9.name"/></td>
             </tr>
@@ -96,16 +96,16 @@ export default {
       Loss: "",
       Delay: "",
       Rate: "",
-      num1: "",
-      net_card: "",
-      net_ip: "",
+      num1: "1",
+      net_card: "enp9s0",
+      net_ip: "192.168.166.1",
       formInline9: {
-        user: "",
-        name: "",
+        user: "kc304",
+        name: "node45",
         pwAtten1: "",
         pwAtten2: "",
-        audioMicGain: "",
-        baudrateRs485: "",
+        audioMicGain: "25",
+        baudrateRs485: "2500",
         uartBaudrate0: "",
         uartBaudrate1: "",
         uartBaudrate2: "",
