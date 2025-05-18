@@ -8,30 +8,35 @@
         
         <!-- 区域左上角纬度 -->
         区域左上角纬度:
-        <select v-model="region.topLeftLat" id="topLeftLat">
+        <input type="number" v-model="latitudes_left"/><br>
+        <!-- <select v-model="region.topLeftLat" id="topLeftLat">
           <option value="" disabled selected>请选择纬度</option><br>
           <option v-for="lat in latitudes" :key="lat" :value="lat">{{ lat }}</option><br>
-        </select><br>
+        </select><br> -->
         <!-- 区域左上角经度 -->
         区域左上角经度:
-        <select v-model="region.topLeftLon" id="topLeftLon">
+        <input type="number" v-model="longitudes_left"/><br>
+        <!-- <select v-model="region.topLeftLon" id="topLeftLon">
           <option value="" disabled selected>请选择经度</option><br>
           <option v-for="lon in longitudes" :key="lon" :value="lon">{{ lon }}</option><br>
-        </select><br>
+        </select><br> -->
 
         <!-- 区域右下角纬度 -->
         区域右下角纬度:
-        <select v-model="region.bottomRightLat" id="bottomRightLat">
+        <input type="number" v-model="latitudes_right"/><br>
+        <!-- <select v-model="region.bottomRightLat" id="bottomRightLat">
           <option value="" disabled selected>请选择纬度</option><br>
           <option v-for="lat in latitudes" :key="lat" :value="lat">{{ lat }}</option><br>
-        </select><br>
+        </select><br> -->
         
         <!-- 区域右下角经度 -->
         区域右下角经度:
-        <select v-model="region.bottomRightLon" id="bottomRightLon">
+        <input type="number" v-model="longitudes_right"/><br>
+        <!-- <select v-model="region.bottomRightLon" id="bottomRightLon">
           <option value="" disabled selected>请选择经度</option><br>
           <option v-for="lon in longitudes" :key="lon" :value="lon">{{ lon }}</option><br>
-        </select><br>
+        </select><br> -->
+        
         <button class="submit-btn" @click="planRegion">规划区域意图输入</button>
       </div>
       <!-- 点数输入 -->
@@ -89,14 +94,14 @@ export default {
         bottomRightLat: "",
       },
       // 预定义的经度和纬度选项
-      latitudes: [
-        30.487194,
-        30.537194,
-      ], // 示例经度
-      longitudes: [
-        102.706823,
-        102.756823,
-      ], // 示例纬度
+      latitudes_left: 30.487194,
+      
+      latitudes_right: 30.537194,
+
+      longitudes_left:  102.706823,
+
+
+      longitudes_right: 102.756823,
       // 点数
       pointCount: 1,
       // 路由规划输入
@@ -151,8 +156,8 @@ export default {
       method: "post",
       url: `http://192.168.166.1:4999/netplan/region`,
       data: {
-        latitude: [this.region.topLeftLat, this.region.bottomRightLat],
-        longitude: [this.region.topLeftLon, this.region.bottomRightLon]
+        latitude: [this.latitudes_left,this.latitudes_right],
+        longitude: [this.longitudes_left,this.longitudes_right]
       },
       responseType: 'blob' // 重要：指定响应类型为 Blob
     });
