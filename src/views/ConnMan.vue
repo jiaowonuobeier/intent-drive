@@ -55,19 +55,19 @@
           <div class="card" style="width: 500px;">
             <span>意图解析显示</span>
             <div class="display-area">
-              {{ parsedResult || "暂无解析结果" }}
+              {{ parsedResult  }}
             </div>
           </div>
           <div class="card" style="width: 500px;">
             <span>意图解析显示</span>
             <div class="display-area">
-              {{ translatedResult || "暂无解析结果" }}
+              {{ translatedResult }}
             </div>
           </div>
           <div class="card" style="width: 500px;">
             <span>意图解析显示</span>
             <div class="display-area">
-              {{ executedResult || "暂无解析结果" }}
+              {{ executedResult  }}
             </div>
           </div>
         </div>

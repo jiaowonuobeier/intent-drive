@@ -55,19 +55,19 @@
           <div class="card" style="width: 500px;">
             <span>意图解析显示</span>
             <div class="display-area">
-              {{ parsedResult || "暂无解析结果" }}
+              {{ parsedResult  }}
             </div>
           </div>
           <div class="card" style="width: 500px;">
             <span>意图解析显示</span>
             <div class="display-area">
-              {{ translatedResult || "暂无解析结果" }}
+              {{ translatedResult }}
             </div>
           </div>
           <div class="card" style="width: 500px;">
             <span>意图解析显示</span>
             <div class="display-area">
-              {{ executedResult || "暂无解析结果" }}
+              {{ executedResult  }}
             </div>
           </div>
         </div>
@@ -78,7 +78,11 @@
 
 <script>
 import axios from 'axios';
-
+import Recorder from "recorder-core";
+import "recorder-core/src/engine/mp3";
+import "recorder-core/src/engine/mp3-engine";
+import "recorder-core/src/engine/wav";
+import "recorder-core/src/extensions/waveview";
 export default {
   name: "CallMan",
   data() {
@@ -96,13 +100,11 @@ export default {
       remessage2: "",
       remessage3: "",
       input_button: true,
-      rec: null,
-      recBlob: null,
-      wave: null,
-      isRecording: false,
-      recordedBlob: null,
-      transcript: "",
+      speak_text:"",
     };
+  },
+  mounted() {
+    this.recwave = this.$refs.recwave;
   },
   methods: {
     yitushuru()
@@ -110,12 +112,11 @@ export default {
       this.input_button=true
     },
     async yituzhuanyi() {
-      console.log(this.value_intent);
       await axios({
         method: "post",
         url: `http://192.168.60.1:4999/intents/translate`,
         data: {
-          text: this.selectedIntent,
+          text: this.selectedIntent + this.speak_text,
         },
       }).then(
         (response) => {
@@ -132,12 +133,11 @@ export default {
         method: "post",
         url: `http://192.168.60.1:4999/intents/execute`,
         data: {
-          text: this.selectedIntent,
+          text: this.selectedIntent + this.speak_text,
         },
       }).then(
         (response) => {
           this.executedResult = response.data.message;
-          alert("意图执行成功");
         },
         (error) => {
           console.log("错误", error)
@@ -149,7 +149,7 @@ export default {
         method: "post",
         url: `http://192.168.60.1:4999/intents/analyze`,
         data: {
-          text: this.selectedIntent,
+          text: this.selectedIntent + this.speak_text,
         },
       }).then(
         (response) => {
@@ -159,6 +159,119 @@ export default {
             console.log(error);
         }
       );
+    },
+    recOpen() {
+      // 创建录音对象
+      this.rec = Recorder({
+        type: "wav", // 录音格式
+        sampleRate: 16000, // 采样率
+        bitRate: 16, // 比特率
+        onProcess: (buffers, powerLevel, bufferDuration, bufferSampleRate) => {
+          // 录音实时回调，用于绘制波形等操作
+          if (this.wave) {
+            this.wave.input(
+              buffers[buffers.length - 1],
+              powerLevel,
+              bufferSampleRate
+            );
+          }
+        },
+      });
+
+      if (!this.rec) {
+        alert("当前浏览器不支持录音功能！");
+        return;
+      }
+
+      // 打开录音，获得权限
+      this.rec.open(
+        () => {
+          console.log("录音已打开");
+          // 创建音频可视化图形绘制对象
+          if (this.recwave) {
+            this.wave = Recorder.WaveView({ elem: this.recwave });
+          }
+        },
+        (msg, isUserNotAllow) => {
+          console.log(
+            (isUserNotAllow ? "UserNotAllow，" : "") + "无法录音:" + msg
+          );
+        }
+      );
+    },
+    recStart() {
+      if (!this.rec) {
+        console.error("未打开录音");
+        return;
+      }
+      this.rec.start();
+      this.isRecording = true; // 设置录音状态为开始
+      console.log("已开始录音");
+    },
+    recStop() {
+      if (!this.rec) {
+        console.error("未打开录音");
+        return;
+      }
+      this.rec.stop(
+        (blob, duration) => {
+          // 录音结束回调
+          this.recBlob = blob; // 保存录音文件 Blob
+          const localUrl = (window.URL || window.webkitURL).createObjectURL(
+            blob
+          );
+          console.log("录音成功", blob, localUrl, "时长:" + duration + "ms");
+          this.upload(blob); // 上传录音文件到服务器
+          this.rec.close(); // 关闭录音
+          this.rec = null; // 清空录音对象
+          this.isRecording = false; // 设置录音状态为停止
+        },
+        (err) => {
+          console.error("结束录音出错：" + err);
+          this.rec.close();
+          this.rec = null;
+          this.isRecording = false;
+        }
+      );
+    },
+    upload(blob) {
+      // 上传录音文件到服务器的逻辑
+      // 这里可以使用 FormData 或其他方式上传
+      console.log("上传录音文件:", blob);
+      // 创建 FormData 对象
+      const formData = new FormData();
+      formData.append("file", blob, "recording.wav"); // 'audio' 是后端接收文件的字段名，'recording.wav' 是文件名
+
+      // 发送 POST 请求，上传录音文件
+      axios
+        .post(
+          "http://192.168.60.1:4999/speak",
+          formData
+        )
+        .then((response) => {
+          console.log("上传录音文件成功:", response.data);
+          // 处理上传成功的逻辑，如显示上传成功提示或者清理录音文件数据
+          this.speak_text = response.data;
+        })
+        .catch((error) => {
+          console.error("上传录音文件失败:", error);
+          // 处理上传失败的逻辑，如显示上传失败提示或者重新尝试上传
+        });
+    },
+    recPlay() {
+      if (!this.recBlob) {
+        console.error("录音文件不存在");
+        return;
+      }
+      const localUrl = URL.createObjectURL(this.recBlob);
+      const audio = new Audio();
+      audio.controls = true;
+      audio.src = localUrl;
+      audio.play(); // 播放录音
+      // 播放结束后释放对象 URL
+      audio.onended = () => {
+        URL.revokeObjectURL(localUrl);
+      };
     },
   },
 };
@@ -300,4 +413,17 @@ export default {
     max-width: none;
   }
 }
+.card div[ref="recwave"],
+.card div[style] {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+}
 </style>
+</style>
+<!-- /*
+
+        "和用户1001进行sip通话",
+        "查看意图驱动代理的网络信息",
+        "启用自组织网络与集群网络之间的通话服务",
+*/ -->
