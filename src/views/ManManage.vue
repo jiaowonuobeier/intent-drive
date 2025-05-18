@@ -165,9 +165,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="device in tableData5" :key="device.name">
+          <tr v-for="device in tableData5" :key="device.ip">
             <td>{{ device.ip }}</td>
-            <td><button>准入</button> <button>拉黑</button></td>
+            <td><button @click="zhunru(device.ip)">准入</button> <button @click="lahei(device.ip)">拉黑</button></td>
           </tr>
         </tbody>
       </table>
@@ -292,6 +292,65 @@ export default {
           console.log("错误", error);
         }
       );
+      await axios({
+        url: `http://192.168.60.1:4999/blacklist`,
+        method: "get",
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        },
+      }).then(
+        (response) => {
+          console.log("后端返回了res");
+          console.log(response.data);
+          this.tableData5 = response.data;
+        },
+        (error) => {
+          console.log("后端返回了错误状态码");
+          console.log("错误", error);
+        }
+      );
+    },
+    async zhunru(ip) {
+      await axios({
+        method: "post",
+        url: `http://192.168.60.1:4999/online`,
+        data: {
+          ip: ip,
+        },
+      }).then(
+        (response) => {
+          console.log(response);
+          this.$message({
+          message: '准入成功',
+          type: 'success'
+        });
+        },
+        (error) => {
+          console.log(error);
+          this.$message.error("准入接口出错")
+        }
+      );
+    },
+    async lahei(ip) {
+      await axios({
+        method: "post",
+        url: `http://192.168.60.1:4999/offline`,
+        data: {
+          ip: ip,
+        },
+      }).then(
+        (response) => {
+          console.log(response);
+          this.$message({
+          message: '拉黑成功',
+          type: 'success'
+        });
+        },
+        (error) => {
+          console.log(error);
+          this.$message.error("拉黑接口出错")
+        }
+      );
     },
   },
   mounted() {},
@@ -308,17 +367,17 @@ export default {
       num3: 0,
       num4: 0,
       tableData1: [
-        // {
-        //   name: "node45",
-        //   ip: "192.168.10.45",
-        //   state: "on",
-        //   rssl: "强",
-        //   freqDefault: 1430000000,
-        //   baudrateRs485: 2500,
-        //   audioMicGain: 25,
-        //   pwAtten1: 86,
-        //   pwAtten2: 86,
-        // },
+        {
+          name: "",
+          ip: "",
+          state: "",
+          rssl: "",
+          freqDefault: 0,
+          baudrateRs485: 0,
+          audioMicGain: 0,
+          pwAtten1: 0,
+          pwAtten2: 0,
+        },
         // {
         //   name: "node46",
         //   ip: "192.168.10.46",
@@ -338,11 +397,39 @@ export default {
         //   rssl: "强",
         // },
       ],
-      tableData2: [],
-      tableData3: [],
-      tableData4: [
+      tableData2: [
+        {
+          name: "",
+          ip: "",
+          state: "",
+          rssl: "",
+          longitude: 0,
+          latitude:0
+        },
       ],
-      tableData5:[]
+      tableData3: [
+        {
+          name: "",
+          ip: "",
+          state: "",
+          rssl: "",
+          longitude: 0,
+          latitude:0
+        },
+      ],
+      tableData4: [
+        {
+          name: "",
+          ip: "",
+          state: "",
+          rssl: "",
+          longitude: 0,
+          latitude:0
+        },
+      ],
+      tableData5: [
+        {ip:""},
+      ],
     };
   },
   components: {},
