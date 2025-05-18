@@ -91,6 +91,7 @@
 <script>
 import axios from "axios";
 export default {
+  name: "ConfigManage",
   data() {
     return {
       Loss: "",

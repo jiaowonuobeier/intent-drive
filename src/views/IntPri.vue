@@ -45,25 +45,41 @@
 <script>
 import axios from 'axios';
 export default {
+    name: "IntPri",
   data() {
         return {
             tips: [
-                1,
-                2,
-                3,
-                4,
-                5
+            "紧急控制",  // 1
+            "关键业务",  // 2
+            "实时通信",  // 3
+            "一般业务",  // 4
+            "后台任务"   // 5
             ],
-            selectedlevel: 1
+            selectedlevel: "紧急控制", // 默认值
+            priorityMap: {
+            "紧急控制": 1,
+            "关键业务": 2,
+            "实时通信": 3,
+            "一般业务": 4,
+            "后台任务": 5
+            }
     };
   },
   methods: {
-    async surePri() {
+      async surePri() {
+        const priorityNumber = this.priorityMap[this.selectedlevel]; // 转换为数字
+        if (priorityNumber === undefined) {
+        this.$message({
+            message: '请选择有效的优先级',
+            type: 'error'
+        });
+            return;
+        }
       await axios({
         method: "post",
         url: `http://192.168.60.1:4999/tc`,
         data: {
-          priority:this.selectedlevel
+          priority:priorityNumber
         },
       }).then(
         (response) => {

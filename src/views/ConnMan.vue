@@ -84,6 +84,7 @@ import "recorder-core/src/engine/mp3-engine";
 import "recorder-core/src/engine/wav";
 import "recorder-core/src/extensions/waveview";
 export default {
+  name: "ConnMan",
   data() {
     return {
       tips: [
@@ -91,9 +92,6 @@ export default {
         "断开自组织网络设备与意图驱动代理之间的连接",
         "建立集群网络设备与意图驱动代理之间的连接",
         "断开集群网络设备与意图驱动代理之间的连接",
-        "和用户1001进行sip通话",
-        "查看意图驱动代理的网络信息",
-        "启用自组织网络与集群网络之间的通话服务",
       ],
       selectedIntent: "",
       parsedResult: "",

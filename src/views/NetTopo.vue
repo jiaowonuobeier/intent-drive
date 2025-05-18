@@ -7,6 +7,7 @@
 <script>
 import ToPo from "../components/ToPo.vue";
 export default {
+  name: "NetTopo",
   props: ["all_url"],
   components: {
     ToPo,

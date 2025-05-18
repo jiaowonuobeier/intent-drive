@@ -28,7 +28,7 @@
       <div class="one">
         <div class="card heimingdan" @click="heimingdan_change"></div>
         <p1 style="font-weight: bold; font-size: 14px; padding-left: 20px"
-          >黑名单管理（服务未启动）</p1
+          >黑名单管理</p1
         >
       </div>
     </div>
@@ -178,6 +178,7 @@
 <script>
 import axios from "axios";
 export default {
+  name: "ManManage",
   props: ["all_url"],
   created() {
     this.getData();

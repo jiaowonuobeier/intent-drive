@@ -75,6 +75,7 @@
 <script>
 import axios from 'axios';
 export default {
+  name: "NetPlan",
   data() {
     return {
       newDevice: { name: '', ip: '' },

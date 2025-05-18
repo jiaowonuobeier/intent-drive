@@ -21,6 +21,7 @@ import TestView from "../views/TestView.vue";
 Vue.use(VueRouter); //Vue全局使用Router
 
 const router = new VueRouter({
+  mode: "hash", // 使用 hash 模式
   routes: [
     //配置路由，这里是个数组
     { path: "/", redirect: "/LoginRegister" },
@@ -101,8 +102,8 @@ const router = new VueRouter({
     },
     {
       path: "/IntPri",
-      component:IntPri,
-    }
+      component: IntPri,
+    },
   ],
 });
 export default router;

@@ -146,6 +146,7 @@
 
 <script>
 export default {
+  name: "IntroductionPage",
   data() {
     return {
       activeSection: "topology-management",
