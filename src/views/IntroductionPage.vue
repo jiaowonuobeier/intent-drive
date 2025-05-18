@@ -39,7 +39,8 @@
       </div>
     </div>
     <!-- <button @click="youxianji">意图优先级</button> -->
-      <a style="font-size: 14px; color: #333300; margin-left: 30px;" :href="$router.resolve({ path: '/IntPri' }).href" target="_blank">意图优先级</a>
+      <!-- <a style="font-size: 14px; color: #333300; margin-left: 30px;" :href="$router.resolve({ path: '/IntPri' }).href" target="_blank">意图优先级</a>
+      <button><a style="font-size: 14px; color: #333300; margin-left: 30px;" :href="$router.resolve({ path: '/IntPri' }).href" target="_blank">意图优先级</a></button> -->
     <div
       id="topology-management"
       class="section"
@@ -47,7 +48,7 @@
         display: activeSection === 'topology-management' ? 'block' : 'none',
       }"
     >
-      <h2>网络拓扑</h2>
+      <h2>网络拓扑 <a style="font-size: 14px; color: #333300; margin-left: 30px;" :href="$router.resolve({ path: '/IntPri' }).href" target="_blank">意图优先级</a></h2>
       <p>
         拓扑管理功能允许用户查看和管理整个网络的拓扑结构。以下是典型操作步骤：
       </p>
@@ -70,7 +71,7 @@
         display: activeSection === 'manual-configuration' ? 'block' : 'none',
       }"
     >
-      <h2>手动配置</h2>
+      <h2>手动配置<a style="font-size: 14px; color: #333300; margin-left: 30px;" :href="$router.resolve({ path: '/IntPri' }).href" target="_blank">意图优先级</a></h2>
       <p>
         手动配置功能允许用户手动设置网络设备参数。以下是典型操作步骤：
       </p>
@@ -90,7 +91,7 @@
       class="section"
       :style="{ display: activeSection === 'intent-driven' ? 'block' : 'none' }"
     >
-      <h2>意图驱动</h2>
+      <h2>意图驱动<a style="font-size: 14px; color: #333300; margin-left: 30px;" :href="$router.resolve({ path: '/IntPri' }).href" target="_blank">意图优先级</a></h2>
       <p>
         意图驱动功能通过自然语言输入实现自动化网络管理。以下是典型操作步骤：
       </p>
@@ -125,7 +126,7 @@
         display: activeSection === 'dev-management' ? 'block' : 'none',
       }"
     >
-      <h2>设备管理</h2>
+      <h2>设备管理<a style="font-size: 14px; color: #333300; margin-left: 30px;" :href="$router.resolve({ path: '/IntPri' }).href" target="_blank">意图优先级</a></h2>
       <p>
         设备管理界面以表格的形式展示了异构网络设备的详细信息。以下是典型操作步骤：
       </p>

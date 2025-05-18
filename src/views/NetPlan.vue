@@ -42,7 +42,7 @@
       <!-- 点数输入 -->
       <div class="form-group">
         点数：
-        <input type="number" id="pointCount" v-model.number="pointCount" placeholder="请输入点数" min="1"/><br>
+        <input type="number" id="pointCount" v-model.number="pointCount" placeholder="请输入点数" min="2"/><br>
         <button class="submit-btn" @click="setnode">
           开始布点意图输入
         </button>
@@ -188,7 +188,15 @@ export default {
     });
   }
     },
-async setnode() {
+    async setnode() {
+    // 检查 pointCount 是否大于 1
+      if (this.pointCount <= 1) {
+        this.$message({
+          message: '点数必须大于 1',
+          type: 'error'
+        });
+        return; // 终止后续执行
+      }
   try {
     const response = await axios({
       method: "post",
