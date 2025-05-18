@@ -420,10 +420,3 @@ export default {
   background-color: #f8f9fa;
 }
 </style>
-</style>
-<!-- /*
-
-        "和用户1001进行sip通话",
-        "查看意图驱动代理的网络信息",
-        "启用自组织网络与集群网络之间的通话服务",
-*/ -->
