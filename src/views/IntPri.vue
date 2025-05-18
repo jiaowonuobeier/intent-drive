@@ -48,13 +48,13 @@ export default {
   data() {
         return {
             tips: [
-                "极高",
-                "高",
-                "中",
-                "低",
-                "极低"
+                1,
+                2,
+                3,
+                4,
+                5
             ],
-            selectedlevel: "中"
+            selectedlevel: 1
     };
   },
   methods: {
