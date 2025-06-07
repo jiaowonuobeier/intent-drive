@@ -154,7 +154,7 @@ export default {
   try {
     const response = await axios({
       method: "post",
-      url: `http://192.168.166.1:4999/netplan/region`,
+      url: `http://192.168.60.1:4999/netplan/region`,
       data: {
         latitude: [this.latitudes_left,this.latitudes_right],
         longitude: [this.longitudes_left,this.longitudes_right]
@@ -200,7 +200,7 @@ export default {
   try {
     const response = await axios({
       method: "post",
-      url: `http://192.168.166.1:4999/netplan/setnode`,
+      url: `http://192.168.60.1:4999/netplan/setnode`,
       data: {
         "node_num": this.pointCount
       },
@@ -260,7 +260,7 @@ export default {
   try {
     const response = await axios({
       method: "post",
-      url: `http://192.168.166.1:4999/netplan/route`,
+      url: `http://192.168.60.1:4999/netplan/route`,
       data: {
           "start_node": Number(this.route.start_node) || 1,
           "end_node": Number(this.route.end_node) || 10,

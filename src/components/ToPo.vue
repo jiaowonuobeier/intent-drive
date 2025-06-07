@@ -155,6 +155,52 @@ export default {
             },
           ],
         },
+        {
+          "name": "北京市",
+          "cities": [
+            {
+              "name": "北京市",
+              "counties": [
+                { "name": "东城区", "latitude": 39.9289, "longitude": 116.4164 },
+                { "name": "西城区", "latitude": 39.9126, "longitude": 116.3684 },
+                { "name": "朝阳区", "latitude": 39.9215, "longitude": 116.4431 },
+                { "name": "海淀区", "latitude": 39.9588, "longitude": 116.2983 },
+                { "name": "丰台区", "latitude": 39.8537, "longitude": 116.2832 }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "四川省",
+          "cities": [
+            {
+              "name": "成都市",
+              "counties": [
+                { "name": "锦江区", "latitude": 30.6529, "longitude": 104.0815 },
+                { "name": "青羊区", "latitude": 30.6792, "longitude": 104.0533 },
+                { "name": "金牛区", "latitude": 30.6918, "longitude": 104.0509 },
+                { "name": "武侯区", "latitude": 30.6427, "longitude": 104.0489 },
+                { "name": "成华区", "latitude": 30.6504, "longitude": 104.1027 }
+              ]
+            },
+            {
+              "name": "绵阳市",
+              "counties": [
+                { "name": "涪城区", "latitude": 31.4618, "longitude": 104.7449 },
+                { "name": "游仙区", "latitude": 31.4903, "longitude": 104.7668 },
+                { "name": "安州区", "latitude": 31.5337, "longitude": 104.5719 }
+              ]
+            },
+            {
+              "name": "乐山市",
+              "counties": [
+                { "name": "市中区", "latitude": 29.5592, "longitude": 103.7608 },
+                { "name": "沙湾区", "latitude": 29.4127, "longitude": 103.5486 },
+                { "name": "五通桥区", "latitude": 29.4056, "longitude": 103.8245 }
+              ]
+            }
+          ]
+        }
       ],
       selectedProvince: "",
       selectedCity: "",
@@ -382,4 +428,5 @@ form {
   flex-direction: column;
   gap: 0px; /* 增加间距 */
 }
+
 </style>

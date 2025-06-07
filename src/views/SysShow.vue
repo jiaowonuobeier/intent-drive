@@ -1,10 +1,31 @@
 <template>
   <div>
     <div class="outer">
-      <div class="card">
+      <!-- <div class="card">
         <h>输入您的意图</h>
         <div class="cardinfo" style="line-height: 27px;">在下方输入框中输入您的意图，示例：建立自组织网络和意图驱动代理之间的连接，然后点击"发送意图"</div>
         <input type="text" v-model="value_intent"/><br />
+
+        <button @click="yituzhuanyi">发送意图</button>
+      </div> -->
+      <div class="card">
+        <h>输入您的意图</h>
+        <div class="cardinfo" style="line-height: 27px;">在下方输入框或从下拉框中选择意图，然后点击"发送意图"</div>
+        
+        <!-- 下拉框 -->
+        <select v-model="selectedIntent" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+          <option value="" disabled selected>请选择预设意图</option>
+          <option value="建立自组织网络与集群网络之间的连接">建立自组织网络与集群网络之间的连接</option>
+          <option value="查看1号意图驱动代理的网络信息">查看1号意图驱动代理的网络信息</option>
+          <option value="关闭自组织网络与集群网络之间的连接">关闭自组织网络与集群网络之间的连接</option>
+          <option value="我要和手机用户1001通话">我要和手机用户1001通话</option>
+          <option value="我需要在接下来1小时内保证网络资源的充足">我需要在接下来1小时内保证网络资源的充足</option>
+          <option value="现在手机用户1和手机用户2的距离边远,通话质量下降,请保证通话质量">现在手机用户1和手机用户2的距离边远,通话质量下降,请保证通话质量</option>
+        </select>
+        
+        <!-- 输入框 -->
+        <input type="text" v-model="value_intent" placeholder="或在此输入自定义意图"/><br />
+        
         <button @click="yituzhuanyi">发送意图</button>
       </div>
       <div class="arrow">➔</div>
@@ -44,16 +65,17 @@ export default {
       remessage2: "",
       remessage3: "",
       value_intent: "",
+      selectedIntent:""
     };
   },
   methods: {
     async yituzhuanyi() {
-      console.log(this.value_intent);
+      console.log(this.value_intent,this.selectedIntent);
       await axios({
         method: "post",
         url: `http://192.168.60.1:4999/intents/translate`,
         data: {
-          text: this.value_intent,
+          text: this.value_intent + this.selectedIntent,
         },
         // responseType: "json",
       }).then(
@@ -70,12 +92,12 @@ export default {
       );
     },
     async yituzhixing() {
-      console.log(this.value_intent);
+      console.log(this.value_intent,this.selectedIntent);
       await axios({
         method: "post",
         url: `http://192.168.60.1:4999/intents/execute`,
         data: {
-          text: this.value_intent,
+          text: this.value_intent + this.selectedIntent,
         },
         // responseType: "json",
       }).then(
@@ -93,13 +115,12 @@ export default {
     },
 
     async yitujiexi() {
-      this.value_intent = `${this.text1}${this.text2}${this.text3}${this.text4}${this.text5}${this.speak_text}`;
-      console.log(this.value_intent);
+      console.log(this.value_intent,this.selectedIntent);
       await axios({
         method: "post",
         url: `http://192.168.60.1:4999/intents/analyze`,
         data: {
-          text: this.value_intent,
+          text: this.value_intent+this.selectedIntent,
         },
         // responseType: "json",
       }).then(
