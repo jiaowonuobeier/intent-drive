@@ -2,6 +2,7 @@
 <div class="map-container">
   <div id="map" style="width: 100%; height: 100vh;z-index:9;"></div>
   <div class="selectors">
+    <button @click="getData">刷新地图</button>
     <form>
       <!-- 省选择器 -->
       <div>
