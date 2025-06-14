@@ -17,7 +17,7 @@
           <option value="" disabled selected>请选择预设意图</option>
           <option value="建立自组织网络与集群网络之间的连接">建立自组织网络与集群网络之间的连接</option>
           <option value="查看1号意图驱动代理的网络信息">查看1号意图驱动代理的网络信息</option>
-          <option value="关闭自组织网络与集群网络之间的连接">关闭自组织网络与集群网络之间的连接</option>
+          <option value="断开自组织网络与集群网络之间的连接">关闭自组织网络与集群网络之间的连接</option>
           <option value="我要和手机用户1001通话">我要和手机用户1001通话</option>
           <option value="我需要在接下来1小时内保证网络资源的充足">我需要在接下来1小时内保证网络资源的充足</option>
           <option value="现在手机用户1和手机用户2的距离边远,通话质量下降,请保证通话质量">现在手机用户1和手机用户2的距离边远,通话质量下降,请保证通话质量</option>
