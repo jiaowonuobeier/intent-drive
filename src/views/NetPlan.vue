@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="Plan">
-      <h1 style="border-bottom: 1px solid black; font-size: 18px;">意图控制(路由规划)</h1>
+      <h1 style="border-bottom: 1px solid black; font-size: 18px;">意图控制(计算管理)</h1>
       <!-- 区域输入 -->
       <div class="form-group">
         <!-- 输入示例：先锋村区域:30.487194,30.537194,102.706823,102.756823 -->

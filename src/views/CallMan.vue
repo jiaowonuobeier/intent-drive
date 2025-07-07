@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="plan">
-      <h1 style="border-bottom: 1px solid black; font-size: 18px;">意图控制(通话管理)</h1>
+      <h1 style="border-bottom: 1px solid black; font-size: 18px;">意图控制(通信管理)</h1>
       <!-- 按钮区域 -->
       <div class="form-group">
         <button class="submit-btn" @click="yitushuru">意图输入</button>

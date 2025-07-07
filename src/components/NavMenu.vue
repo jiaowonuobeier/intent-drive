@@ -51,15 +51,15 @@
           </el-menu-item>
           <el-menu-item index="6-3">
             <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
-            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/NetPlan">路由规划</router-link>
+            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/NetPlan">计算管理</router-link>
           </el-menu-item>
           <el-menu-item index="6-4">
             <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
-            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/ConnMan">连接管理</router-link>
+            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/ConnMan">接入管理</router-link>
           </el-menu-item>
           <el-menu-item index="6-5">
             <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
-            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/CallMan">通话管理</router-link>
+            <router-link  style="font-size: 14px; color: #333300;" to="/IndexPage/CallMan">通信管理</router-link>
           </el-menu-item>
           <!-- <el-menu-item index="6-6">
             <i class="el-icon-s-marketing" style="color: #0066CC; font-weight: bold;"></i>
