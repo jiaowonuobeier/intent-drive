@@ -267,7 +267,7 @@ export default {
       const audio = new Audio();
       audio.controls = true;
       audio.src = localUrl;
-      audio.play(); // 播放录音
+      audio.play(); 
       // 播放结束后释放对象 URL
       audio.onended = () => {
         URL.revokeObjectURL(localUrl);
