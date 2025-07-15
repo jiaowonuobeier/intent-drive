@@ -138,7 +138,7 @@ export default {
     //     // responseType: "json",
     //   }).then(
     //     (response) => {
-    //       this.image1Src = "http://192.168.60.1:4999/netplan/region"; // 假设后端返回了图片 URL
+    //       this.image1Src = "https://blatantly-relaxing-cougar.ngrok-free.app/netplan/region"; // 假设后端返回了图片 URL
     //       console.log(response);
     //       this.$message({
     //         message: '注册成功',
@@ -154,7 +154,7 @@ export default {
   try {
     const response = await axios({
       method: "post",
-      url: `http://192.168.60.1:4999/netplan/region`,
+      url: `https://blatantly-relaxing-cougar.ngrok-free.app/netplan/region`,
       data: {
         latitude: [this.latitudes_left,this.latitudes_right],
         longitude: [this.longitudes_left,this.longitudes_right]
@@ -200,7 +200,7 @@ export default {
   try {
     const response = await axios({
       method: "post",
-      url: `http://192.168.60.1:4999/netplan/setnode`,
+      url: `https://blatantly-relaxing-cougar.ngrok-free.app/netplan/setnode`,
       data: {
         "node_num": this.pointCount
       },
@@ -236,14 +236,14 @@ export default {
     // async setnode() {
     //   await axios({
     //     method: "post",
-    //     url: `http://192.168.60.1:4999/netplan/setnode`,
+    //     url: `https://blatantly-relaxing-cougar.ngrok-free.app/netplan/setnode`,
     //     data: {
     //       "node_num": this.pointCount
     //     },
     //     responseType: "json",
     //   }).then(
     //     (response) => {
-    //       this.image2Src = "http://192.168.60.1:4999/netplan/setnode"; // 假设后端返回了图片 URL
+    //       this.image2Src = "https://blatantly-relaxing-cougar.ngrok-free.app/netplan/setnode"; // 假设后端返回了图片 URL
     //       console.log(response);
     //       this.$message({
     //         message: '注册成功',
@@ -260,7 +260,7 @@ export default {
   try {
     const response = await axios({
       method: "post",
-      url: `http://192.168.60.1:4999/netplan/route`,
+      url: `https://blatantly-relaxing-cougar.ngrok-free.app/netplan/route`,
       data: {
           "start_node": Number(this.route.start_node) || 1,
           "end_node": Number(this.route.end_node) || 10,
@@ -299,7 +299,7 @@ export default {
     // async routeplan() {
     //   await axios({
     //     method: "post",
-    //     url: `http://192.168.60.1:4999/netplan/route`,
+    //     url: `https://blatantly-relaxing-cougar.ngrok-free.app/netplan/route`,
     //     data: {
     //       "start_node": Number(this.route.start_node) || 1,
     //       "end_node": Number(this.route.end_node) || 10,
@@ -308,7 +308,7 @@ export default {
     //     },
     //   }).then(
     //     (response) => {
-    //       this.image3Src = "http://192.168.60.1:4999/netplan/route"; // 假设后端返回了图片 URL
+    //       this.image3Src = "https://blatantly-relaxing-cougar.ngrok-free.app/netplan/route"; // 假设后端返回了图片 URL
     //       console.log(response);
     //       this.$message({
     //         message: '注册成功',

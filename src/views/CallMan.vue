@@ -114,7 +114,7 @@ export default {
     async yituzhuanyi() {
       await axios({
         method: "post",
-        url: `http://192.168.60.1:4999/intents/translate`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/intents/translate`,
         data: {
           text: this.selectedIntent + this.speak_text,
         },
@@ -131,7 +131,7 @@ export default {
     async yituzhixing() {
       await axios({
         method: "post",
-        url: `http://192.168.60.1:4999/intents/execute`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/intents/execute`,
         data: {
           text: this.selectedIntent + this.speak_text,
         },
@@ -147,7 +147,7 @@ export default {
     async yitujiexi() {
       await axios({
         method: "post",
-        url: `http://192.168.60.1:4999/intents/analyze`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/intents/analyze`,
         data: {
           text: this.selectedIntent + this.speak_text,
         },
@@ -245,7 +245,7 @@ export default {
       // 发送 POST 请求，上传录音文件
       axios
         .post(
-          "http://192.168.60.1:4999/speak",
+          "https://blatantly-relaxing-cougar.ngrok-free.app/speak",
           formData
         )
         .then((response) => {

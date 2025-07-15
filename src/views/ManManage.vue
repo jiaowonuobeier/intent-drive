@@ -240,7 +240,7 @@ export default {
     async getData() {
       console.log("向后端发送数据请求");
       await axios({
-        url: `http://192.168.60.1:4999/adhocequips`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/adhocequips`,
         method: "get",
         headers: {
           "ngrok-skip-browser-warning": "69420",
@@ -258,7 +258,7 @@ export default {
         }
       );
       await axios({
-        url: `http://192.168.60.1:4999/clusterequips`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/clusterequips`,
         method: "get",
         headers: {
           "ngrok-skip-browser-warning": "69420",
@@ -276,7 +276,7 @@ export default {
         }
       );
       await axios({
-        url: `http://192.168.60.1:4999/satelliteequips`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/satelliteequips`,
         method: "get",
         headers: {
           "ngrok-skip-browser-warning": "69420",
@@ -294,7 +294,7 @@ export default {
         }
       );
       await axios({
-        url: `http://192.168.60.1:4999/blacklist`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/blacklist`,
         method: "get",
         headers: {
           "ngrok-skip-browser-warning": "69420",
@@ -314,7 +314,7 @@ export default {
     async zhunru(ip) {
       await axios({
         method: "post",
-        url: `http://192.168.60.1:4999/online`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/online`,
         data: {
           ip: ip,
         },
@@ -335,7 +335,7 @@ export default {
     async lahei(ip) {
       await axios({
         method: "post",
-        url: `http://192.168.60.1:4999/offline`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/offline`,
         data: {
           ip: ip,
         },

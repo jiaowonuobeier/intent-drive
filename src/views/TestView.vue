@@ -76,7 +76,7 @@ export default {
       console.log(this.value_intent);
       await axios({
         method: "post",
-        url: `http://192.168.60.1:4999/intents/translate`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/intents/translate`,
         data: {
           text: this.selectedIntent,
         },
@@ -93,7 +93,7 @@ export default {
     async yituzhixing() {
       await axios({
         method: "post",
-        url: `http://192.168.60.1:4999/intents/execute`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/intents/execute`,
         data: {
           text: this.selectedIntent,
         },
@@ -110,7 +110,7 @@ export default {
     async yitujiexi() {
       await axios({
         method: "post",
-        url: `http://192.168.60.1:4999/intents/analyze`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/intents/analyze`,
         data: {
           text: this.selectedIntent,
         },

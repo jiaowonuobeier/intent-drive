@@ -89,20 +89,16 @@ const router = new VueRouter({
           path: "TestView",
           component: TestView,
         },
-        // {
-        //   path: "IntPri",
-        //   component: IntPri,
-        // },
+        {
+          path: "IntPri",
+          component: IntPri,
+        },
       ],
     },
     {
       //每一个链接都是一个对象
       path: "/LoginRegister", //链接路径
       component: LoginRegister, //对应的组件模板
-    },
-    {
-      path: "/IntPri",
-      component: IntPri,
     },
   ],
 });

@@ -77,7 +77,7 @@ export default {
         }
       await axios({
         method: "post",
-        url: `http://192.168.60.1:4999/tc`,
+        url: `https://blatantly-relaxing-cougar.ngrok-free.app/tc`,
         data: {
           priority:priorityNumber
         },
